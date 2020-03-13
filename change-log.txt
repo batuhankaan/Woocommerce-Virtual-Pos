@@ -1,0 +1,385 @@
+AÇIKLAMA
+EticSoft R&D Lab Teknokent projesi olan bu yazılım 2008 yılından bu yana ücretsiz geliştirilmekte ve güncellenmektedir.
+Güncel versiyonları her zaman sanalpospro.com adresinden temin edebilirsiniz.
+
+6.14 FINAL 27/08/2018
+* FIX Bank of Vakıfbank bug solved
+
+6.13 FINAL 15/08/2018
+* ADD Bank of Türkiye Finans
+
+6.12 FINAL 14/08/2018
+* UPD Bank of Garanti 
+
+6.11 FINAL 10/08/2018
+* UPD MOKA 
+
+6.10 FINAL 30/07/2018
+* FIX PayU discounts on cart
+
+6.09 FINAL 24/07/2018
+* FIX requestFraudScore for Masterpass
+
+6.08 FINAL 14/06/2018
+* UPD POSNET lib
+* FIX MasterPass JS issues
+* FIX Default rate save at bo form 
+
+6.07 FINAL 03/05/2018
+* FIX masterpass posnet assigments 
+* FIX header json issue by Class MasterpassTools encoding bom code
+* IMP bin.sanalpospro.com SSL connections 
+
+6.06 STABLE 27/04/2018
+* FIX masterpass form / config form compliant on default rates
+* UPD Masterpass UAT/PROD Wsdl addresses
+* FIX changelog location
+
+6.05 RC 18/04/2018
+* FIX masterpass config form appearance 
+
+6.04 BETA 09/04/2018
+* ADD function PDF invoice display view 
+* FIX bootsrap error message display 
+* CHN localhost forbidden 
+* FIX typing errors 
+
+6.03
+* FIX YKB lib break statement issues
+
+6.01
+* ADD PDF invoice display selection on config
+* FIX typing error "himzetini"
+* UPD product installments display nothing if rates not set
+
+
+4.5.0 STABLE 30/10/2015
+*Finansbank Bakiye Ekle Düzenlemesi
+
+
+4.4.0 STABLE 18/09/2015
+*Denizbank Alt Yapı Güncellemesi
+
+
+4.3.0 STABLE 10/08/2015
+* Çoklu Dil Seçeneği Eklendi
+* PayU Alt Yapı Güncellemesi
+
+
+4.2.0 STABLE 08/04/2015
+* BankAsya Alt Yapı Güncellemesi
+
+
+4.0.0 STABLE 24/03/2015
+* ING Bank Alt Yapı Güncellemesi
+
+
+3.0.0 RC 26/02/2015
+* ADD ŞekerBank API ve 3D desteği
+* ADD DenizBank 3DPay method desteği
+* IMP EST tid hatalı giriş durumunda otomatik kontrol
+* FIX Credity form gizli banka hatası
+* ADD Her banka için tek çekim yönlendirme özelliği
+* FIX Ön ödeme 3D hatası
+* ADD multicurrency desteği (USD ve EUR kodlarında ödeme alınabilir) !!!!
+* UPD Author alanına EticSoft R&D Lab Teknokent
+* ADD Garanti ek güvenlik sistemi
+* UPD Ziraat bankası yeni kütüphane
+
+
+2.2.0 STABLE 20/02/2015
+* IMP SSL v3 ile ilgili ek önlemler
+* UPD Kuveyturk yeni API
+* UPD DenizBank yeni API
+
+2.1.0 STABLE 14/02/2015
+* UPD INTERVPOS 3D support
+* FIX KVT 
+
+2.0.0 RC 03/02/2015
+* ADD INTERVPOS support
+* ADD KVT VPOS support
+* UPD Kuveyturk yeni API
+* UPD DenizBank yeni API
+
+1.1.0 FINAL 05/01/2015
+* Tek tıklama ile IPARA Senkronizasyon
+* Tek tıklama ile PAYU Senkronizasyon
+
+1.0.0 FINAL  20/12/2014
+* FIX Denizbank form hatası
+* FIX serbest ödeme küsürat hesabı
+* IMP XML formatı iyileştirildi
+* UPD payu Sync
+
+0.6.0 FINAL 24/10/2014
+* ADD Alternatif Ödeme Arayüzü !!!!!
+
+0.5.0 FINAL 18/10/2014
+* ADD Serbest Ödeme Sistemi (! alışverişsiz Ödeme) !!!!!
+* UPD PDF fatura görünümü iyileştirildi
+
+
+0.4.0 RC 22/09/2014
+* UPD EST 3D00S
+* ADD YKB sipariş Ön Eki uzunluğu
+* UPD Tek Çekim Yöntem Seçimi
+* FIX Payment Page Javascript hataları
+
+
+0.3.0 RC 22/09/2014
+* ADD 3D Interaktid Ödeme Formu
+* ADD Otomatik Kart-Banka Bulucu
+* ADD Otomatik taksit seçenekleri sağlayıcı
+* UPD Tek Çekim Banka Seçimi
+
+
+0.2.0 BETA2 08/09/2014
+* UPD Payment Page
+* ADD Ipara Direct Payment
+* FIX PayU Ints Rates
+
+
+0.2.0 BETA2 08/09/2014
+* UPD Payment Page
+* ADD Ipara Direct Payment
+* FIX PayU Tax Rates
+
+
+0.1.0 BETA 01/09/2014
+* UPD Admin Interface 
+* IMP New Icon Set Admin Forms
+* IMP New Payment Page
+
+0.0.1 BETA 01/09/2014
+* ADD PayU Support !
+* ADD Ipara Support !
+
+
+**** 
+
+MIGRATE NEW PAYMENT GATEWAYMODULE 
+** SANALPOS PRO ! **
+
+****
+
+
+﻿10.08 FINAL                                                                               05/06/2014
+* ADD ING Bank API + 3DS
+* UPD Garantı 3D_Model
+* UPD EST 3D 
+
+10.07 FINAL										  14.05.2014
+* UPD Android Browser ile ilgili geliştirmeler
+* FIX admin.css
+* UPD BankAsya API
+* UPD VakıfBank API
+* UPD İş Bankası API
+* UPD Posnet (YKB) API
+* UPD Halkbank API
+* UPD Garanti API
+* FIX Csv Export ID-bank Bug 
+
+10.06 FINAL										  02.04.2014
+* ADD Sipariş ön eki conf.php dosyasında 
+* UPD 1.6 Uyumluluğu ile ilgili geliştirmeler
+* FIX admin.css list-style-type: none;
+* UPD admin_form.tpl => PS 1.6
+* UPD Taksit seçenekleri PS 1.6 için sekmesi section yapısında 
+* ADD Şifre jeneratörüne id_module ve IP adresi
+* ADD CSV export alanlarında iyileştirme (TRY ile başlayan rakamlar)
+* FIX ziraat bank css
+* RMV Tek çekim için banka
+* RMV Tek çekim için komisyon
+
+10.05 STABLE									  27.03.2014
+* ADD Tüm işlemler için CSV Export
+* ADD CSV export iç modülü
+* ADD Her taksit seçeneği için pasif butonu
+* FIX Debug mod açık/kapalı
+* ADD geliştirilmiş grafik istatistik
+* UPD cc ex > 2014
+
+10.04 BETA										  20.03.2014
+* UPD Ziraat Bankası Lib
+* UPD Yönetim paneli hata mesajı yönetimi
+
+10.03 BETA										  20.02.2014
+* ADD PDF faturaya kart çekim bilgileri
+
+10.02 BETA										  16.02.2014
+* ADD Tüm işlemler için CSV Export
+* ADD CSV export iç modülü
+* ADD Her taksit seçeneği için pasif butonu
+* FIX Debug mod açık/kapalı
+* ADD geliştirilmiş grafik istatistik
+
+
+10.01 ALPHA 										20.01.2014
+* ADD Yeni SSL Grafik Motoru
+* UPD BankAsya Lib
+* ADD Taksit sınırlandırılması
+* FIX Bug Tek Çekim = 1.00 TL durumunda görünmüyor
+* FIX ödeme ekranına geri tuşu
+* UPD EticSoft MySQL Sorgu Sınıfı
+* BUG raporlar sayfasındaki toplam komisyon
+* UPD php short tag conf.php
+* IMP Standart Posnet sınıfları iyileştirildi
+
+
+10.00 (MIGRATION TO SANALPOS PLUS) 					07.01.2014
+* ADD Responsive Installments Table
+* ADD 3DS option To CC Form
+* UPD New CC Form
+* ADD 3DS Libs 
+* ADD PDF invoice hook transaction infos
+* UPD New Folder Name sanalposplus
+* UPD New Name SanalPOS + 3D Plus
+* UPD Module Adı SanalPosPlus Olarak Değişti
+* IMP Akbank
+* UPD MYSQL Queries
+* FIX Front Controllers
+
+7.30 (FINAL)
+* UPD Check Version
+* UPD MYSQL Queries
+* FIX Front Controllers
+
+7.20 (ALPHA)
+* COM Mobile supported Virtual Keyboard
+* UPD ZIRAAT BANKASI 
+* UPD MYSQL Queries
+* UPD Front Controllers
+
+7.00 (BETA)			07.04.2013
+* COM Prestashop 1.5 native functions and new structure
+* UPD VAKIFBANK
+* UPD BANKASYA
+* UPD BO pages
+* UDP Mysql Queries 
+* IMP Query Safety 
+
+
+4.70 (FINAL FIX)		30.11.2012
+* IMP Mysql Queries
+* UPD Vakıfbank
+* UPD BO pages
+* UDP Mysql Queries 
+* IMP CURL timeout
+* FIX Add new bank 1.5.0
+* IMP 1.5.x Compability
+* IMP Support Mail Link
+* FIX Null return for non existing table rows
+* IMP admin panel links
+
+
+4.60 (FINAL FIX)		26.08.2011
+* IMP Curl buffering
+* UPD Bank Asya
+* ADD Maksimum taksit seçeneği
+* FIX Data table fix
+
+4.50 (FINAL)			28.05.2011
+* FIX Curl SSL validation
+* UPD Bank Asya
+
+4.40 (FINAL)			09.04.2011
+* FIX Curl Timeout hatası düzenlendi
+* UPD Bank Asya
+* IMP Date Format değiştirildi
+* IMP Son işlemler tablosu artık tam dinamik 
+
+4.32 (BETA 2)			12.04.2011
+* FIX PS 1.4 bazı uyum sorunları gideirldi
+* ADD Otomatik module kategorisi
+
+4.31 (BETA 1)			19.03.2011
+* IMP Veri tabanı sorguları kısaltıldı
+* UPD İşlem kayıt tipi
+* IMP hata kayıt kapasitesi arttılıldı
+* IMP versiyon kontrolü hafızası
+
+4.30 (ALPHA 1)			15.03.2011
+* ADD 1.4 ValidateOdrer fonksiyonuna parametre eklendi
+* UPD Smarty-3 için tpl dosyaları düzenlendi
+* UPD Jq fonksiyonlarında güncelleme yapıldı
+* UPD İşlem hafızası tablosu güncellendi
+* FIX İşlem geçmişi tarih formatı değiştirildi
+
+
+4.23				07.03.2011
+* ADD istatistik grafik belleği
+* IMP istatistik motoru hızladırıldı
+
+4.21 				03.03.2011
+* ADD JQ dinamik işlem hafızası tablosu   
+* RMV Özel onay fonksiyonu kaldırıldı
+
+4.20 (FINAL) 				25.02.2011
+* FIX İşlem hafızası tarih dizilimi
+
+
+4.16 (RC1)				21.02.2011
+* FIX Jqtabs tema css renk hatası 
+
+4.15 (BETA 1)				10.02.2011
+* FIX prestashop sepet koruması 
+* UPD Bankaysa güncellenmesi.
+* ADD Garanti bankası yeni altyapısı eklendi.
+
+4.05 (ALPHA 2)			11.01.2011
+* FIX prestashop v1.3x ödeme dogrulma, 
+* FIX siparis sayfasi düzeltildi
+* ADD Bankasya API altyapisi yenilendi.
+* ADD Bankasya hata kodları çözümlemesi eklendi.
+* FIX Bankasya CSS sablonlari düzeltildi.
+* IMP Hata kayıt sistemi güçlendirildi.
+* IMP Veri tabani optimize edildi.
+
+
+4.00 (ALPHA 1)			21.12.2010
+
+* ADD taksit seçenekleri çoklu tema altyapısı eklendi
+* ADD taksit seçenekleri 2 farklı yerleşim + 2 farklı tema eklendi
+* ADD Ödeme ekranı çoklu tema altyapısı eklendi
+* ADD Ödeme ekranı çoklu 3 farklı yerleşim + 3 farklı tema eklendi
+* ADD Kampanya model sayfası eklendi
+* ADD Kampanya model sayfasına sıfır komisyon bulucu eklendi
+* ADD Kampanya model sayfasına en yüksek vade en düşük komisyon bulucu eklendi
+* ADD Banka kullanım istatistikleri ekledi
+* ADD Sanal pos API hata/kullanım istatistikleri ekledi
+* ADD Tümleşik kriptolama ile güvenlik sistemi eklendi
+* ADD Otomatik lisans oluşturma ve 7 günlük otomatik lisans eklendi
+* ADD Yeni dinamik sanal klavye sistemi eklendi
+* ADD 4 katmanlı hata ayıklamam modu eklendi
+* ADD Son işlemler hafızası eklendi
+* ADD Tarih hafızası eklendi
+* ADD Tümleşik sipariş onayı sistemi getirildi
+* ADD Sepet fiyatı ile ödenen fiyat kayd
+
+3.30 (FINAL)			01.08.2010
+
+* RMV XML sistemi kaldırıldı yerine kriptolu SQL-DB getirildi
+* RMV Çoklu dil sistemi yerine tek dilli yönetim paneline geçildi
+* RMV Çerez koruması kaldırıldı, yerine Session koruması getirildi
+* RMV Dinamik tablo sütun fonksiyonu kaldırıldı yerine dinamik CSS getirildi
+
+3.30 (FINAL)			10.10.2009
+* IMP Tek çekim komisyonu eklendi
+* ADD İstatstik paneli oluşturuldu
+* ADD İstatistik paneline grafik arayüzü ekledi
+* ADD Yönetim panelinde dinamik kullanma klavuzu eklendi
+* ADD Model sayfa sistemi eklendi
+* ADD Otomatik kur sistemi güçlendirildi
+* ADD En küçük taksit koruması eklendi
+
+2.60 (FINAL)		
+* ADD Ürün fiyatına taksitli fiyat yerleşimi eklendi
+* ADD Banka kampanya otomasyon altyapısı eklendi
+* ADD Ödemelerde taksit erteleme eklendi
+* ADD Extra taksit eklendi 
+* ADD Yüzdeli Puan kazandırma sistemi eklendi
+* ADD Puan harcama sistemi eklendi
+* ADD Ödeme avantaj bulucu özelliği eklendi
+
+1.0 (RC) 01/12/2008

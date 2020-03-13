@@ -1,0 +1,85 @@
+.eticsoft_inst_container {
+    background: #fff;
+    border-radius: 10px;
+    color: #7a7a7a;
+	border: 1px solid #eee;
+}
+
+.eticsoft_inst_container .block_title {
+	background-color:#fff;
+}
+
+.cardfinans {
+    background-color: #191991;
+    color: #fff;
+}
+.combo {
+    background-color: #e52531;
+    color: #fff;
+}
+.axess {
+    background-color: #F8910E;
+    color: #fff;
+}
+.maximum {
+    background-color: #E10C5C;
+    color: #fff;
+}
+.advantage {
+    background-color: #F04B04;
+    color: #fff;
+}
+.world {
+    background-color: #650571;
+    color: #fff;
+}
+.bonus {
+    background-color: #5DA527;
+    color: #fff;
+}
+.paraf {
+    background-color: #015596;
+    color: #fff;
+}
+.asyacard{
+    background-color: #00aedc;
+    color: #fff;
+}
+
+.asyacard-odd{
+    background-color: #006;
+    color: #fff;
+}
+.paraf-odd {
+    background-color: #738CC8;
+    color: #fff;
+}
+.bonus-odd {
+    background-color: #007D00;
+    color: #fff;
+}
+.world-odd {
+    background-color: #BC5CCD;
+    color: #fff;
+}
+.maximum-odd {
+    background-color: #FF2FB1;
+    color: #fff;
+}
+.axess-odd {
+    background-color: #FAAB4B;
+    color: #fff;
+}
+
+.cardfinans-odd {
+    background-color: #144BBE;
+    color: #fff;
+}
+.advantage-odd {
+    background-color: #FC6F32;
+    color: #fff;
+}
+.combo-odd {
+    background-color: #fff;
+    color: #e52531;
+}

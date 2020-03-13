@@ -1,0 +1,145 @@
+.banka {
+	filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale"); /* Firefox 10+, Firefox on Android */
+	filter: gray; /* IE6-9 */
+	-webkit-filter: grayscale(100%); /* Chrome 19+, Safari 6+, Safari 6+ iOS */
+	text-align: center;
+	margin: auto;
+	align-content: center;
+	float : left;
+
+}
+.banka:hover {
+	filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'1 0 0 0 0, 0 1 0 0 0, 0 0 1 0 0, 0 0 0 1 0\'/></filter></svg>#grayscale");
+	-webkit-filter: grayscale(0%);
+}
+
+.cfi {
+	background-color: #191991;
+	color: #fff;
+}
+.axs {
+	background-color: #F8910E;
+	color: #000000;
+}
+.max {
+	background-color: #E10C5C;
+	color: #fff;
+}
+.adv {
+	background-color: #F04B04;
+	color: #fff;
+}
+.wrd {
+	background-color: #650571;
+	color: #fff;
+}
+.bns {
+	background-color: #5DA527;
+	color: #fff;
+}
+.hlk {
+	background-color: #015596;
+	color: #fff;
+}
+.vak {
+	background-color: #FDFD47;
+	color: #000000;
+}
+.ana {
+	background-color: #fff;
+	color: #000000;
+}
+.teb {
+	background-color: #00824E;
+	color: #fff;
+}
+.for {
+	background-color: #E01319;
+	color: #fff;
+}
+.dnz{
+	background-color: #0D4E8F;
+	color: #fff;
+}
+.bas{
+	background-color: #fff;
+}
+.zir {
+	background-color: #d66;
+	color: #fff;
+}
+.sek {
+	background-color: #0B682C;
+	color: #fff;
+}
+.sek-odd {
+	background-color: #65AC94;
+	color: #fff;
+}
+
+
+.zir-odd {
+	background-color: #a00;
+	color: #fff;
+}
+.bas-odd{
+	background-color: #006;
+	color: #fff;
+}
+.dnz-odd {
+	background-color: #A8D5FF;
+	color: #000;
+}
+.ana-odd {
+	background-color: #0282D7;
+	color: #fff;
+}
+.hlk-odd {
+	background-color: #738CC8;
+	color: #fff;
+}
+.for-odd {
+	background-color: #EE7F83;
+	color: #fff;
+}
+.teb-odd {
+	background-color: #00BB71;
+	color: #fff;
+}
+
+.vak-odd {
+	background-color: #434343;
+	color: #FFFF00;
+}
+.bns-odd {
+	background-color: #007D00;
+	color: #fff;
+}
+.wrd-odd {
+	background-color: #BC5CCD;
+	color: #fff;
+}
+.max-odd {
+	background-color: #FF2FB1;
+	color: #fff;
+}
+.axs-odd {
+	background-color: #FAAB4B;
+	color: #000;
+}
+.cti {
+	background-color: #3f3;
+	color: #000;
+}
+.cti-odd {
+	background-color: #efe;
+	color: #000;
+}
+.cfi-odd {
+	background-color: #144BBE;
+	color: #fff;
+}
+.adv-odd {
+	background-color: #FC6F32;
+	color: #fff;
+}

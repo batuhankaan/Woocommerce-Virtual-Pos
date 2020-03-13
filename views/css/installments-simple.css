@@ -1,0 +1,14 @@
+div.banka {
+    background: transparent;
+    padding: 5px;
+}
+div.banka-inner {
+    padding-top: 9px;
+    background: #f8f8f8;
+    margin: 1px;
+    border-radius: 6px;
+}
+
+div.banka-inner table tr:hover{
+    background: #eee;
+}

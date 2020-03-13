@@ -1,0 +1,57 @@
+.eticsoft_spr_bank {
+    text-align: center;
+    padding-left: 5px !important;
+    padding-right: 15px !important;
+}
+.eticsoft_spr_bank img{
+    width: unset !important;
+}
+.eticsoft_spr_bank table {
+    border: unset;
+    width: unset;
+    margin: unset;
+}
+.eticsoft_spr_bank table tbody tr td,  
+.eticsoft_spr_bank table tbody tr th{
+    padding: 2px !important;
+    text-align: center;
+    font-size: initial;
+    background: unset;
+    border: unset;
+    width: unset;
+    margin: unset;
+    line-height: unset !important;
+    vertical-align: unset !important;
+    background-color: unset;
+    border-top: unset !important;
+}
+.eticsoft_inst_container {
+    padding-top: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    min-height:435px;
+    height:435px;
+}
+
+#eticsoft_spr_payment_button a {
+    padding: 10px;
+    background-color: #FBFBFB;
+}
+
+#eticsoft_spr_payment_button a:hover {
+    background-color: #f6f6f6;
+}
+
+#eticsoft_spr_payment_button a:after {
+    display: block;
+    content: "\f054";
+    position: absolute;
+    right: 15px;
+    margin-top: -11px;
+    top: 50%;
+    font-family: "FontAwesome";
+    font-size: 25px;
+    height: 22px;
+    width: 14px;
+    color: #777777;
+}

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+	<name>sanalpospro</name>
+	<displayName><![CDATA[SanalPOSPRO]]></displayName>
+	<version><![CDATA[6.1]]></version>
+	<description><![CDATA[T&uuml;rkiye&#039;deki t&uuml;m bankalar ve &ouml;deme kuruluşlarından &ouml;deme almanızı sağlar.]]></description>
+	<author><![CDATA[EticSoft R&D Lab Teknokent]]></author>
+	<tab><![CDATA[payments_gateways]]></tab>
+	<is_configurable>1</is_configurable>
+	<need_instance>1</need_instance>
+	<limited_countries></limited_countries>
+</module>
