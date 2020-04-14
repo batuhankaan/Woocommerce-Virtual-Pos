@@ -226,9 +226,8 @@ class EticSoft_est
         <input type = "hidden" name = "refreshtime" value = "3" >
         <input type = "hidden" name = "BillToName" value = "0">
         <input type = "hidden" name = "BillToAddress1" value = "0">
-		<button class="btn btn-success" type="submit">Ödemeyi Tamamla</button>
         </form>';
-		if (EticConfig::get('POSPRO_ORDER_AUTOFORM') == 'on')
+		// if (EticConfig::get('POSPRO_ORDER_AUTOFORM') == 'on')
 			$return .= '<script>document.getElementById("three_d_form").submit();</script>';
 
 

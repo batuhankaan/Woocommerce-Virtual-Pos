@@ -575,7 +575,7 @@ str=str.replace( /\s/g, '');
         //  JSON.stringify(json);
         console.log(document.getElementById("mp_tx_selected_holder_family").value=json.family)
          console.log(json)
-          if(json.family){
+          if(json.family && cards[json.family]){
             document.getElementById("mp_tx_selected_holder_family").value=json.family;
             console.log(json.family == cards[json.family])
             InstFamily(cards[json.family])
@@ -590,7 +590,7 @@ str=str.replace( /\s/g, '');
             }else if(json.brand == "TROY"){
               cardIcon.src=troy;
             }else{
-              console.log("json brand boÅŸ");
+              console.log("json brand boş");
             }
             
           }else {
@@ -599,6 +599,6 @@ str=str.replace( /\s/g, '');
             document.getElementById("mp_tx_selected_holder_family").value="all";
           }
           })['catch'](function(ex) {
-              err("Sunucuyla iletiÅŸim kurulamadÄ±.")
+              err("Sunucuyla iletişim kurulamadı.")
           });
   }
