@@ -223,36 +223,38 @@ function openMethod(id,nextId,cls){
 
 
 function ModuleLanguage(params) {
-      inputName.placeholder = params.kartnumarasi
+      inputCcNumber.placeholder = params.kartnumarasi
       inputMonth.placeholder = params.tarih
-      paymentButton.placeholder = params.button
+      paymentButton.textContent = params.button
       ccName.placeholder = params.isim
       ccPayment.innerText = params.kredikarti
       DiffPayment.innerText = params.digerodeme
       
 }
-
-if(siteLang.toLowerCase().search("tr")){
-  const trLang = {
-    "kartnumarasi":"KART NUMARASI",
-    "tarih":"TARİH",
-    "isim":"KART SAHİBİNİN ADI",
-    "button":"ÖDEMEYİ TAMAMLA",
-    "kredikarti":"Kredi Kartı İle",
-    "digerodeme":"Diğer Ödeme",
+const trLang = {
+  "kartnumarasi":"KART NUMARASI",
+  "tarih":"TARİH",
+  "isim":"KART SAHİBİNİN ADI",
+  "button":"ÖDEMEYİ TAMAMLA",
+  "kredikarti":"Kredi Kartı İle",
+  "digerodeme":"Diğer Ödeme",
+};
+const enLang = {
+  "kartnumarasi":"CARD NUMBER",
+  "tarih":"DATE",
+  "isim":"YOUR NAME",
+  "button":"COMPLETE PAYMENT",
+  "kredikarti":"With Credit Card",
+  "digerodeme":"Other Payment",
   };
-  ModuleLanguage(trLang);
-}else{
-  const enLang = {
-    "kartnumarasi":"CARD NUMBER",
-    "tarih":"DATE",
-    "isim":"YOUR NAME",
-    "button":"COMPLETE PAYMENT",
-    "kredikarti":"With Credit Card",
-    "digerodeme":"Other Payment"
-    };
-    ModuleLanguage(enLang)
-}
+
+  window.addEventListener("DOMContentLoaded", function(){
+    if(siteLang.toLowerCase().search("tr") == 0){
+      ModuleLanguage(trLang);
+    }else{
+        ModuleLanguage(enLang)
+    }
+  });
 
 
 
@@ -432,8 +434,8 @@ function InstTable(InstNumF,InstAmoF) {
     <input ${InstNumF === 1 ? "checked" :''} type="radio" value="${InstNumF}" dataamount="${InstAmoF}" name="cc_installment">
     <span class="checkmark"></span>
   </label></td>
-  <td>${InstNumF} x ${formatterCurrency(InstAmoF / InstNumF * 100 / 100) +" ₺"}</td>
-  <td id="deleteAtt">${InstAmoF == defaultins ? "<p style='text-align:center;'>Komisyonsuz</p>" : InstAmoF + " ₺"}</td>
+  <td>${InstNumF} x ${formatterCurrency(InstAmoF / InstNumF * 100 / 100) +document.getElementsByClassName("woocommerce-Price-currencySymbol")[0].textContent}</td>
+  <td id="deleteAtt">${InstAmoF == defaultins ? "<p style='text-align:center;'>Komisyonsuz</p>" : InstAmoF + document.getElementsByClassName("woocommerce-Price-currencySymbol")}</td>
 </tr>`;
 InstallmentTable.insertRow(-1).innerHTML += dtable;
 }

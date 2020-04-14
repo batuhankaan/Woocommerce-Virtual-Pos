@@ -207,3 +207,33 @@ th {
     font-size: 13px;
     opacity: 0.5;
 }
+
+
+
+
+/* RESET CSS */
+
+.spp-payment-page-row select,
+textarea,
+input[type="text"],
+input[type="password"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="date"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="color"]{
+    margin-bottom: unset !important;
+    padding-left: unset !important;
+    padding-right: unset !important;
+    padding-top: unset !important;
+    padding-bottom: unset !important;
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+}

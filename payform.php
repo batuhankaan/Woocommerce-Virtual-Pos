@@ -110,8 +110,8 @@ if (!defined('ABSPATH')) {
 <form class="spp-payment-page-row" novalidate action="<?php echo $order->get_checkout_payment_url(true);?>" autocomplete="on" method="POST" id="cc_form">
 	<div style="width: 100%;">
 		<ul style="display: flex;margin: 0px;">
-		<a href="#cc_form"><li id="cc-payment" class="spp-payment-page-button">Kredi Kartı İle</li></a>
-		<a href="<?php echo $order->get_checkout_payment_url()?>"><li id="diff-payment" class="spp-payment-page-button">Diğer Ödeme</li></a>
+		<li id="cc-payment" class="spp-payment-page-button"><a href="#cc_form">Kredi Kartı İle</a></li>
+		<li id="diff-payment" class="spp-payment-page-button"><a href="<?php echo $order->get_checkout_payment_url()?>">Diğer Ödeme</a></li>
 		</ul>
 	</div>
 	<div id="form_error">
