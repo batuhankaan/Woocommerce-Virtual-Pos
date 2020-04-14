@@ -99,7 +99,7 @@ if (!defined('ABSPATH')) {
 					<br/>
 				</div>
 				<div class="text-center">
-					<button type="submit" class="btn btn-info">Ödemeyi Tamamla </button>
+					<button type="submit" id="complete-payment-lang" class="btn btn-info">Ödemeyi Tamamla </button>
 				</div>
 			</div>
 		</div>
@@ -110,8 +110,8 @@ if (!defined('ABSPATH')) {
 <form class="spp-payment-page-row" novalidate action="<?php echo $order->get_checkout_payment_url(true);?>" autocomplete="on" method="POST" id="cc_form">
 	<div style="width: 100%;">
 		<ul style="display: flex;margin: 0px;">
-		<a href="#cc_form"><li class="spp-payment-page-button">Kredi Kartı İle</li></a>
-		<a href="<?php echo $order->get_checkout_payment_url()?>"><li class="spp-payment-page-button">Diğer Ödeme</li></a>
+		<a href="#cc_form"><li id="cc-payment" class="spp-payment-page-button">Kredi Kartı İle</li></a>
+		<a href="<?php echo $order->get_checkout_payment_url()?>"><li id="diff-payment" class="spp-payment-page-button">Diğer Ödeme</li></a>
 		</ul>
 	</div>
 	<div id="form_error">

@@ -1,165 +1,3 @@
-// var protrccname = typeof protrccname !== typeof undefined ? protrccname : "Kart Üzerindeki İsim";
-
-// var bin = false;
-
-// jQuery(function ($) {
-
-//     $('input#cc_number').payment('formatCardNumber');
-//     $('input#cc_expiry').payment('formatCardExpiry');
-//     $('input#cc_cvc').payment('formatCardCVC');
-//     $("#cc_form_submit").attr("disabled", true);
-
-	
-// $('form#cc_form').card({
-//     // a selector or DOM element for the form where users will
-//     // be entering their information
-//     form: 'form#cc_form', // *required*
-//     // a selector or DOM element for the container
-//     // where you want the card to appear
-//     formSelectors: {
-//         numberInput: 'input#cc_number', // optional — default input[name="number"]
-//         expiryInput: 'input#cc_expiry', // optional — default input[name="expiry"]
-//         cvcInput: 'input#cc_cvc', // optional — default input[name="cvc"]
-//         nameInput: 'input#cc_name' // optional - defaults input[name="name"]
-//     },
-//     placeholders: {
-//         number: '&bull;&bull;&bull;&bull; &bull;&bull;&bull;&bull; &bull;&bull;&bull;&bull; &bull;&bull;&bull;&bull;',
-//         cvc: '&bull;&bull;&bull;',
-//         expiry: '&bull;&bull;/&bull;&bull;',
-//         name: protrccname
-//     },
-//     messages: {
-//         monthYear: 'mm/yy' // optional - default 'month/year'
-//     },
-//     container: '#card-wrapper', // *required*
-//     width: "100%",
-//     formatting: false, // optional - default true
-//     // Default placeholders for rendered fields - optional
-//     // if true, will log helpful messages for setting up Card
-//     debug: true // optional - default false
-// });
-//     $('.cc_input').bind('keypress keyup keydown focus', function (e) {
-
-//         $(this).removeClass('error');
-//         $("#cc_form_submit").attr("disabled", true);
-//         $("#cc_form_submit").removeClass("btn-success");
-//         $("#cc_form_submit").addClass("btn-warning");
-//         var hasError = false;
-//         var cardType = $.payment.cardType($('input#cc_number').val());
-
-
-//         if (!$.payment.validateCardNumber($('input#cc_number').val())) {
-//             $('input#cc_number').addClass('error');
-//             hasError = 'number';
-//         }
-//         if (!$.payment.validateCardExpiry($('input#cc_expiry').payment('cardExpiryVal'))) {
-//             $('input#cc_expiry').addClass('error');
-//             hasError = 'expiry';
-//         }
-//         if (!$.payment.validateCardCVC($('input#cc_cvc').val(), cardType)) {
-//             $('input#cc_cvc').addClass('error');
-//             hasError = 'cvc';
-//         }
-//         if ($('input#cc_name').val().length < 3) {
-//             $('input#cc_name').addClass('error');
-//             hasError = 'name';
-//         }
-
-//         if (hasError === false) {
-//             //                console.log(hasError);
-//             $("#cc_form_submit").removeAttr("disabled");
-//             $("#cc_form_submit").removeClass("btn-warning");
-//             $("#cc_form_submit").addClass("btn-success");
-//             $
-//             //$("#cc_validation").hide();
-//             var new_bin = $('input#cc_number').val().replace(' ', '').substring(0, 6);
-
-//             if (bin === false || new_bin != bin) {
-//                 bin = $('input#cc_number').val().replace(' ', '').substring(0, 6);
-//                 $.ajax({
-//                     type: "GET",
-//                     url: "https://bin.sanalpospro.com/?cc=" + bin,
-//                     success: function (data) {
-// 					console.log('Calling BIN service');
-						
-//                         $("#prefix_bank").html(data.bank + " " + data.brand);
-// 						if (data.family) {
-
-// 							if(data.type == 'creditcard')
-// 								$("#prefix_bank_logo").html('<img src="' + sanalposprouri + 'img/cards/' + data.family + '.png"/>');
-// 							else
-// 								$("#prefix_bank_logo").html(data.type);
-// 							if (typeof cards[data.family] !== 'undefined' ) {
-// 								console.log(data.family+" selecting");
-// 								$("select#tx_bank_selector").val(data.family);
-// 								$("select#tx_bank_selector").change();
-// 							}
-// 							else {
-// 								console.log(data.family+" not found");
-// 								$("select#tx_bank_selector").val('all');
-// 								$("select#tx_bank_selector").change();
-
-// 							}
-// 						}
-						
-//                         else {
-// 							console.log("no family"+cards.indexOf(data.family));
-//                             $("#prefix_bank_logo").html(' ');
-//                             $("select#tx_bank_selector").val('all');
-//                             $("select#tx_bank_selector").change();
-//                         }
-//                         $("#cc_validation").show();
-//                         //console.log(data);
-
-//                     },
-//                     error: function (jqXHR, textStatus, errorThrown) {
-//                         alert(jqXHR.status);
-//                     },
-//                     dataType: "jsonp"
-//                 });
-//             }
-//         }
-//         else {
-//             $("#cc_validation").show();
-//             $("#cc_form_submit").attr("disabled", true);
-//             $('table#cc_form_table').addClass('error');
-//             $("#cc_form_submit").addClass("btn-warning");
-//             $("#cc_form_submit").removeClass("btn-success");
-
-//         }
-//     });
-//     $('.cc_input').keypress();
-	
-
-//     $("body").on('change', "#tx_bank_selector", function (e) {
-// 		//console.log("#tx_banka_" + $(this).val());
-// 		var selected_bank_block = $("#tx_banka_" + $(this).val()).html();
-// 		$('#tx_selected_holder').html(selected_bank_block);
-//     });
-//     $("body").on('change', ".cc_installment_select", function (e) {
-// 		//console.log("ins changed");
-// 		var fam = $("#tx_bank_selector").val();
-// 		//console.log(fam);
-// 		var total_to_pay = $("#tx_inst_"+fam+" option:selected").attr('dataamount');
-// 		//console.log(total_to_pay);
-// 		$('#spr_total_to_pay').html(total_to_pay);
-//     });
-// });
-// $( document ).ready(function() {
-// 	$("#tx_bank_selector").val('all').change();
-// 	$(".cc_installment_select").val("1").change();
-// // Uniform can not be explain without using f-words 
-// 	if(typeof($.uniform) !== 'undefined'){
-// 		console.log("uniform restoration");
-// 		$('select').uniform.restore();
-// 		$('input').uniform.restore();
-// 	}
-// });
-
-
-
-
-		
 ///////////////////////////////////////////////////////////////////////KREDİ KARTI/////////////////////////////////////////////////////////////////////////////
 
 
@@ -284,6 +122,11 @@ const inputName = document.getElementById("cc_name");
 const installmentLoading = document.getElementById("installment-loading");
 const sppForm = document.getElementById("cc_form");
 const sppFormTwo = document.getElementById("spp-form-two");
+const paymentButton = document.getElementById("cc_form_submit");
+const ccName = document.getElementById("cc_name")
+const siteLang = document.getElementsByTagName("html")[0]["lang"];
+const DiffPayment = document.getElementById("diff-payment");
+const ccPayment = document.getElementById("cc-payment");
 // const cards = window.top.cards;
 // const defaultins = window.top.defaultins;
 // const tableShowButton = window.top.document.getElementById("table-show");
@@ -377,6 +220,42 @@ function openMethod(id,nextId,cls){
 //     sppContent.className="background slide-in-fwd-center";
 //     iframeEvent.style.display="block";
 //   });
+
+
+function ModuleLanguage(params) {
+      inputName.placeholder = params.kartnumarasi
+      inputMonth.placeholder = params.tarih
+      paymentButton.placeholder = params.button
+      ccName.placeholder = params.isim
+      ccPayment.innerText = params.kredikarti
+      DiffPayment.innerText = params.digerodeme
+      
+}
+
+if(siteLang.toLowerCase().search("tr")){
+  const trLang = {
+    "kartnumarasi":"KART NUMARASI",
+    "tarih":"TARİH",
+    "isim":"KART SAHİBİNİN ADI",
+    "button":"ÖDEMEYİ TAMAMLA",
+    "kredikarti":"Kredi Kartı İle",
+    "digerodeme":"Diğer Ödeme",
+  };
+  ModuleLanguage(trLang);
+}else{
+  const enLang = {
+    "kartnumarasi":"CARD NUMBER",
+    "tarih":"DATE",
+    "isim":"YOUR NAME",
+    "button":"COMPLETE PAYMENT",
+    "kredikarti":"With Credit Card",
+    "digerodeme":"Other Payment"
+    };
+    ModuleLanguage(enLang)
+}
+
+
+
 
 
 
