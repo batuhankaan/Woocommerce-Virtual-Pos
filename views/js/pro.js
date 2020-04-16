@@ -127,6 +127,7 @@ const ccName = document.getElementById("cc_name")
 const siteLang = document.getElementsByTagName("html")[0]["lang"];
 const DiffPayment = document.getElementById("diff-payment");
 const ccPayment = document.getElementById("cc-payment");
+const instTitles = document.getElementById("installment-titles").children;
 // const cards = window.top.cards;
 // const defaultins = window.top.defaultins;
 // const tableShowButton = window.top.document.getElementById("table-show");
@@ -221,7 +222,9 @@ function openMethod(id,nextId,cls){
 //     iframeEvent.style.display="block";
 //   });
 
-
+var SppTekCekim;
+var SppKomisyon;
+var SppTaksit;
 function ModuleLanguage(params) {
       inputCcNumber.placeholder = params.kartnumarasi
       inputMonth.placeholder = params.tarih
@@ -229,30 +232,49 @@ function ModuleLanguage(params) {
       ccName.placeholder = params.isim
       ccPayment.innerText = params.kredikarti
       DiffPayment.innerText = params.digerodeme
-      
+      instTitles[0].innerText = params.taksit
+      instTitles[1].innerText = params.taksittutar
+      instTitles[2].innerText = params.tutar
+      window.SppTekCekim = params.tekcekim;
+      window.SppKomisyon = params.komisyon;
+      window.SppTaksit = params.kactaksit;
 }
 const trLang = {
+  "lang":"tr",
   "kartnumarasi":"KART NUMARASI",
   "tarih":"TARİH",
   "isim":"KART SAHİBİNİN ADI",
   "button":"ÖDEMEYİ TAMAMLA",
   "kredikarti":"Kredi Kartı İle",
   "digerodeme":"Diğer Ödeme",
+  "taksit":"TAKSİT",
+  "taksittutar":"T.TUTARI",
+  "tutar":"T.TUTARI",
+  "tekcekim":"Tek Çekim",
+  "komisyon":"Komisyonsuz",
+  "kactaksit":"Taksit "
 };
 const enLang = {
+  "lang":"eng",
   "kartnumarasi":"CARD NUMBER",
   "tarih":"DATE",
   "isim":"YOUR NAME",
   "button":"COMPLETE PAYMENT",
   "kredikarti":"With Credit Card",
   "digerodeme":"Other Payment",
+  "taksit":"INSTALLMENT",
+  "taksittutar":"I.AMOUNT",
+  "tutar":"AMOUNT",
+  "tekcekim":"No Installment",
+  "komisyon":"No Commission",
+  "kactaksit":"Purchase "
   };
 
   window.addEventListener("DOMContentLoaded", function(){
     if(siteLang.toLowerCase().search("tr") == 0){
       ModuleLanguage(trLang);
     }else{
-        ModuleLanguage(enLang)
+        ModuleLanguage(enLang);
     }
   });
 
@@ -426,16 +448,15 @@ function InstFamily(familyname) {
 //     console.log(cards.axess.length);
 //     console.log(element)
   // });
-
 function InstTable(InstNumF,InstAmoF) {
   const dtable = `
   <tr class="test">
-  <td><label class="input-radio-button">${InstNumF === 1 ? "Tek Çekim" : InstNumF + " Taksit"}
+  <td><label class="input-radio-button">${InstNumF === 1 ? SppTekCekim : InstNumF + SppTaksit}
     <input ${InstNumF === 1 ? "checked" :''} type="radio" value="${InstNumF}" dataamount="${InstAmoF}" name="cc_installment">
     <span class="checkmark"></span>
   </label></td>
   <td>${InstNumF} x ${formatterCurrency(InstAmoF / InstNumF * 100 / 100) +document.getElementsByClassName("woocommerce-Price-currencySymbol")[0].textContent}</td>
-  <td id="deleteAtt">${InstAmoF == defaultins ? "<p style='text-align:center;'>Komisyonsuz</p>" : InstAmoF + document.getElementsByClassName("woocommerce-Price-currencySymbol")}</td>
+  <td id="deleteAtt">${InstAmoF == defaultins ? SppKomisyon : InstAmoF + document.getElementsByClassName("woocommerce-Price-currencySymbol")}</td>
 </tr>`;
 InstallmentTable.insertRow(-1).innerHTML += dtable;
 }
