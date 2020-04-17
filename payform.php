@@ -40,9 +40,6 @@ if (!defined('ABSPATH')) {
 			<img class="img-responsive" src="<?php echo plugins_url() ?>/sanalpospro/img/safepayment.png"/>
 		</div>
 	</div> -->
-
-
-	<hr/>
 	<?php if ($mp): ?>
 		<!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 		<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"> -->
@@ -110,8 +107,8 @@ if (!defined('ABSPATH')) {
 <form class="spp-payment-page-row" novalidate action="<?php echo $order->get_checkout_payment_url(true);?>" autocomplete="on" method="POST" id="cc_form">
 	<div style="width: 100%;">
 		<ul style="display: flex;margin: 0px;">
-		<li id="cc-payment" class="spp-payment-page-button"><a href="#cc_form">Kredi Kartı İle</a></li>
-		<li id="diff-payment" class="spp-payment-page-button"><a href="<?php echo $order->get_checkout_payment_url()?>">Diğer Ödeme</a></li>
+			<li class="spp-payment-page-button"><a id="cc-payment" href="#cc_form">Kredi Kartı İle</a></li>
+			<li class="spp-payment-page-button"><a id="diff-payment" href="<?php echo $order->get_checkout_payment_url()?>">Diğer Ödeme</a></li>
 		</ul>
 	</div>
 	<div id="form_error">
