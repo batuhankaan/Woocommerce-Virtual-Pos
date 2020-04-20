@@ -103,7 +103,7 @@ function init_sanalpospro_gateway_class()
 			$this->id = "sanalpospro";
 			$this->method_title = "SanalPOS PRO! Kredi Kartı İle Ödeme";
 			$this->method_description = "SanalPOS PRO!  Kredi kartı ödeme alma eklentisi";
-			$this->title = 'Kredi kartı ile ödeme';
+			$this->title = get_locale() == "tr_TR" ? "Kredi Kartı ile Ödeme" : "Payment by Credit Card";
 			$this->icon = null;
 			$this->has_fields = true;
 			$this->supports = array('default_credit_card_form');
