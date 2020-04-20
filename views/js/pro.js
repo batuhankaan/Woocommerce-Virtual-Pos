@@ -252,7 +252,7 @@ const trLang = {
   "tutar":"T.TUTARI",
   "tekcekim":"Tek Çekim",
   "komisyon":"Komisyonsuz",
-  "kactaksit":"Taksit "
+  "kactaksit":" Taksit"
 };
 const enLang = {
   "lang":"eng",
@@ -267,7 +267,7 @@ const enLang = {
   "tutar":"AMOUNT",
   "tekcekim":"No Installment",
   "komisyon":"No Commission",
-  "kactaksit":"Purchase "
+  "kactaksit":" Purchase"
   };
 
   window.addEventListener("DOMContentLoaded", function(){
@@ -456,7 +456,7 @@ function InstTable(InstNumF,InstAmoF) {
     <span class="checkmark"></span>
   </label></td>
   <td>${InstNumF} x ${formatterCurrency(InstAmoF / InstNumF * 100 / 100) +document.getElementsByClassName("woocommerce-Price-currencySymbol")[0].textContent}</td>
-  <td id="deleteAtt">${InstAmoF == defaultins ? SppKomisyon : InstAmoF + document.getElementsByClassName("woocommerce-Price-currencySymbol")}</td>
+  <td id="deleteAtt">${InstAmoF == defaultins ? SppKomisyon : InstAmoF + document.getElementsByClassName("woocommerce-Price-currencySymbol")[0].textContent}</td>
 </tr>`;
 InstallmentTable.insertRow(-1).innerHTML += dtable;
 }
