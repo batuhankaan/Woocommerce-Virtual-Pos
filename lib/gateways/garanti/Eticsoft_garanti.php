@@ -163,7 +163,7 @@ Check hash */
         ';
 		$replace_from = array($tr->cc_number, $tr->cc_cvv);
 		$tr->debug('3D form generated'. str_replace($replace_from, "XXX", $form));
-        if (Configuration::get('POSPRO_ORDER_AUTOFORM') == 'on')
+        // if (Configuration::get('POSPRO_ORDER_AUTOFORM') == 'on')
             $form .= '<script>document.getElementById("three_d_form").submit();</script>';
 		
 
