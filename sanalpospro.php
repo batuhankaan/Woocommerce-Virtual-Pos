@@ -487,9 +487,13 @@ function init_sanalpospro_gateway_class()
 		$price = $product->get_sale_price();
 		if(!$price)
 			$price = $product->get_regular_price();
-		
-		if(!$price OR $price == 0)
-			return;
+
+		// if(!$price OR $price == 0)
+		// 	return;
+
+		if($displayPrice[0]["display_price"])
+			$price = $displayPrice[0]["display_price"];
+			
 		if (Eticconfig::get('POSPRO_TAKSIT_GOSTER') == "off")
 			return "-";
 		$ui = New EticUiWoo(New sanalpospro());
