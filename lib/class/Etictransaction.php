@@ -90,8 +90,8 @@ class EticTransaction
 		$id_order = WC()->session->get( 'order_awaiting_payment');
 		$order = new WC_Order($id_order);
 
-		$this->ok_url = add_query_arg(array('sprtdvalidate' => 'fail'), $order->get_checkout_payment_url(true));
-		$this->fail_url = add_query_arg(array('sprtdvalidate' => 'success'), $order->get_checkout_payment_url(true));
+		$this->ok_url = add_query_arg(array('sprtdvalidate' => 'success'), $order->get_checkout_payment_url(true));
+		$this->fail_url = add_query_arg(array('sprtdvalidate' => 'fail'), $order->get_checkout_payment_url(true));
 		$this->mptd_url = add_query_arg(array('mptd' => 'mptd'), $order->get_checkout_payment_url(true));
 		$this->shop_name = get_option('blogname');
 		$this->iso_lang = get_bloginfo("language");

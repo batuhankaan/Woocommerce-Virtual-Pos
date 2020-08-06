@@ -2,7 +2,7 @@
 
 class Eticsoft_payfor
 {
-  var $version = 200103;
+  var $version = 240319;
 
   public function pay($tr)
   {
@@ -19,7 +19,7 @@ class Eticsoft_payfor
     $exmo = str_pad($tr->cc_expire_month, 2, "0", STR_PAD_LEFT);
 		$exyr = substr($tr->cc_expire_year, -2);
 		$expdate = $exmo.$exyr;
-    $inst = (int)$tr->installment;
+    $inst = (int) $tr->installment <= 1 ? "0" : $tr->installment;
     $request = "".
      "MbrId=".$tr->gateway_params->MbrId."&".                                   //Kurum Kodu
      "MerchantID=".$tr->gateway_params->MerchantID."&".                         //Language_MerchantID
@@ -105,7 +105,7 @@ class Eticsoft_payfor
       $UserPass= $tr->gateway_params->UserPass;                                 //Kullanici Sifre
       $SecureType="3DPay";                                                      //Language_SecureType
       $TxnType="Auth";                                                          //Islem Tipi
-      $InstallmentCount= $tr->installment;                                      //Taksit Sayisi
+      $InstallmentCount= (int) $tr->installment <= 1 ? "0" : $tr->installment;                                      //Taksit Sayisi
       $Currency= $tr->currency_number;                                          //Para Birimi
       $OkUrl= $tr->ok_url;                                                      //Language_OkUrl
       $FailUrl= $tr->fail_url;                                                  //Language_FailUrl
@@ -197,6 +197,21 @@ class Eticsoft_payfor
 		return $this->tdPay($tr);
   }
 
+
+  public function tdPay($tr){
+    $tr->result = false;
+      $tr->result_code =  isset($_POST['ProcReturnCode']) ? $_POST['ProcReturnCode'] : '-1';
+      $tr->result_message = isset($_POST['ErrMsg']) ? $_POST['ErrMsg'] : '-1';
+    
+    if(($_POST["3DStatus"] != "1"))
+      return $tr;
+  
+    if($_POST["ProcReturnCode"] != "00")
+      return $tr;
+    $tr->result = true;
+    return $tr;
+    }
+
   public function td($tr){
 
     if(!isset($_POST["RequestGuid"]))	 {
@@ -243,7 +258,7 @@ class Eticsoft_payfor
       $ch = curl_init();
       curl_setopt($ch, CURLOPT_URL,$url);
       curl_setopt($ch, CURLOPT_SSL_VERIFYHOST,2);
-      curl_setopt($ch, CURLOPT_SSLVERSION, 4);
+      curl_setopt($ch, CURLOPT_SSLVERSION, 6);
       curl_setopt($ch, CURLOPT_SSL_VERIFYPEER,0);
       curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
       curl_setopt($ch, CURLOPT_TIMEOUT, 90);

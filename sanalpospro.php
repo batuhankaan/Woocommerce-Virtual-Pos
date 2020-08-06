@@ -3,14 +3,14 @@
   Plugin Name: Eticsoft SanalPOS PRO! Multi Payment Gateway
   Plugin URI:  https://sanalpospro.com
   Description: SanalPOS PRO! provides all popular payment methods in one plug-in.
-  Version:     1.1
+  Version:     2.0
   Author:      eticsoft.com
   Author URI:  EticSoft R&D Lab
   License:     GPL2
   License URI: https://www.gnu.org/licenses/gpl-2.0.html
   Text Domain: wporg
   Domain Path: /languages
-  Update Date: 09/12/2019
+  Update Date: 10/06/2020
  */
 include( plugin_dir_path(__FILE__) . '/lib/class/inc.php');
 
@@ -109,7 +109,7 @@ function init_sanalpospro_gateway_class()
 			$this->supports = array('default_credit_card_form');
 			$this->init_form_fields();
 			$this->init_settings();
-			$this->version = 1.03;
+			$this->version = 2.0;
 			$this->id_eticsoft = 21;
 
 			foreach ($this->settings as $setting_key => $value)
@@ -197,6 +197,7 @@ function init_sanalpospro_gateway_class()
 			$integration_tab = EticConfig::getAdminIntegrationForm(plugin_dir_path(__FILE__));
 			$cards_tab = EticConfig::getCardSettingsForm(plugin_dir_path(__FILE__));
 			$tools_tab = EticConfig::getAdminToolsForm(plugin_dir_path(__FILE__));
+			$campaign_tab = EticConfig::getCampaigns(plugin_dir_path(__FILE__));
 			$help_tab = EticConfig::getHelpForm(plugin_dir_path(__FILE__));
 			$masterpass_tab = EticConfig::getMasterPassForm(plugin_dir_path(__FILE__));
 			$last_records = $this->getLastRecordsTable();

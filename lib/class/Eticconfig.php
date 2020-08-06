@@ -16,7 +16,7 @@ Class EticConfig
 		'colorize' => 'Colorize (Seksi) '
 	);
 	public static $families = array(
-		'axess', 'bonus', 'maximum', 'cardfinans', 'world', 'asyacard', 'paraf', 'advantage', 'combo'
+		'axess', 'bonus', 'maximum', 'cardfinans', 'world', 'asyacard', 'paraf', 'advantage', 'combo', 'miles&smiles'
 	);
 	public static $messages = array();
 	public static $gateways;
@@ -809,6 +809,49 @@ Class EticConfig
 		$t .= wp_nonce_field('woocommerce-settings', '_wpnonce', true, false) . '</form>  ';
 		return $t;
 	}
+	public static function getCampaigns(){
+		$t = '<div class="panel">
+		<div class="row">
+		<div class="col-md-4">
+		<a target="_blank" href="https://bit.ly/2VCy0Gi">
+		<img style="width:100%;" src="https://sanalpospro.com/img/kampanyalar/ipara/kampanya.png"
+		class="thumbnail center-block" />
+		</a>
+		</div>
+		<div class="col-md-4">
+		<a target="_blank" href="https://bit.ly/38j47QA">
+		<img style="width:100%;" src="https://sanalpospro.com/img/kampanyalar/paybyme/kampanya.png"
+		class="thumbnail center-block" />
+		</a>
+		</div>
+		<div class="col-md-4">
+		<a target="_blank" href="https://bit.ly/2CXqsY9">
+		<img style="width:100%;" src="https://sanalpospro.com/img/kampanyalar/paynet/kampanya.png"
+		class="thumbnail center-block" />
+		</a>
+		</div>
+		<div class="col-md-4">
+		<a target="_blank" href="https://bit.ly/2YShNij">
+		<img style="width:100%;" src="https://sanalpospro.com/img/kampanyalar/paytr/kampanya.png"
+		class="thumbnail center-block" />
+		</a>
+		</div>
+		<div class="col-md-4">
+		<a target="_blank" href="https://bit.ly/38maylP">
+		<img style="width:100%;" src="https://sanalpospro.com/img/kampanyalar/paytrek/kampanya.png"
+		class="thumbnail center-block" />
+		</a>
+		</div>
+		<div class="col-md-4">
+		<a target="_blank" href="https://bit.ly/3ijNQ2x">
+		<img style="width:100%;" src="https://sanalpospro.com/img/kampanyalar/parampos/kampanya.png"
+		class="thumbnail center-block" />
+		</a>
+		</div>
+		</div>
+		</div>';
+		return $t;
+	}
 
 	public static function getApiSettingsForm()
 	{
@@ -1071,11 +1114,48 @@ Class EticConfig
 			foreach ($lib->params as $pk => $pv)
 				if (isset($data['params'][$pk]))
 					$gw->params->{$pk} = $data['params'][$pk];
-			$gw->test_mode = isset($data['test_mode']) ? $data['test_mode'] : false;
-			if ($gw->save())
-				Etictools::rwm($gw->full_name . ' güncellendi', true, 'success-spp');
+				$gw->test_mode = isset($data['test_mode']) ? $data['test_mode'] : false;
+				if ($gw->name == "paybyme") {  
+					if (Etictools::getValue('submit_for')) 
+						Eticconfig::paybymeInstallment($data["params"]["username"],$data["params"]["token"],$data["params"]["keywordID"]);
+
+				} 
+				if ($gw->save()) {
+					
+					Etictools::rwm($gw->full_name . ' güncellendi', true, 'success');
+				}
+			}
 		}
-	}
+
+		public static function paybymeInstallment($username,$password,$keywordId)
+		{
+			$installment_url = "https://pos.payby.me/webServicesExt/FunctionInstallmentList"; 
+			$assetPrice = "10000";
+			$currencyCode = "TRY";
+
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_URL, $installment_url);
+			curl_setopt($ch, CURLOPT_POST, 1);
+			curl_setopt($ch, CURLOPT_POSTFIELDS, "username=$username&password=$password&keywordId=$keywordId&assetPrice=$assetPrice&currencyCode=$currencyCode");
+			curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+				'Content-Type: application/x-www-form-urlencoded'
+			));
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+			$server_output = curl_exec($ch);
+			$result = json_decode($server_output);
+			$ins = array(); 
+
+			foreach ($result->InstallmentList as $key => $il) {
+				$ins['gateway'] = "paybyme";
+				$ins['rate'] = ($il->lastPriceRatio*100)-100;
+				$ins["fee"] = $il->commissionShare;
+				$ins['divisor'] = $il->installmentCount;
+				$ins['family'] = strtolower($il->program) == "bankkart" ? "combo" : strtolower($il->program);
+				EticInstallment::save($ins);
+				
+			}
+		}
 
 	public static function saveGeneralSettings()
 	{

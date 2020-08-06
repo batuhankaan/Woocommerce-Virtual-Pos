@@ -5,7 +5,7 @@ require_once('ipara_payment.php');
 class EticSoft_ipara
 {
 
-    var $version = 191121;
+    var $version = 200619;
 
     function pay($tr)
     {
@@ -204,7 +204,7 @@ class EticSoft_ipara
         $obj = new iParaPayment();
         $obj->public_key = $public_key;
         $obj->private_key = $private_key;
-        $obj->mode = "P";
+        $obj->mode = $tr->gateway_params->test_mode == "on" ? "T" : "P";
         $obj->order_id = $orderid;
         $obj->installment = $tr->installment;
         $obj->amount = $tr->total_pay;

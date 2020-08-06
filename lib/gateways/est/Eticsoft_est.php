@@ -3,7 +3,7 @@
 class EticSoft_est
 {
 
-	var $version = 190709;
+	var $version = 200718;
 
 	public function pay($tr)
 	{
@@ -51,6 +51,7 @@ class EticSoft_est
 		$burl['kuveytturk'] = "https://netpos.kuveytturk.com.tr/servlet/cc5ApiServer";
 		$burl['ingbank'] = "https://sanalpos.ingbank.com.tr/servlet/cc5ApiServer";
 		$burl['ziraat'] = "https://sanalpos2.ziraatbank.com.tr/fim/cc5ApiServer";
+		$burl['turkiyefinans'] = "https://sanalpos.turkiyefinans.com.tr/fim/api";
 
 		$url = $burl[$tr->gateway];
 
@@ -169,8 +170,10 @@ class EticSoft_est
 			'citibank' => 'https://csanalpos.est.com.tr/servlet/est3Dgate',
 			'kuveytturk' => 'https://netpos.kuveytturk.com.tr/servlet/est3Dgate',
 			'ingbank' => 'https://sanalpos.ingbank.com.tr/fim/est3Dgate',
-			'ziraat' => 'https://sanalpos2.ziraatbank.com.tr/fim/est3Dgate'
+			'ziraat' => 'https://sanalpos2.ziraatbank.com.tr/fim/est3Dgate',
+			'turkiyefinans' => 'https://sanalpos.turkiyefinans.com.tr/fim/est3Dgate'
 		);
+
 		if ($tr->gateway_params->tdmode == '3D_PAY')
 			$storetype = "3d_pay"; // Store Tipi
 		else
@@ -196,10 +199,11 @@ class EticSoft_est
 
 		$hashstr = $clientId . $oid . $amount . $okUrl . $failUrl . $islemtipi . $taksit . $rnd . $storekey; //güvenlik amaçli hashli deger
 		$hash = base64_encode(pack('H*', sha1($hashstr)));
+
 		//print_r($hash);
 		//exit;
 
-		$return = "<form action=\"" . $action . "\" method=\"post\" id=\"three_d_form\"/>";
+		$return = "<form action=\"" . $action . "\" method=\"post\" id=\"three_d_form\">";
 		if ($storetype != '3d_pay_hosting') {
 			$return .= '
                 <input type="hidden" name="pan" value="' . $tr->cc_number . '"/>
@@ -225,11 +229,15 @@ class EticSoft_est
         <input type = "hidden" name = "description" value = "' . $clientId . '"/>
         <input type = "hidden" name = "refreshtime" value = "3" >
         <input type = "hidden" name = "BillToName" value = "0">
-        <input type = "hidden" name = "BillToAddress1" value = "0">
-        </form>';
+        <input type = "hidden" name = "BillToAddress1" value = "0">';
+		if($tr->gateway_params->ex1 != "" && $tr->gateway_params->va1)
+			$return .= "\n".'<input type = "hidden" name = "'.$tr->gateway_params->ex1.'" value = "'. $tr->gateway_params->va1 .'"/>';
+		$return .= '
+		</form>';
+
+
 		// if (EticConfig::get('POSPRO_ORDER_AUTOFORM') == 'on')
 			$return .= '<script>document.getElementById("three_d_form").submit();</script>';
-
 
 		$tr->debug("3DS form created. EticSoft_EST::tdForm");
 		$tr->tds = true;
@@ -268,7 +276,6 @@ class EticSoft_est
 
 	public function td($tr)
 	{
-
 		$burl = array();
 		$burl['akbank'] = "https://www.sanalakpos.com/servlet/cc5ApiServer";
 		$burl['finansbank'] = "https://www.fbwebpos.com/fim/est3Dgate";
@@ -283,6 +290,8 @@ class EticSoft_est
 		$burl['citibank'] = "https://csanalpos.est.com.tr/servlet/cc5ApiServer";
 		$burl['kuveytturk'] = "https://netpos.kuveytturk.com.tr/servlet/cc5ApiServer";
 		$burl['ingbank'] = "https://sanalpos.ingbank.com.tr/fim/api";
+		$burl['ziraat'] = "https://sanalpos2.ziraatbank.com.tr/fim/cc5ApiServer";
+		$burl['turkiyefinans'] = 'https://sanalpos.turkiyefinans.com.tr/fim/est3Dgate';
 
 		$mdStatus = (int) $_POST['mdStatus'];
 		$params = $tr->gateway_params;
@@ -344,6 +353,7 @@ class EticSoft_est
 				$tr->debug(" Curl Error \n tr = " . $tr->id_transaction . "\n AC" . curl_errno($ch) . curl_error($ch) . ' ' . $result . "\n");
 				return $tr;
 			}
+
 			curl_close($ch);
 
 			if ($return_xml = simplexml_load_string($result)) {

@@ -62,8 +62,10 @@ if (!defined('ABSPATH')) {
 		<li class="tab" role="tab"><a href="#help">DESTEK</a></li>
 		<li class="tab" role="tab"><a href="#stats">İŞLEMLER</a></li>
 		<li class="tab" role="tab"><a href="#tools">ARAÇLAR</a></li>
+		<li class="tab" role="tab"><a href="#tools">KAMPANYALAR</a></li>
 		<!-- <li class="tab" role="tab"><a href="#panel8">MASTERPASS</a></li> -->
 	  <li class="tab-menu">
+		<div class="line"></div>
 		<div class="line"></div>
 		<div class="line"></div>
 		<div class="line"></div>
@@ -85,6 +87,7 @@ if (!defined('ABSPATH')) {
 		<div class="tabpanel" id="help"> <?php echo $help_tab ?> </div>
 		<div class="tabpanel" id="stats"><?php echo include(dirname(__FILE__) . '/stats.php') ?></div>
 		<div class="tabpanel" id="tools"><?php echo $tools_tab ?></div>
+		<div class="tab-pane" id="campaign"><?php echo $campaign_tab ?></div>
 		<div class="tabpanel" id="masterpass"><?php echo $masterpass_tab ?></div>
 	</div>
 
