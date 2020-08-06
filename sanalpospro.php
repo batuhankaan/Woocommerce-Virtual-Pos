@@ -279,12 +279,12 @@ function init_sanalpospro_gateway_class()
 			. '</script>';
 
 			
-			wp_enqueue_script('sanalpospro_jquerycard', plugins_url('/sanalpospro/views/js/jquery.card.js'), array('jquery'), '1.0.0', false);
-			wp_enqueue_script('sanalpospro_jquerypayment', plugins_url('/sanalpospro/views/js/jquery.payment.min.js'), false, '1.0.0', false);
+			// wp_enqueue_script('sanalpospro_jquerycard', plugins_url('/sanalpospro/views/js/jquery.card.js'), array('jquery'), '1.0.0', false);
+			// wp_enqueue_script('sanalpospro_jquerypayment', plugins_url('/sanalpospro/views/js/jquery.payment.min.js'), false, '1.0.0', false);
 			wp_enqueue_script('sanalpospro_pro', plugins_url('/sanalpospro/views/js/pro.js'), false, '1.0.0', false);
 
-			wp_register_style('sanalpospro_jquerycard', plugins_url() . '/sanalpospro/views/css/jquery.card.css');
-			wp_register_style('sanalpospro_payment', plugins_url() . '/sanalpospro/views/css/payment.css');
+			// wp_register_style('sanalpospro_jquerycard', plugins_url() . '/sanalpospro/views/css/jquery.card.css');
+			// wp_register_style('sanalpospro_payment', plugins_url() . '/sanalpospro/views/css/payment.css');
 			wp_register_style('sanalpospro_pro-form', plugins_url() . '/sanalpospro/views/css/pro-form.css');
 
 			wp_enqueue_style('sanalpospro_jquerycard');

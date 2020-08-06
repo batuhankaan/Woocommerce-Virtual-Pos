@@ -62,7 +62,7 @@ if (!defined('ABSPATH')) {
 		<li class="tab" role="tab"><a href="#help">DESTEK</a></li>
 		<li class="tab" role="tab"><a href="#stats">İŞLEMLER</a></li>
 		<li class="tab" role="tab"><a href="#tools">ARAÇLAR</a></li>
-		<li class="tab" role="tab"><a href="#tools">KAMPANYALAR</a></li>
+		<li class="tab" role="tab"><a href="#campaign">KAMPANYALAR</a></li>
 		<!-- <li class="tab" role="tab"><a href="#panel8">MASTERPASS</a></li> -->
 	  <li class="tab-menu">
 		<div class="line"></div>
