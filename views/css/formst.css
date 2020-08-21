@@ -1,0 +1,76 @@
+.cf_area {
+    width: 400px;
+    border: 1px solid #ccc;
+    height: 203px;
+    border-radius: 15px;
+    padding: 10px;
+    background-image: url('images/card-front-background2.jpg');
+    background-size: contain;
+    font-size:1.3em;
+}
+.cf_area label {
+    font-weight:lighter;
+}
+.cf_area hr {
+    margin-top:10px;
+    margin-bottom: 10px;
+}
+.inst_select {
+        width: 322px;
+        border: 1px solid #ccc;
+        height: 203px;
+        border-radius: 15px;
+        padding: 10px;
+        background-image: url('images/card-front-background2.jpg');
+        background-size: contain;
+    }
+    div.spperror {
+        display: block;
+        text-align: left;
+        padding: 5px;
+        margin: 5px;
+        background: #f33;
+        border-radius: 6px;
+        font-weight: lighter;
+        font-size: 18px;
+        line-height: 25px;
+        color: #fff;
+        border: solid 3px #eee;
+        box-shadow: 0 0 6px #000;
+        -moz-box-shadow: 0 0 6px #000;
+        -webkit-box-shadow: 0 0 6px #000;
+        max-width: 664px;
+    }
+    #logo_imp {
+        z-index: 9;
+        /* font-size: 10em; */
+        position: absolute;
+        padding: 23px 7px;
+    }
+    .cc_block {
+        float:left;
+        margin: 10px;
+        display: inline-block;
+    }
+    .inst_select div.select {
+        font-size: 1.1em;
+    }
+    #sanalpospro_alu_form {
+         margin-left:10%;
+     } 
+
+     @media (max-width: 800px) {
+         #sanalpospro_alu_form {
+                 margin-left: 0;
+         }
+     }
+	
+    @media (max-width: 640px) {
+            #sanalpospro_alu_form {
+                    zoom:88%;
+                    margin-left: 0;
+            } 
+            #cc_block inst_select {
+                    zoom:88%;
+            } 
+    }

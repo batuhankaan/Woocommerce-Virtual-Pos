@@ -3,14 +3,14 @@
   Plugin Name: Eticsoft SanalPOS PRO! Multi Payment Gateway
   Plugin URI:  https://sanalpospro.com
   Description: SanalPOS PRO! provides all popular payment methods in one plug-in.
-  Version:     2.0
+  Version:     2.1
   Author:      eticsoft.com
   Author URI:  EticSoft R&D Lab
   License:     GPL2
   License URI: https://www.gnu.org/licenses/gpl-2.0.html
   Text Domain: wporg
   Domain Path: /languages
-  Update Date: 10/06/2020
+  Update Date: 21/08/2020
  */
 include( plugin_dir_path(__FILE__) . '/lib/class/inc.php');
 
@@ -103,13 +103,14 @@ function init_sanalpospro_gateway_class()
 			$this->id = "sanalpospro";
 			$this->method_title = "SanalPOS PRO! Kredi Kartı İle Ödeme";
 			$this->method_description = "SanalPOS PRO!  Kredi kartı ödeme alma eklentisi";
+			$this->description  = 'Ödemenizi kredi kartı ile yapabilirsiniz. Siparişiniz hemen işleme alınacaktır.';
 			$this->title = get_locale() == "tr_TR" ? "Kredi Kartı ile Ödeme" : "Payment by Credit Card";
 			$this->icon = null;
 			$this->has_fields = true;
 			$this->supports = array('default_credit_card_form');
 			$this->init_form_fields();
 			$this->init_settings();
-			$this->version = 2.0;
+			$this->version = 2.1;
 			$this->id_eticsoft = 21;
 
 			foreach ($this->settings as $setting_key => $value)
@@ -279,12 +280,12 @@ function init_sanalpospro_gateway_class()
 			. '</script>';
 
 			
-			// wp_enqueue_script('sanalpospro_jquerycard', plugins_url('/sanalpospro/views/js/jquery.card.js'), array('jquery'), '1.0.0', false);
-			// wp_enqueue_script('sanalpospro_jquerypayment', plugins_url('/sanalpospro/views/js/jquery.payment.min.js'), false, '1.0.0', false);
+			wp_enqueue_script('sanalpospro_jquerycard', plugins_url('/sanalpospro/views/js/jquery.card.js'), array('jquery'), '1.0.0', false);
+			wp_enqueue_script('sanalpospro_jquerypayment', plugins_url('/sanalpospro/views/js/jquery.payment.min.js'), false, '1.0.0', false);
 			wp_enqueue_script('sanalpospro_pro', plugins_url('/sanalpospro/views/js/pro.js'), false, '1.0.0', false);
 
-			// wp_register_style('sanalpospro_jquerycard', plugins_url() . '/sanalpospro/views/css/jquery.card.css');
-			// wp_register_style('sanalpospro_payment', plugins_url() . '/sanalpospro/views/css/payment.css');
+			wp_register_style('sanalpospro_jquerycard', plugins_url() . '/sanalpospro/views/css/jquery.card.css');
+			wp_register_style('sanalpospro_payment', plugins_url() . '/sanalpospro/views/css/payment.css');
 			wp_register_style('sanalpospro_pro-form', plugins_url() . '/sanalpospro/views/css/pro-form.css');
 
 			wp_enqueue_style('sanalpospro_jquerycard');

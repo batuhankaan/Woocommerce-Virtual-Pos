@@ -16,7 +16,7 @@ Class EticConfig
 		'colorize' => 'Colorize (Seksi) '
 	);
 	public static $families = array(
-		'axess', 'bonus', 'maximum', 'cardfinans', 'world', 'asyacard', 'paraf', 'advantage', 'combo', 'miles&smiles'
+		'axess', 'bonus', 'maximum', 'cardfinans', 'world', 'asyacard', 'paraf', 'advantage', 'combo', 'miles-smiles'
 	);
 	public static $messages = array();
 	public static $gateways;
@@ -810,7 +810,25 @@ Class EticConfig
 		return $t;
 	}
 	public static function getCampaigns(){
-		$t = '<div class="panel">
+		$t = '
+		<style>
+			@media only screen and (max-width: 600px) {
+				.spp_bootstrap-wrapper-egrid .row {
+					display: grid;
+					grid-column-gap: 15px;
+					grid-row-gap: 10px;
+					grid-template-columns: auto;
+				}
+			}
+			@media only screen and (min-width: 600px) {
+				.spp_bootstrap-wrapper-egrid .row {
+					display: grid;
+					grid-gap: 10px;
+					grid-template-columns: auto auto auto;
+				}
+			}
+		</style>
+		<div class="panel spp_bootstrap-wrapper-egrid">
 		<div class="row">
 		<div class="col-md-4">
 		<a target="_blank" href="https://bit.ly/2VCy0Gi">
@@ -1151,7 +1169,7 @@ Class EticConfig
 				$ins['rate'] = ($il->lastPriceRatio*100)-100;
 				$ins["fee"] = $il->commissionShare;
 				$ins['divisor'] = $il->installmentCount;
-				$ins['family'] = strtolower($il->program) == "bankkart" ? "combo" : strtolower($il->program);
+				$ins['family'] = strtolower($il->program) == "bankkart" ? "combo" : strtolower($il->program) == "miles&smiles" ? "miles-smiles" : strtolower($il->program);
 				EticInstallment::save($ins);
 				
 			}

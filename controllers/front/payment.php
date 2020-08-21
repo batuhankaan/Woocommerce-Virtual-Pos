@@ -39,7 +39,7 @@ class SanalPosProPaymentModuleFrontController extends ModuleFrontControllerCore
 		$this->addJs(_MODULE_DIR_ . $this->module->name . '/views/js/jquery.card.js', false);
 		$this->addJs(_MODULE_DIR_ . $this->module->name . '/views/js/jquery.payment.min.js', false);
 		$this->addJs(_MODULE_DIR_ . $this->module->name . '/views/js/pro.js', false);
-		// $this->addCSS(_MODULE_DIR_ . $this->module->name . '/views/css/jquery.card.css', 'all');
+		$this->addCSS(_MODULE_DIR_ . $this->module->name . '/views/css/jquery.card.css', 'all');
 		$this->addCSS(_MODULE_DIR_ . $this->module->name . '/views/css/payment.css', 'all');
 		$this->addCSS(_MODULE_DIR_ . $this->module->name . '/views/css/pro-form.css', 'all');
 		$this->addCSS(_MODULE_DIR_ . $this->module->name . '/views/vendor/font-awesome/css/font-awesome.min.css', 'all');

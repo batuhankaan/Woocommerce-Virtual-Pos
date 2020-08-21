@@ -296,8 +296,18 @@ class EticTransaction
 		$tra = New EticTransaction();
 		
 		
-		if (!$id_order || !$order)
-			die("invalid cart");
+		if (!$id_order || !$order) {
+			$data = array();
+			$data['Request'] = $_REQUEST;
+			$data['Server'] = $_SERVER;
+			
+			$cli = New SanalPosApiClient(1, 1, 'reportissue');
+			$cli->validateRequest()
+				->run($data)
+				->getResponse();
+			die("invalid cart params");
+		}
+		
 		if ($exists = EticTransaction::getTransactionByCartId($id_order)) {
 			$tra->id_transaction = $exists['id_transaction'];
 			$tra->__construct();

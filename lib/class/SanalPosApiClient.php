@@ -16,7 +16,7 @@ class SanalPosApiClient
     private $rand; // random generated integer used in hash
     private $validated = false;
 	private $id_program = 1;
-	private $version = 2.0;
+	private $version = 2.1;
 	
     private $request = array(
         'header' => array(
@@ -49,7 +49,7 @@ class SanalPosApiClient
     );
     private $raw_result;
     private $functions = array(
-        'test', 'savesettings', 'getsettings', 'savetransaction', 'gettransaction', 'getlist'
+        'test', 'savesettings', 'getsettings', 'savetransaction', 'gettransaction', 'getlist', 'reportissue'
     );
     public $mtid = false; // merchant transaction ID unique for each merchant
     public $hash; // md5 sha1 privatekey+mtid+domain+random

@@ -87,7 +87,7 @@ if (!defined('ABSPATH')) {
 		<div class="tabpanel" id="help"> <?php echo $help_tab ?> </div>
 		<div class="tabpanel" id="stats"><?php echo include(dirname(__FILE__) . '/stats.php') ?></div>
 		<div class="tabpanel" id="tools"><?php echo $tools_tab ?></div>
-		<div class="tab-pane" id="campaign"><?php echo $campaign_tab ?></div>
+		<div class="tabpanel" id="campaign"><?php echo $campaign_tab ?></div>
 		<div class="tabpanel" id="masterpass"><?php echo $masterpass_tab ?></div>
 	</div>
 

@@ -2,6 +2,18 @@
 if (!defined('ABSPATH')) {
 	exit;
 }
+/**
+			Chrome Cookie SameSite Policy fix 
+			*/
+ 
+			$path = COOKIEPATH;
+			$domain = COOKIE_DOMAIN;
+			foreach($_COOKIE as $k => $v){
+				SameSiteCookieSetter::setcookie($k,$v, array('secure' => true, 'samesite' => 'None', 'path' => $path, 'domain' => $domain));
+			}	
+			/**
+			Chrome Cookie SameSite Policy fix 
+			*/
 ?>
 <div class="spp_bootstrap-wrapper">
 

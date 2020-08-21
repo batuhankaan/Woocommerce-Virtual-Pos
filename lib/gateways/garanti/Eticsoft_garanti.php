@@ -2,7 +2,7 @@
 
 class EticSoft_garanti
 {
-var $version = 171202;
+var $version = 200819;
 /* To-dos 
 Check hash */ 
 
@@ -105,7 +105,7 @@ Check hash */
         $strMode = ($tr->test_mode) ? "TEST" : "PROD";
         $strType = "sales";
         $strCurrencyCode = $tr->currency_number;
-        $strAmount = (int) ((float) $tr->total_pay * 100); //İşlem Tutarı
+        $strAmount = (int) ceil((float) $tr->total_pay * 100); //İşlem Tutarı
         $strInstallmentCount = (int) $tr->installment == 1 ? "" : $tr->installment; //Taksit Sayısı. Boş gönderilirse taksit yapılmaz
         $strTerminalUserID = $tr->gateway_params->usr;
         $strOrderID = time() . $tr->id_cart;
@@ -116,8 +116,8 @@ Check hash */
         $strTerminalMerchantID = $tr->gateway_params->mid; //Üye İşyeri Numarası
         $strStoreKey = $tr->gateway_params->sec; //3D Secure şifreniz
         $strProvisionPassword = $tr->gateway_params->pas; //Terminal UserID şifresi
-        $strSuccessURL = $tr->ok_url;
-        $strErrorURL = $tr->fail_url;
+        $strSuccessURL = $tr->test_mode == 'on' ? 'https://eticaret.garanti.com.tr/destek/postback.aspx' : $tr->ok_url;
+        $strErrorURL = $tr->test_mode == 'on' ? 'https://eticaret.garanti.com.tr/destek/postback.aspx' : $tr->fail_url;
         $SecurityData = strtoupper(sha1($strProvisionPassword . $strTerminalID_));
         $HashData = strtoupper(sha1($strTerminalID . $strOrderID . $strAmount . $strSuccessURL . $strErrorURL . $strType . $strInstallmentCount . $strStoreKey . $SecurityData));
 
@@ -163,7 +163,7 @@ Check hash */
         ';
 		$replace_from = array($tr->cc_number, $tr->cc_cvv);
 		$tr->debug('3D form generated'. str_replace($replace_from, "XXX", $form));
-        // if (Configuration::get('POSPRO_ORDER_AUTOFORM') == 'on')
+        //if (Configuration::get('POSPRO_ORDER_AUTOFORM') == 'on')
             $form .= '<script>document.getElementById("three_d_form").submit();</script>';
 		
 
