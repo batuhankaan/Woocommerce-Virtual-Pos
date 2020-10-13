@@ -501,7 +501,7 @@ function init_sanalpospro_gateway_class()
 		wp_enqueue_style('sanalpospro_installments', plugins_url('/sanalpospro/views/css/installments-' . Eticconfig::get('POSPRO_PRODUCT_TMP') . '.css'));
 		echo '<div class="yui3-cssreset spp_bootstrap-wrapper">';
 		echo $ui->displayProductInstallments($price);
-		echo '<div>';
+		echo '</div>';
 	}
 }
 add_action('woocommerce_order_actions_end', 'eticsoft_sanalpospro_order_details');

@@ -96,7 +96,8 @@
 }
 
 table td, table th{
-	text-align:center !important;
+    text-align:center !important;
+    width: 100%;
 }
 
 #cc_form li{

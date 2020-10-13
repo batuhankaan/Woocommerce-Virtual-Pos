@@ -168,7 +168,7 @@ const topBody = window.top.document.documentElement;
 
 //     xhr.onreadystatechange = function (evt) {
 //       console.log(xhr.statusText, xhr.readyState, xhr.status);
-    
+
 //       if(xhr.readyState == 4 && xhr.status == 200) {
 //         window.top.document.outerHTML = xhr.responseText
 //         console.log("~OK");
@@ -180,8 +180,8 @@ const topBody = window.top.document.documentElement;
 // }
 
 
-function inputCheck(variable,nextVariable,numberVariable) {
-    variable.value.length === numberVariable ? nextVariable.focus() : console.log("degil 1");
+function inputCheck(variable, nextVariable, numberVariable) {
+  variable.value.length === numberVariable ? nextVariable.focus() : console.log("degil 1");
 }
 
 //   function limiterYears(years) {
@@ -197,10 +197,10 @@ function inputCheck(variable,nextVariable,numberVariable) {
 //   }
 
 function err(text) {
-  document.getElementById("form_error").innerHTML=`<input class="btn_err_style" type="reset" value="${text}">`
+  document.getElementById("form_error").innerHTML = `<input class="btn_err_style" type="reset" value="${text}">`
 }
 
-function openMethod(id,nextId,cls){
+function openMethod(id, nextId, cls) {
   id.style.display = "none";
   nextId.style.display = "block";
   // if(cls.classList == " active"){
@@ -226,57 +226,57 @@ var SppTekCekim;
 var SppKomisyon;
 var SppTaksit;
 function ModuleLanguage(params) {
-      inputCcNumber.placeholder = params.kartnumarasi
-      inputMonth.placeholder = params.tarih
-      paymentButton.textContent = params.button
-      ccName.placeholder = params.isim
-      ccPayment.innerText = params.kredikarti
-      DiffPayment.innerText = params.digerodeme
-      instTitles[0].innerText = params.taksit
-      instTitles[1].innerText = params.taksittutar
-      instTitles[2].innerText = params.tutar
-      window.SppTekCekim = params.tekcekim;
-      window.SppKomisyon = params.komisyon;
-      window.SppTaksit = params.kactaksit;
+  inputCcNumber.placeholder = params.kartnumarasi
+  inputMonth.placeholder = params.tarih
+  paymentButton.textContent = params.button
+  ccName.placeholder = params.isim
+  ccPayment.innerText = params.kredikarti
+  DiffPayment.innerText = params.digerodeme
+  instTitles[0].innerText = params.taksit
+  instTitles[1].innerText = params.taksittutar
+  instTitles[2].innerText = params.tutar
+  window.SppTekCekim = params.tekcekim;
+  window.SppKomisyon = params.komisyon;
+  window.SppTaksit = params.kactaksit;
 }
 const trLang = {
-  "lang":"tr",
-  "kartnumarasi":"KART NUMARASI",
-  "tarih":"TARİH",
-  "isim":"KART SAHİBİNİN ADI",
-  "button":"ÖDEMEYİ TAMAMLA",
-  "kredikarti":"Kredi Kartı İle",
-  "digerodeme":"Diğer Ödeme",
-  "taksit":"TAKSİT",
-  "taksittutar":"T.TUTARI",
-  "tutar":"T.TUTARI",
-  "tekcekim":"Tek Çekim",
-  "komisyon":"Komisyonsuz",
-  "kactaksit":" Taksit"
+  "lang": "tr",
+  "kartnumarasi": "KART NUMARASI",
+  "tarih": "TARİH",
+  "isim": "KART SAHİBİNİN ADI",
+  "button": "ÖDEMEYİ TAMAMLA",
+  "kredikarti": "Kredi Kartı İle",
+  "digerodeme": "Diğer Ödeme",
+  "taksit": "TAKSİT",
+  "taksittutar": "T.TUTARI",
+  "tutar": "T.TUTARI",
+  "tekcekim": "Tek Çekim",
+  "komisyon": "Komisyonsuz",
+  "kactaksit": " Taksit"
 };
 const enLang = {
-  "lang":"eng",
-  "kartnumarasi":"CARD NUMBER",
-  "tarih":"DATE",
-  "isim":"YOUR NAME",
-  "button":"COMPLETE PAYMENT",
-  "kredikarti":"With Credit Card",
-  "digerodeme":"Other Payment",
-  "taksit":"INSTALLMENT",
-  "taksittutar":"I.AMOUNT",
-  "tutar":"AMOUNT",
-  "tekcekim":"No Installment",
-  "komisyon":"No Commission",
-  "kactaksit":" Purchase"
-  };
+  "lang": "eng",
+  "kartnumarasi": "CARD NUMBER",
+  "tarih": "DATE",
+  "isim": "YOUR NAME",
+  "button": "COMPLETE PAYMENT",
+  "kredikarti": "With Credit Card",
+  "digerodeme": "Other Payment",
+  "taksit": "INSTALLMENT",
+  "taksittutar": "I.AMOUNT",
+  "tutar": "AMOUNT",
+  "tekcekim": "No Installment",
+  "komisyon": "No Commission",
+  "kactaksit": " Purchase"
+};
 
-  window.addEventListener("DOMContentLoaded", function(){
-    if(siteLang.toLowerCase().search("tr") == 0){
-      ModuleLanguage(trLang);
-    }else{
-        ModuleLanguage(enLang);
-    }
-  });
+window.addEventListener("DOMContentLoaded", function () {
+  if (siteLang.toLowerCase().search("tr") == 0) {
+    ModuleLanguage(trLang);
+  } else {
+    ModuleLanguage(enLang);
+  }
+});
 
 
 
@@ -287,7 +287,7 @@ function isNumber(evt) {
   evt = (evt) ? evt : window.event;
   var charCode = (evt.which) ? evt.which : evt.keyCode;
   if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-      return false;
+    return false;
   }
   return true;
 }
@@ -295,73 +295,73 @@ function isNumber(evt) {
 ///////////history validate
 
 function ccFormatExpiry(e) {
-var inputChar = String.fromCharCode(event.keyCode);
-var code = event.keyCode;
-var allowedKeys = [8];
-if (allowedKeys.indexOf(code) !== -1) {
-  return;
-}
+  var inputChar = String.fromCharCode(event.keyCode);
+  var code = event.keyCode;
+  var allowedKeys = [8];
+  if (allowedKeys.indexOf(code) !== -1) {
+    return;
+  }
 
-event.target.value = event.target.value.replace(
-  /^([1-9]\/|[2-9])$/g, '0$1/' 
-).replace(
-  /^(0[1-9]|1[0-2])$/g, '$1/'
-).replace(
-  /^([0-1])([3-9])$/g, '0$1/$2' 
-).replace(
-  /^(0?[1-9]|1[0-2])([0-9]{2})$/g, '$1/$2' 
-).replace(
-  /^([0]+)\/|[0]+$/g, '0'
-).replace(
-  /[^\d\/]|^[\/]*$/g, '' 
-).replace(
-  /\/\//g, '/' 
-);
+  event.target.value = event.target.value.replace(
+    /^([1-9]\/|[2-9])$/g, '0$1/'
+  ).replace(
+    /^(0[1-9]|1[0-2])$/g, '$1/'
+  ).replace(
+    /^([0-1])([3-9])$/g, '0$1/$2'
+  ).replace(
+    /^(0?[1-9]|1[0-2])([0-9]{2})$/g, '$1/$2'
+  ).replace(
+    /^([0]+)\/|[0]+$/g, '0'
+  ).replace(
+    /[^\d\/]|^[\/]*$/g, ''
+  ).replace(
+    /\/\//g, '/'
+  );
 }
 
 ///////////history validate
 
 function cc_format(value) {
-var v = value.replace(/\s+/g, '').replace(/[^0-9]/gi, '')
-var matches = v.match(/\d{4,16}/g);
-var match = matches && matches[0] || ''
-var parts = []
-for (i=0, len=match.length; i<len; i+=4) {
-  parts.push(match.substring(i, i+4))
-}
-if (parts.length) {
-  return parts.join(' ')
-} else {
-  return value
-}
+  var v = value.replace(/\s+/g, '').replace(/[^0-9]/gi, '')
+  var matches = v.match(/\d{4,16}/g);
+  var match = matches && matches[0] || ''
+  var parts = []
+  for (i = 0, len = match.length; i < len; i += 4) {
+    parts.push(match.substring(i, i + 4))
+  }
+  if (parts.length) {
+    return parts.join(' ')
+  } else {
+    return value
+  }
 }
 
-onload = function() {
-inputCcNumber.oninput = function() {
-  this.value = cc_format(this.value)
-}
+onload = function () {
+  inputCcNumber.oninput = function () {
+    this.value = cc_format(this.value)
+  }
 }
 
 function skipIfMax(element) {
-max = parseInt(element.dataset.max)
+  max = parseInt(element.dataset.max)
 
-if (element.value.length >= max && element.nextElementSibling) {
-  element.nextElementSibling.focus();  
-}
+  if (element.value.length >= max && element.nextElementSibling) {
+    element.nextElementSibling.focus();
+  }
 }
 
 
 function formatterCurrency(price) {
 
-const currency_type = "₺"
+  const currency_type = "₺"
 
-const currencyOutput = new Intl.NumberFormat('tr-TR', {
+  const currencyOutput = new Intl.NumberFormat('tr-TR', {
     style: 'currency',
     currency: 'TRY',
     minimumFractionDigits: 2,
   });
 
-return currencyOutput.format(price).replace(currency_type, '')
+  return currencyOutput.format(price).replace(currency_type, '')
 }
 
 
@@ -375,26 +375,26 @@ return currencyOutput.format(price).replace(currency_type, '')
 //   });
 
 
-function keyup(){
-  if(inputCcNumber.value.length === 19){
-      if(!htmlTr[1]){
-        cnumber();
-        installmentLoading.style.display="none";
-        InstallmentTable.style.display = "inline-table";
-        InstallmentTable.className="scale-in-ver-top";
-      }
-  }else if(inputCcNumber.value.length < 9){
-          installmentLoading.style.display="block";
-          InstallmentTable.className="fade-out-top"; 
-          cardIcon.src = defaultCard;
-          cardIcon.className="";
-          setTimeout(() => { 
-            InstallmentTable.style.display = "none"
-            while (htmlTr[1]) {
-              htmlTr[1].remove();
-            }
-        }, 400);
+function keyup() {
+  if (inputCcNumber.value.length === 19) {
+    if (!htmlTr[1]) {
+      cnumber();
+      installmentLoading.style.display = "none";
+      InstallmentTable.style.display = "inline-table";
+      InstallmentTable.className = "scale-in-ver-top";
     }
+  } else if (inputCcNumber.value.length < 9) {
+    installmentLoading.style.display = "block";
+    InstallmentTable.className = "fade-out-top";
+    cardIcon.src = defaultCard;
+    cardIcon.className = "";
+    setTimeout(() => {
+      InstallmentTable.style.display = "none"
+      while (htmlTr[1]) {
+        htmlTr[1].remove();
+      }
+    }, 400);
+  }
 }
 
 function getCORS(url, success) {
@@ -412,23 +412,23 @@ function getCORS(url, success) {
 // });
 
 cards.forEach(element => {
-console.log(element)
+  console.log(element)
 });
 
 
 
 function InstFamily(familyname) {
   for (let index = 1; index < familyname.length; index++) {
-      // console.log(familyname[index]);
-      // console.log(cards.axess[index] + ' - ' + index);   
-      if (familyname[index] != undefined) {
-        // console.log(cards.axess[index] + ' - ' + index);
-        console.log(index)
+    // console.log(familyname[index]);
+    // console.log(cards.axess[index] + ' - ' + index);   
+    if (familyname[index] != undefined) {
+      // console.log(cards.axess[index] + ' - ' + index);
+      console.log(index)
       const InstNumber = index;
       const InstAmount = familyname[index];
-      InstTable(InstNumber,InstAmount);
-      }
-      // console.log(cards.axess.indexOf([index]));
+      InstTable(InstNumber, InstAmount);
+    }
+    // console.log(cards.axess.indexOf([index]));
   }
   // familyname.forEach(element => {
   // console.log(familyname.indexOf(element));
@@ -444,63 +444,63 @@ function InstFamily(familyname) {
 //   familyname.indexOf(element);
 // })
 //   cards.axess.forEach(element => {
-  // cards.axess.indexOf(element)
+// cards.axess.indexOf(element)
 //     console.log(cards.axess.length);
 //     console.log(element)
-  // });
-function InstTable(InstNumF,InstAmoF) {
+// });
+function InstTable(InstNumF, InstAmoF) {
   const dtable = `
   <tr class="test">
   <td><label class="input-radio-button">${InstNumF === 1 ? SppTekCekim : InstNumF + SppTaksit}
-    <input ${InstNumF === 1 ? "checked" :''} type="radio" value="${InstNumF}" dataamount="${InstAmoF}" name="cc_installment">
+    <input ${InstNumF === 1 ? "checked" : ''} type="radio" value="${InstNumF}" dataamount="${InstAmoF}" name="cc_installment">
     <span class="checkmark"></span>
   </label></td>
-  <td>${InstNumF} x ${formatterCurrency(InstAmoF / InstNumF * 100 / 100) +document.getElementsByClassName("woocommerce-Price-currencySymbol")[0].textContent}</td>
+  <td>${InstNumF} x ${formatterCurrency(InstAmoF / InstNumF * 100 / 100) + document.getElementsByClassName("woocommerce-Price-currencySymbol")[0].textContent}</td>
   <td id="deleteAtt">${InstAmoF == defaultins ? SppKomisyon : InstAmoF + document.getElementsByClassName("woocommerce-Price-currencySymbol")[0].textContent}</td>
 </tr>`;
-InstallmentTable.insertRow(-1).innerHTML += dtable;
+  InstallmentTable.insertRow(-1).innerHTML += dtable;
 }
 
 
 
 
-function cnumber(){
-const creditcard = document.getElementById("cc_number").value.substring(0,7);
-//formatter json
-var str=creditcard;
-str=str.replace( /\s/g, '');
-//formatter json
-        var result = fetchJsonp(`https://bin.sanalpospro.com/?cc=${str}&callback`,{jsonpCallback: 'callback',timeout: 10000})
-        result.then(function(response) {
-            return response.json()
-        }).then(function(json) {
-        //  JSON.stringify(json);
-        console.log(document.getElementById("mp_tx_selected_holder_family").value=json.family)
-         console.log(json)
-          if(json.family && cards[json.family]){
-            document.getElementById("mp_tx_selected_holder_family").value=json.family;
-            console.log(json.family == cards[json.family])
-            InstFamily(cards[json.family])
-            cardIcon.className="jello-vertical";
-            if(json.brand == "AMEX"){
-              cardIcon.src=amex;
-            }else if(json.brand == "MASTER"){
-              cardIcon.src=mastercard;
-            }else if(json.brand == "VISA"){
-              console.log("visa kart")
-              cardIcon.src=visa;
-            }else if(json.brand == "TROY"){
-              cardIcon.src=troy;
-            }else{
-              console.log("json brand boş");
-            }
-            
-          }else {
-            console.log("cnumber else");
-            InstTable(1,defaultins)
-            document.getElementById("mp_tx_selected_holder_family").value="all";
-          }
-          })['catch'](function(ex) {
-              err("Sunucuyla iletişim kurulamadı.")
-          });
-  }
+function cnumber() {
+  const creditcard = document.getElementById("cc_number").value.substring(0, 7);
+  //formatter json
+  var str = creditcard;
+  str = str.replace(/\s/g, '');
+  //formatter json
+  var result = fetchJsonp(`https://bin.sanalpospro.com/?cc=${str}&callback`, { jsonpCallback: 'callback', timeout: 10000 })
+  result.then(function (response) {
+    return response.json()
+  }).then(function (json) {
+    //  JSON.stringify(json);
+    console.log(document.getElementById("mp_tx_selected_holder_family").value = json.family)
+    console.log(json)
+    if (json.family && cards[json.family]) {
+      document.getElementById("mp_tx_selected_holder_family").value = json.family;
+      console.log(json.family == cards[json.family])
+      InstFamily(cards[json.family])
+      cardIcon.className = "jello-vertical";
+      if (json.brand == "AMEX") {
+        cardIcon.src = amex;
+      } else if (json.brand == "MASTER") {
+        cardIcon.src = mastercard;
+      } else if (json.brand == "VISA") {
+        console.log("visa kart")
+        cardIcon.src = visa;
+      } else if (json.brand == "TROY") {
+        cardIcon.src = troy;
+      } else {
+        console.log("json brand boş");
+      }
+
+    } else {
+      console.log("cnumber else");
+      InstTable(1, defaultins)
+      document.getElementById("mp_tx_selected_holder_family").value = "all";
+    }
+  })['catch'](function (ex) {
+    err("Sunucuyla iletişim kurulamadı.")
+  });
+}

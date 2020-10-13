@@ -7,7 +7,6 @@ class EticSoft_paybyme
 
 	function pay($tr)
 	{
-		 
 		define('AES_256_ECB', 'aes-256-ecb');  
 		$payment_url = $tr->gateway_params->test_mode == "off" ? "https://pos.payby.me/webpayment/PayWhiteLabel.aspx" : "https://TESTpos.payby.me/webpayment/PayWhiteLabel.aspx"; 
 		$request_url = $tr->gateway_params->test_mode == "off" ? "https://pos.payby.me/webpayment/request.aspx" : "https://TESTpos.payby.me/webpayment/request.aspx";
@@ -38,6 +37,7 @@ class EticSoft_paybyme
 		$encryption_key = base64_decode("00MOKIkftkzR5uDY1Mz6XqQtd90ttijoSldSwz3uq1Y=");
 		$data = "$cc_number|$cc_month|$cc_year|$cvc";
 		$encrypted = openssl_encrypt($data, AES_256_ECB, $encryption_key);
+		$wp_version = "wordpress-".bloginfo('version');
 
 		$tr->result_code = '3D-R';
 		$tr->result_message = '3D formu oluşturuldu.';
@@ -50,7 +50,7 @@ class EticSoft_paybyme
 			$ch = curl_init();
 			curl_setopt($ch, CURLOPT_URL, $request_url);
 			curl_setopt($ch, CURLOPT_POST, 1);
-			curl_setopt($ch, CURLOPT_POSTFIELDS, "username=$username&token=$token&keywordId=$keywordId&syncId=$syncId&assetName=$assetName&assetPrice=$assetPrice&clientIp=$clientIp&countryCode=$countryCode&languageCode=$languageCode&currencyCode=$currencyCode&notifyPage=$notifyPage&redirectPage=$redirectPage&errorPage=$errorPage&whiteLabel=$whiteLabel&subCompany=$subCompany&source=eticsoft");
+			curl_setopt($ch, CURLOPT_POSTFIELDS, "username=$username&token=$token&keywordId=$keywordId&syncId=$syncId&assetName=$assetName&assetPrice=$assetPrice&clientIp=$clientIp&countryCode=$countryCode&languageCode=$languageCode&currencyCode=$currencyCode&notifyPage=$notifyPage&redirectPage=$redirectPage&errorPage=$errorPage&whiteLabel=$whiteLabel&subCompany=$subCompany&source=$wp_version&affiliateId=4B50EB01-681E-4DB4-A1F7-AC1A00BB58DE");
 			curl_setopt($ch, CURLOPT_HTTPHEADER, array(
 				'Content-Type: application/x-www-form-urlencoded'
 			));
@@ -128,7 +128,7 @@ class EticSoft_paybyme
 		$bin_number = substr($cc_number, 0, 6);
 
 		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL, "https://pos.payby.me/WebPayment/Functions?action=webinstallment&hash=$hash&cardno=$bin_number");
+		curl_setopt($ch, CURLOPT_URL, "https://pos.payby.me/WebPayment/Functions?action=webinstallment&hash=$hash&cardno=$bin_number&affiliateId=4B50EB01-681E-4DB4-A1F7-AC1A00BB58DE");
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		$result = curl_exec($ch);
 
@@ -160,6 +160,7 @@ class EticSoft_paybyme
 		$payment_url = $test_mode == "off" ? "https://pos.payby.me/webpayment/PayWhiteLabel.aspx?hash=" : "https://TESTpos.payby.me/webpayment/PayWhiteLabel.aspx?hash=";
 		$payment_url = $payment_url . $hash . "&encrypted=" . urlencode($encrypted);
 		if ($installmentFlag) $payment_url .= "&installmentCount=$installmentCount";
+		$payment_url .= "&affiliateId=4B50EB01-681E-4DB4-A1F7-AC1A00BB58DE";
 		return $payment_url;
 	}
 

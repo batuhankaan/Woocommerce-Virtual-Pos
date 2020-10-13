@@ -128,6 +128,19 @@ class SanalPosProPaymentModuleFrontController extends ModuleFrontControllerCore
 		if (!Etictools::getValue('cc_number') AND ! Etictools::getValue('sprtdvalidate')) {
 			return $this->setTemplatex('payment_execution_' . Configuration::get('POSPRO_PAYMENT_PAGE') . '.tpl');
 		}
+		
+				/**
+			Chrome Cookie SameSite Policy fix 
+			*/
+			 
+			$path = SameSiteCookieSetter::accessProtected(Context::getContext()->cookie, '_path');
+			$domain = SameSiteCookieSetter::accessProtected(Context::getContext()->cookie, '_domain');
+			foreach($_COOKIE as $k => $v){
+				SameSiteCookieSetter::setcookie($k,$v, array('secure' => true, 'samesite' => 'None', 'path' => $path, 'domain' => $domain));
+			}	
+			/**
+			Chrome Cookie SameSite Policy fix 
+			*/
 
 		$gateway = New EticGateway($tr->gateway);
 		$lib_class_name = 'Eticsoft_' . $gateway->lib;
