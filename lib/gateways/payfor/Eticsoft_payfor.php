@@ -122,7 +122,8 @@ class Eticsoft_payfor
       $url = "https://vpos.qnbfinansbank.com/Gateway/Default.aspx";
           $form = '';
           $timestamp = date("Y-m-d H:i:s");
-
+// var_dump($hashstr);
+// exit;
 
           $form .= "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">";
           $form .= "<html>";
@@ -196,22 +197,22 @@ class Eticsoft_payfor
 			return $this->td($tr);
 		return $this->tdPay($tr);
   }
-
-
-  public function tdPay($tr){
-    $tr->result = false;
-      $tr->result_code =  isset($_POST['ProcReturnCode']) ? $_POST['ProcReturnCode'] : '-1';
-      $tr->result_message = isset($_POST['ErrMsg']) ? $_POST['ErrMsg'] : '-1';
-    
-    if(($_POST["3DStatus"] != "1"))
-      return $tr;
   
-    if($_POST["ProcReturnCode"] != "00")
-      return $tr;
-    $tr->result = true;
-    return $tr;
-    }
+  
+  public function tdPay($tr){
+	$tr->result = false;
+    $tr->result_code =  isset($_POST['ProcReturnCode']) ? $_POST['ProcReturnCode'] : '-1';
+    $tr->result_message = isset($_POST['ErrMsg']) ? $_POST['ErrMsg'] : '-1';
+	
+	if(($_POST["3DStatus"] != "1"))
+		return $tr;
 
+	if($_POST["ProcReturnCode"] != "00")
+		return $tr;
+	$tr->result = true;
+	return $tr;
+  }
+  
   public function td($tr){
 
     if(!isset($_POST["RequestGuid"]))	 {
