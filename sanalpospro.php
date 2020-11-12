@@ -141,7 +141,7 @@ function init_sanalpospro_gateway_class()
 			// . '</script>';
 			// wp_enqueue_script('sanalpospro_js_bootstrap_hack', plugins_url('/sanalpospro/views/js/bootstrap-hack.js'), false, '1.0.0', false);
 			// wp_enqueue_script('sanalpospro_bootstrap', plugins_url('/sanalpospro/views/js/bootstrap.min.js'), false, '1.0.0', false);
-			wp_enqueue_script('sanalpospro_admin', plugins_url('/sanalpospro/views/js/admin.js'), false, '1.0.0', false);
+			// wp_enqueue_script('sanalpospro_admin', plugins_url('/sanalpospro/views/js/admin.js'), false, '1.0.0', false);
 
 			if (Etictools::getValue('WOO_POSPRO_SETTINGS')) {
 				update_option('woocommerce_sanalpospro_settings', Etictools::getValue('WOO_POSPRO_SETTINGS'));

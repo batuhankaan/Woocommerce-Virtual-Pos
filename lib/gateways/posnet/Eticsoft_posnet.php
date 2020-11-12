@@ -17,7 +17,7 @@ class EticSoft_POSNET
         if ($tr->test_mode)
             $hostname = 'https://setmpos.ykb.com/PosnetWebService/XML';
         else
-            $hostname = 'https://www.posnet.ykb.com/PosnetWebService/XML';
+            $hostname = 'https://posnet.yapikredi.com.tr/PosnetWebService/XML;
 
 		if($tr->gateway == 'albaraka'){
 			if ($tr->test_mode)
@@ -82,8 +82,10 @@ class EticSoft_POSNET
 		}
 
 		if ($xml_cevap->approved == "1") {
-			$mesaj = 'Basarili';
-			$tr->result = true;
+			$mesaj = 'Ödeme Başarılı';
+            $tr->result = true;
+            $tr->result_code = $xml_cevap->respCode;
+            $tr->result_message = $mesaj;
 			return $tr;
 		}
 

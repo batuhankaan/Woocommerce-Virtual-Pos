@@ -107,7 +107,7 @@ class EticSoft_paytr
             $form .= '<input type="hidden" name="merchant_fail_url" value="'.$merchant_fail_url.'">';
             $form .= '<input type="hidden" name="user_name" value="'.$tr->customer_firstname." ".$tr->customer_lastname.'">';
             $form .= '<input type="hidden" name="user_address" value="'.$tr->customer_address.'">';
-            $form .= '<input type="hidden" name="user_phone" value="'.$tr->customer_phone.'">';
+            $form .= '<input type="hidden" name="user_phone" value="'.$tr->customer_mobile.'">';
             $form .= '<input type="hidden" name="user_basket" value="'.$user_basket.'">';
             $form .= '<input type="hidden" name="debug_on" value="1">';
             $form .= '<input type="hidden" name="paytr_token" value="'.$token.'">';
