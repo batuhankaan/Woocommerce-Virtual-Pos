@@ -16,7 +16,7 @@ Class EticConfig
 		'colorize' => 'Colorize (Seksi) '
 	);
 	public static $families = array(
-		'axess', 'bonus', 'maximum', 'cardfinans', 'world', 'paraf', 'advantage', 'combo', 'miles-smiles'
+		'axess', 'bonus', 'maximum', 'cardfinans', 'world', 'asyacard', 'paraf', 'advantage', 'combo', 'miles-smiles'
 	);
 	public static $messages = array();
 	public static $gateways;

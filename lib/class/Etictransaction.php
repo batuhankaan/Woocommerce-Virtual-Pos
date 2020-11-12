@@ -294,7 +294,8 @@ class EticTransaction
 		$order = new WC_Order($id_order);
 		$currency = Etictools::getCurrency($order->get_currency());
 		$tra = New EticTransaction();
-		 
+		
+		
 		if (!$id_order || !$order) {
 			$data = array();
 			$data['Request'] = $_REQUEST;
@@ -306,6 +307,7 @@ class EticTransaction
 				->getResponse();
 			die("invalid cart params");
 		}
+		
 		if ($exists = EticTransaction::getTransactionByCartId($id_order)) {
 			$tra->id_transaction = $exists['id_transaction'];
 			$tra->__construct();

@@ -4,7 +4,7 @@ require_once("src/loader.php");
 class EticSoft_turkpos
 {
 
-	var $version = 201110;
+	var $version = 200610;
 
 	function pay($tr)
 	{   
@@ -61,7 +61,7 @@ class EticSoft_turkpos
 		$cc_cvv      = $tr->cc_cvv; 
 		$amount        = number_format($t_cart, 2, ',',"");
 		$total_amount = number_format($t_amount, 2, ',',""); 
-		 
+		$order_id      = $tr->id_cart;  
 		$ClientIp     = $tr->cip;
 		$phone          =  $tr->customer_phone;
 		$installment = $tr->installment;  
@@ -72,7 +72,7 @@ class EticSoft_turkpos
 			try {
 				$saleObj = new param\Sale($CLIENT_CODE, $CLIENT_USERNAME, $CLIENT_PASSWORD, $GUID, $MODE); 
 				$saleObj->send( $posId, $cc_holder, $cc_number, $cc_month,  $cc_year, $cc_cvv, $phone, $tr->fail_url, $tr->ok_url,
-					$order_id, $tr->shop_name, $installment, $amount, $total_amount, "", $ClientIp, $_SERVER['HTTP_REFERER'], "", "", "", "", ""
+					1, $tr->shop_name, $installment, $amount, $total_amount, "", $ClientIp, $_SERVER['HTTP_REFERER'], "", "", "", "", ""
 				); 
 
 				$paramResponse = $saleObj->parse();   
@@ -138,7 +138,7 @@ class EticSoft_turkpos
 			try {
 				$saleObj = new param\Sale3d($CLIENT_CODE, $CLIENT_USERNAME, $CLIENT_PASSWORD, $GUID, $MODE); 
 				$saleObj->send( $posId, $cc_holder, $cc_number, $cc_month,  $cc_year, $cc_cvv, $phone, $tr->fail_url, $tr->ok_url,
-					$order_id, $tr->shop_name, $installment, $amount, $total_amount, "", $ClientIp, $_SERVER['HTTP_REFERER'], "", "", "", "", ""
+					1, $tr->shop_name, $installment, $amount, $total_amount, "", $ClientIp, $_SERVER['HTTP_REFERER'], "", "", "", "", ""
 				); 
 				
 				$paramResponse = $saleObj->parse();    
@@ -177,7 +177,7 @@ class EticSoft_turkpos
 		try {
 			$saleObj = new param\Sale($CLIENT_CODE, $CLIENT_USERNAME, $CLIENT_PASSWORD, $GUID, $MODE); 
 			$saleObj->send( $posId, $cc_holder, $cc_number, $cc_month,  $cc_year, $cc_cvv, $phone, $tr->fail_url, $tr->ok_url,
-				$order_id, $tr->shop_name, $installment, $amount, $total_amount, "", $ClientIp, $_SERVER['HTTP_REFERER'], "", "", "", "", ""
+				1, $tr->shop_name, $installment, $amount, $total_amount, "", $ClientIp, $_SERVER['HTTP_REFERER'], "", "", "", "", ""
 			); 
 
 			$paramResponse = $saleObj->parse();   

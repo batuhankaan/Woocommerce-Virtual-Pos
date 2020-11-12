@@ -3,8 +3,8 @@
 class EticSoft_est
 {
 
-	var $version = 200818;
-	
+	var $version = 200718;
+
 	public function pay($tr)
 	{
 
@@ -35,7 +35,8 @@ class EticSoft_est
 			$extra .= '<' . $tr->gateway_params->ex1 . '>' . $tr->gateway_params->va1 . '</' . $tr->gateway_params->ex1 . '>';
 		if (isset($tr->gateway_params->ex2) && isset($tr->gateway_params->va2) && $tr->gateway_params->ex2 != NULL)
 			$extra .= '<' . $tr->gateway_params->ex2 . '>' . $tr->gateway_params->va2 . '</' . $tr->gateway_params->ex2 . '>';
-		
+
+
 		$burl['akbank'] = "https://www.sanalakpos.com/servlet/cc5ApiServer";
 		$burl['finansbank'] = "https://www.fbwebpos.com/fim/api";
 		$burl['hsbc'] = "https://vpostest.advantage.com.tr/servlet/cc5ApiServer";
@@ -51,7 +52,7 @@ class EticSoft_est
 		$burl['ingbank'] = "https://sanalpos.ingbank.com.tr/servlet/cc5ApiServer";
 		$burl['ziraat'] = "https://sanalpos2.ziraatbank.com.tr/fim/cc5ApiServer";
 		$burl['turkiyefinans'] = "https://sanalpos.turkiyefinans.com.tr/fim/api";
-		
+
 		$url = $burl[$tr->gateway];
 
 		$request = "DATA=<?xml version=\"1.0\" encoding=\"ISO-8859-9\"?>
@@ -98,7 +99,7 @@ class EticSoft_est
 <Extra>$extra</Extra>
 </CC5Request>
 ";
-
+		
 		$tr->debug("EticSoft_EST_API - Sent XML:" . str_replace(array("\n", "\t"), "", $request));
 		$request = str_replace("{CCNO}", $ccno, $request);
 		$request = str_replace("{CCTAR}", "$expdate", $request);
@@ -172,7 +173,7 @@ class EticSoft_est
 			'ziraat' => 'https://sanalpos2.ziraatbank.com.tr/fim/est3Dgate',
 			'turkiyefinans' => 'https://sanalpos.turkiyefinans.com.tr/fim/est3Dgate'
 		);
-		
+
 		if ($tr->gateway_params->tdmode == '3D_PAY')
 			$storetype = "3d_pay"; // Store Tipi
 		else
@@ -198,14 +199,13 @@ class EticSoft_est
 
 		$hashstr = $clientId . $oid . $amount . $okUrl . $failUrl . $islemtipi . $taksit . $rnd . $storekey; //güvenlik amaçli hashli deger
 		$hash = base64_encode(pack('H*', sha1($hashstr)));
-		
+
 		//print_r($hash);
 		//exit;
-		
+
 		$return = "<form action=\"" . $action . "\" method=\"post\" id=\"three_d_form\">";
 		if ($storetype != '3d_pay_hosting') {
 			$return .= '
-				<input type="hidden" name="cc_name" value="' . $tr->cc_name . '"/>
                 <input type="hidden" name="pan" value="' . $tr->cc_number . '"/>
                 <input type="hidden" name="cv2"  value="' . $tr->cc_cvv . '"/>
                 <input type="hidden" name="Ecom_Payment_Card_ExpDate_Year"  value="' . substr($tr->cc_expire_year, -2) . '"/>
@@ -228,19 +228,17 @@ class EticSoft_est
         <input type = "hidden" name = "currency" value = "' . $currency . '"/>
         <input type = "hidden" name = "description" value = "' . $clientId . '"/>
         <input type = "hidden" name = "refreshtime" value = "3" >
-        <input type = "hidden" name = "BillToName" value = "' . $tr->cc_name . '"/>
+        <input type = "hidden" name = "BillToName" value = "0">
         <input type = "hidden" name = "BillToAddress1" value = "0">';
 		if($tr->gateway_params->ex1 != "" && $tr->gateway_params->va1)
 			$return .= "\n".'<input type = "hidden" name = "'.$tr->gateway_params->ex1.'" value = "'. $tr->gateway_params->va1 .'"/>';
 		$return .= '
 		</form>';
-		
-		// print_r ($return);
-		// exit;
-		
-		if (EticConfig::get('POSPRO_ORDER_AUTOFORM') == 'on')
+
+
+		// if (EticConfig::get('POSPRO_ORDER_AUTOFORM') == 'on')
 			$return .= '<script>document.getElementById("three_d_form").submit();</script>';
-		
+
 		$tr->debug("3DS form created. EticSoft_EST::tdForm");
 		$tr->tds = true;
 		$tr->tds_echo = $return;
@@ -294,7 +292,7 @@ class EticSoft_est
 		$burl['ingbank'] = "https://sanalpos.ingbank.com.tr/fim/api";
 		$burl['ziraat'] = "https://sanalpos2.ziraatbank.com.tr/fim/cc5ApiServer";
 		$burl['turkiyefinans'] = 'https://sanalpos.turkiyefinans.com.tr/fim/est3Dgate';
-		
+
 		$mdStatus = (int) $_POST['mdStatus'];
 		$params = $tr->gateway_params;
 
@@ -328,7 +326,7 @@ class EticSoft_est
 				"<ShipTo><Name></Name><Street1></Street1><Street2></Street2><Street3></Street3><City></City><StateProv></StateProv><PostalCode></PostalCode><Country></Country></ShipTo>"
 				. "<Extra>" . $extra . "</Extra>" .
 				"</CC5Request>";
-				
+
 			$url = $tr->test_mode ? "https://entegrasyon.asseco-see.com.tr/fim/est3Dgate" : $burl[$tr->gateway];
 
 			$ch = curl_init(); // initialize curl handle
@@ -355,9 +353,9 @@ class EticSoft_est
 				$tr->debug(" Curl Error \n tr = " . $tr->id_transaction . "\n AC" . curl_errno($ch) . curl_error($ch) . ' ' . $result . "\n");
 				return $tr;
 			}
-			
+
 			curl_close($ch);
-			
+
 			if ($return_xml = simplexml_load_string($result)) {
 				if ((string) $return_xml->Response == 'Approved')
 					$tr->result = true;

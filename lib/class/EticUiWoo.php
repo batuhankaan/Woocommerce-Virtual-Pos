@@ -90,7 +90,6 @@ class EticUiWoo extends EticUi
 					' . $this->l('Credit Card Process Details') . '
 				</h2>
 				<br/>
-				<h4 style="color: #f52a2a;"> UYARI! SİPARİŞİ BANKA YÖNETİCİ EKRANINDAN KONTROL ETMEDEN KARGOLAMAYINIZ!</h4>
 					<a href="https://sanalpospro.com" target="_blank">
 						<img src="' . $this->url . '/logo.png" width="180px"/>
 					</a> <br/>

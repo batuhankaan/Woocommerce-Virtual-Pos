@@ -199,7 +199,7 @@ class SanalPosApiClient
         $form_values['name'] = get_option('blogname');
         $form_values['id_software'] = (int) 3;
         $form_values['version'] = WOOCOMMERCE_VERSION;
-        $form_values['key'] = md5('etic' . get_option('blogname') . AUTH_KEY); 
+        $form_values['key'] = md5('etic' . get_option('blogname') . AUTH_KEY);
         return $form_values;
     }
 

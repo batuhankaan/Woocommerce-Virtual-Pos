@@ -174,8 +174,6 @@ Check hash */
     public function tdValidate($tr)
     {
         $post_log = "";
-        $tr->boid = $_POST['orderid'];
-        
         foreach ($_POST as $k => $v)
             $post_log .= $k . ':' . $v . "\n";
         $tr->result = false;
