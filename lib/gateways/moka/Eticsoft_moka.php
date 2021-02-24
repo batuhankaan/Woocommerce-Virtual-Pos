@@ -3,14 +3,14 @@
 class EticSoft_moka
 {
 
-    var $version = 171221;
+    var $version = 210210;
 
     function pay($tr)
     {
 
         global $cart, $link;
-        $orderid = 'ETIC_' . $cart->id . "-" . $cart->id_customer;
-
+	    $orderid = 'ETIC_' . date("dmY") . '_' . $tr->id_cart;
+        
 
         $dealercode = $tr->gateway_params->DealerCode;
         $username = $tr->gateway_params->Username;
@@ -42,12 +42,24 @@ class EticSoft_moka
 
         //    print_r($moka); exit;
 
-        $api_url = "https://service.moka.com/PaymentDealer/DoDirectPayment";
-		$td_url = "https://service.moka.com/PaymentDealer/DoDirectPaymentThreeD";
+        // $api_url = "https://service.moka.com/PaymentDealer/DoDirectPayment";
+		// $td_url = "https://service.moka.com/PaymentDealer/DoDirectPaymentThreeD";
+		
+//        $api_url = "https://service.moka.com/PaymentDealer/DoDirectPayment";
+//		$td_url = "https://service.testmoka.com/PaymentDealer/DoDirectPaymentThreeD";
+	    if($tr->test_mode){
+		    $api_url = "https://service.testmoka.com/PaymentDealer/DoDirectPayment";
+		    $td_url = "https://service.testmoka.com/PaymentDealer/DoDirectPaymentThreeD";
+	    }
+	    else{
+		    $api_url = "https://service.moka.com/PaymentDealer/DoDirectPayment";
+		    $td_url = "https://service.moka.com/PaymentDealer/DoDirectPaymentThreeD";
+	    }
 
         if ($tr->gateway_params->tdmode == 'off') {
-            $result = json_decode($this->curlPostExt(json_encode($moka), $api_url, true));
-            // print_r($result); exit;
+            $result = json_decode(Eticsoft_moka::curlPostExt(json_encode($moka), $api_url, true));
+	
+//	        print_r($moka); exit;
             if (!$result OR $result == NULL) {
                 $tr->result_code= 'CURL-LOAD_ERROR';
                 $tr->result_message = 'WebServis Error';
@@ -75,6 +87,7 @@ class EticSoft_moka
         }
         // 3DSecure
         $result = json_decode(Eticsoft_moka::curlPostExt(json_encode($moka), $td_url, true));
+//        print_r($result); exit();
         if (!$result OR $result == NULL) {
             $tr->result_code= 'CURL-LOAD_ERROR';
             $tr->result_message = 'WebServis Error ';
@@ -127,7 +140,7 @@ class EticSoft_moka
 		$tr->result_code = Etictools::getValue('resultCode');
 		$tr->result_message = Etictools::getValue('resultMessage');
 		$tr->result = Etictools::getValue('isSuccessful') == 'True' ? true : false;
+	    $tr->boid = 'ETIC_' . date("dmY") . '_' . $tr->id_cart;
 		return $tr;
     }
-
 }

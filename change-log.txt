@@ -3,6 +3,9 @@ EticSoft R&D Lab Teknokent projesi olan bu yazılım 2019 yılından bu yana üc
 Güncel versiyonları her zaman sanalpospro.com adresinden temin edebilirsiniz.
 www.eticsoft.com/support adresimizden destek talebi oluşturabilirsiniz.
 
+2.2 FINAL 14/12/2020
+* Parampos alt yapısı güncellendi!
+
 2.1 FINAL 21/08/2020
 * Tespit edilmiş olan bazı problemler giderildi
 * Parampos (Turkpos) Alt yapısı eklendi

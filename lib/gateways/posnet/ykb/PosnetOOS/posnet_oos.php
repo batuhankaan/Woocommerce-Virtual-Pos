@@ -262,8 +262,9 @@
 
             $this->strRequestXMLData = $posnetOOSXML->CreateXMLForPosnetOOSTransaction($this->merchantInfo,
                 $posnetOOSRequest,
-                $reqcode);
+                $reqcode); 
 
+ 
             if ($this->strRequestXMLData == "") {
                 $this->posnetOOSResponse->errorcode = "999";
                 $this->posnetOOSResponse->errormessage = "XML Create Error : ".$posnetOOSXML->error;
@@ -279,6 +280,7 @@
 
             // Send and Receive Data with HTTP
             $this->strResponseXMLData = urldecode($posnetHTTPConn->SendDataAndGetResponse($this->strRequestXMLData));
+           
             if ($this->strResponseXMLData == "") {
                 $this->posnetOOSResponse->errorcode = "999";
                 $this->posnetOOSResponse->errormessage = "HTTP Connection Error : ".$posnetHTTPConn->error;
@@ -616,7 +618,7 @@
             $posnetOOSRequest->bankData = $bankData;
             $posnetOOSRequest->merchantData = $merchantData;
             $posnetOOSRequest->sign = $sign;
-            $posnetOOSRequest->wpAmount = $this->wpAmount;
+            $posnetOOSRequest->wpAmount = $this->wpAmount; 
 
             return $this->DoTran($posnetOOSRequest, "2");
         }

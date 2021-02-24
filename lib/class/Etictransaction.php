@@ -290,7 +290,7 @@ class EticTransaction
 
 	public static function createTransaction()
 	{
-		$id_order = WC()->session->get( 'order_awaiting_payment');
+		$id_order = WC()->session->get('order_awaiting_payment');
 		$order = new WC_Order($id_order);
 		$currency = Etictools::getCurrency($order->get_currency());
 		$tra = New EticTransaction();

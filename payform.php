@@ -25,7 +25,7 @@ if (!defined('ABSPATH')) {
   alert('Seçtiğiniz para birimi bu ödeme yönteminde kullanılamıyor. Kurunuz <?php echo $currency->name ?> olarak değiştrildi.')
   <?php endif; */ ?>
     var protrccname = '<?php echo __('Your Name') ?>';
-    var currency_sign = "<?php echo $currency->sign ?>";
+    var currency_sign = '<?php echo $currency->sign ?>';
     var card = new Array();
     var cards = new Array();
     var sanalposprouri = "<?php echo plugins_url() ?>/sanalpospro/";
@@ -219,8 +219,6 @@ if (!defined('ABSPATH')) {
 				</svg>
 		</div>
 			<button name="sanalpospro_submit" type="submit" value="1" id="cc_form_submit" align="center" class="btn btn-lg btn-primary"><?php echo __('ÖDEMEYİ ONAYLA') ?></button>
-	<script type="text/javascript" src="<?php echo plugins_url() ?>/sanalpospro/views/js/admin.js" ></script>
-
 
 	<?php if ($mp): ?>
 		<div class = "text-center" id = "mp_register_container" style = "text-align:center">

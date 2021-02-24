@@ -16,7 +16,7 @@ class SanalPosApiClient
     private $rand; // random generated integer used in hash
     private $validated = false;
 	private $id_program = 1;
-	private $version = 2.1;
+	private $version = 2.2;
 	
     private $request = array(
         'header' => array(

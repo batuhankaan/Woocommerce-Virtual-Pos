@@ -2,6 +2,7 @@
 if (!defined('ABSPATH')) {
 	exit; // Exit if accessed directly
 }
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -77,6 +78,10 @@ if (!defined('ABSPATH')) {
 	  </li>
 	</ul>
 	<!--  -->
+	<script>
+        var POSPRO_PARAMCOMPANY = "<?= $POSPRO_PARAMCOMPANY ?>";
+    </script>
+
 
 	<!-- Tab panes -->
 	<div class="tab-content">

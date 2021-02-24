@@ -148,6 +148,7 @@ class SanalPosProPaymentModuleFrontController extends ModuleFrontControllerCore
 		$tr->debug("Try to include  " . $lib_class_name, true);
 		include_once($lib_class_path);
 
+
 		if (Etictools::getValue('sprtdvalidate')) {
 			if ($exists = EticTransaction::getTransactionByCartId($cart->id)) {
 				$tr->id_transaction = $exists['id_transaction'];

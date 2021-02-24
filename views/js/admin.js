@@ -214,12 +214,17 @@
 		// spp-pos-setting-content = içerik
         // spp-pos-tab = button
         // .getElementsByTagName("li")
-        const sppPosTab = document.getElementById("spp-pos-tab");
-        sppPosTab.addEventListener('click', function (e) {
-            console.log(e.target.children);
+        // const sppPosTab = document.getElementById("spp-pos-tab");
+        // sppPosTab.addEventListener('click', function (e) {
+        //     console.log(e.target.children);
             
-        })
-		for (let index = 0; index < sppPosTab.length; index++) {
-                console.log(sppPosTab[index])
+        // })
+		// for (let index = 0; index < sppPosTab.length; index++) {
+        //         console.log(sppPosTab[index])
+        // }
+        
+        document.querySelectorAll("#bf_turkpos_form tbody")[0].innerHTML += '<tr><td style="width: 60%;">Parampos Hesap No (Firma Kart No)</td><td style="width: 40%;"><input type="text" id="pospro_paramcompany" value="'+POSPRO_PARAMCOMPANY+'" name="turkpos[params][company_card_number]" onkeyup="cValueParam(this.value)"></td></tr>';
+        function cValueParam(data) {
+            document.querySelectorAll('input[name="turkpos[params][company_card_number]"]')[0].value=data
         }
-		
+    

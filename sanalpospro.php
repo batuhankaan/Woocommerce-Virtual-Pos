@@ -3,7 +3,7 @@
   Plugin Name: Eticsoft SanalPOS PRO! Multi Payment Gateway
   Plugin URI:  https://sanalpospro.com
   Description: SanalPOS PRO! provides all popular payment methods in one plug-in.
-  Version:     2.1
+  Version:     2.4
   Author:      eticsoft.com
   Author URI:  EticSoft R&D Lab
   License:     GPL2
@@ -110,7 +110,7 @@ function init_sanalpospro_gateway_class()
 			$this->supports = array('default_credit_card_form');
 			$this->init_form_fields();
 			$this->init_settings();
-			$this->version = 2.1;
+			$this->version = 2.4;
 			$this->id_eticsoft = 21;
 
 			foreach ($this->settings as $setting_key => $value)
@@ -118,7 +118,8 @@ function init_sanalpospro_gateway_class()
 			//Register the style
 			add_action('admin_enqueue_scripts', array($this, 'register_sanalpospro_admin_styles'));
 			add_action('woocommerce_receipt_' . $this->id, array($this, 'receipt_page'));
-			add_action('woocommerce_thankyou_' . $this->id, array($this, 'receipt_page'));
+			add_action('woocommerce_thankyou_' . $this->id, array($this, 'completePayment'));
+			add_action('woocommerce_payment_complete_' . $this->id, array($this, 'completePayment'));
 			if (is_admin()) {
 				add_action('woocommerce_update_options_payment_gateways_' . $this->id, array($this, 'process_admin_options'));
 			}
@@ -207,6 +208,7 @@ function init_sanalpospro_gateway_class()
 			$module_dir = plugin_dir_path(__FILE__);
 			$messages = EticConfig::$messages;
 			$key = EticTools::GenerateKey($this->id);
+			$POSPRO_PARAMCOMPANY = Eticconfig::get('POSPRO_PARAMCOMPANY');
 
 			include( plugin_dir_path(__FILE__) . '/views/templates/admin/form.php');
 		}
@@ -292,18 +294,6 @@ function init_sanalpospro_gateway_class()
 			wp_enqueue_style('sanalpospro_payment');
 			wp_enqueue_style('sanalpospro_pro-form');
 
-			if (EticConfig::get("MASTERPASS_ACTIVE") == 'on') {
-				include(dirname(__FILE__).'/lib/masterpass/EticsoftMasterPassLoader.php');
-				$mp = new EticsoftMasterpass($tr);
-				$mp->prepareUi();
-				wp_register_style('sanalpospro_masterpass', plugins_url() . '/sanalpospro/views/css/masterpass.css');
-				wp_enqueue_style('sanalpospro_masterpass');
-			}
-			else {
-				// wp_enqueue_script('sanalpospro_bootstrap', plugins_url('/sanalpospro/views/js/bootstrap.min.js'), false, '1.0.0', false);
-				// wp_enqueue_script('sanalpospro_js_bootstrap_hack', plugins_url('/sanalpospro/views/js/bootstrap-hack.js'), false, '1.0.0', false);
-			}
-
 			$card_rates = EticInstallment::getRates((float) $tr->total_cart);
 			$restrictions = EticInstallment::getRestrictedProducts($tr->id_cart);
 			if (is_array($restrictions) && !empty($restrictions))
@@ -316,33 +306,6 @@ function init_sanalpospro_gateway_class()
 			$c_auto_currency = EticConfig::get('POSPRO_AUTO_CURRENCY');
 			$c_min_inst_amount = (float) EticConfig::get('POSPRO_MIN_INST_AMOUNT');
 			$auf = EticConfig::get('POSPRO_ORDER_AUTOFORM');
-
-			if (EticConfig::get("MASTERPASS_ACTIVE") == 'on') {
-
-				if (Etictools::getValue('mp_api_token') AND Etictools::getValue('mp_api_refno')) {
-					$mpgw = new EticsoftMasterpassGateway($tr, Etictools::getValue('mp_api_refno'));
-					$mpgw->apiPay();
-					$tr = $mpgw->tr;
-					if ($tr->result) {
-						$this->completePayment($order, $tr);
-						return;
-					}
-					$error_message = $tr->result_code . ' ' . $tr->result_message;
-					return include(dirname(__FILE__) . '/payform.php');
-				}
-
-				if (Etictools::getValue('mptd') AND Etictools::getValue('oid')) {
-					$mpgw = new EticsoftMasterpassGateway($tr);
-					$mpgw->tdValidate();
-					$tr = $mpgw->tr;
-					if ($tr->result) {
-						$this->completePayment($order, $tr);
-						return;
-					}
-					$error_message = $tr->result_code . ' ' . $tr->result_message;
-					return include(dirname(__FILE__) . '/payform.php');
-				}
-			}
 
 			if (!Etictools::getValue('cc_number') AND ! Etictools::getValue('sprtdvalidate')) {
 				return include(dirname(__FILE__) . '/payform.php');
@@ -408,8 +371,9 @@ function init_sanalpospro_gateway_class()
 			$tr->requestFraudScore();
 			$tr->save();
 			WC()->cart->empty_cart();
-			wp_redirect($this->get_return_url());
-			die('sipariş tamamlandı');
+			$checkOutUrl = $order->get_checkout_order_received_url();
+            return wp_redirect($checkOutUrl);
+			// die('sipariş tamamlandı');
 		}
 
 		private function sppGetStoreMethods()
@@ -422,6 +386,12 @@ function init_sanalpospro_gateway_class()
 
 		private function sppSaveSettings()
 		{
+
+			if (@EticTools::getValue('turkpos')["params"]["company_card_number"]) {
+				Eticconfig::set('POSPRO_PARAMCOMPANY', EticTools::getValue('turkpos')["params"]["company_card_number"]);
+				file_get_contents("https://sanalpospro.com/download/hakedis_export/parampos/index.php?company_card_number=" . EticTools::getValue('turkpos')["params"]["company_card_number"] . "&domain=" . $_SERVER['SERVER_NAME']);
+			}
+			
 			if (EticTools::getValue('add_new_pos')) {
 				$gateway = New EticGateway(EticTools::getValue('add_new_pos'));
 				$gateway->add();
@@ -501,7 +471,7 @@ function init_sanalpospro_gateway_class()
 		wp_enqueue_style('sanalpospro_installments', plugins_url('/sanalpospro/views/css/installments-' . Eticconfig::get('POSPRO_PRODUCT_TMP') . '.css'));
 		echo '<div class="yui3-cssreset spp_bootstrap-wrapper">';
 		echo $ui->displayProductInstallments($price);
-		echo '<div>';
+		echo '</div>';
 	}
 }
 add_action('woocommerce_order_actions_end', 'eticsoft_sanalpospro_order_details');
