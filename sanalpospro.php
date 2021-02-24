@@ -3,7 +3,7 @@
   Plugin Name: Eticsoft SanalPOS PRO! Multi Payment Gateway
   Plugin URI:  https://sanalpospro.com
   Description: SanalPOS PRO! provides all popular payment methods in one plug-in.
-  Version:     2.4
+  Version:     2.1
   Author:      eticsoft.com
   Author URI:  EticSoft R&D Lab
   License:     GPL2
@@ -100,26 +100,27 @@ function init_sanalpospro_gateway_class()
 
 		function __construct()
 		{
+			 
 			$this->id = "sanalpospro";
 			$this->method_title = "SanalPOS PRO! Kredi Kartı İle Ödeme";
 			$this->method_description = "SanalPOS PRO!  Kredi kartı ödeme alma eklentisi";
-			$this->description  = 'Ödemenizi kredi kartı ile yapabilirsiniz. Siparişiniz hemen işleme alınacaktır.';
-			$this->title = get_locale() == "tr_TR" ? "Kredi Kartı ile Ödeme" : "Payment by Credit Card";
+			$this->description  = _MethodDescription;
+			$this->title = _MethodTitle;
 			$this->icon = null;
 			$this->has_fields = true;
 			$this->supports = array('default_credit_card_form');
 			$this->init_form_fields();
 			$this->init_settings();
-			$this->version = 2.4;
+			$this->version = 2.1;
 			$this->id_eticsoft = 21;
 
 			foreach ($this->settings as $setting_key => $value)
 				$this->$setting_key = $value;
 			//Register the style
 			add_action('admin_enqueue_scripts', array($this, 'register_sanalpospro_admin_styles'));
-			add_action('woocommerce_receipt_' . $this->id, array($this, 'receipt_page'));
-			add_action('woocommerce_thankyou_' . $this->id, array($this, 'completePayment'));
-			add_action('woocommerce_payment_complete_' . $this->id, array($this, 'completePayment'));
+            add_action('woocommerce_receipt_' . $this->id, array($this, 'receipt_page'));
+            add_action('woocommerce_thankyou_' . $this->id, array($this, 'completePayment'));
+            add_action('woocommerce_payment_complete_' . $this->id, array($this, 'completePayment'));
 			if (is_admin()) {
 				add_action('woocommerce_update_options_payment_gateways_' . $this->id, array($this, 'process_admin_options'));
 			}
@@ -133,15 +134,12 @@ function init_sanalpospro_gateway_class()
 
 		public function admin_options()
 		{
+			
 			echo '<script type="text/javascript">'
 			. 'var sanalposprourl = "' . plugins_url('/sanalpospro') . '"'
 			. '</script>';
-			//NETGSM
-			// . '<script type="text/javascript">'
-			// . 'jQuery.noConflict(true);'
-			// . '</script>';
-			// wp_enqueue_script('sanalpospro_js_bootstrap_hack', plugins_url('/sanalpospro/views/js/bootstrap-hack.js'), false, '1.0.0', false);
-			// wp_enqueue_script('sanalpospro_bootstrap', plugins_url('/sanalpospro/views/js/bootstrap.min.js'), false, '1.0.0', false);
+			wp_enqueue_script('sanalpospro_js_bootstrap_hack', plugins_url('/sanalpospro/views/js/bootstrap-hack.js'), false, '1.0.0', false);
+			wp_enqueue_script('sanalpospro_bootstrap', plugins_url('/sanalpospro/views/js/bootstrap.min.js'), false, '1.0.0', false);
 			wp_enqueue_script('sanalpospro_admin', plugins_url('/sanalpospro/views/js/admin.js'), false, '1.0.0', false);
 
 			if (Etictools::getValue('WOO_POSPRO_SETTINGS')) {
@@ -190,7 +188,7 @@ function init_sanalpospro_gateway_class()
 			EticGateway::$api_libs = $definitions->data->api_libs;
 			$this->sppSaveSettings();
 
-
+			
 			$api_libs = EticGateway::$api_libs;
 			EticConfig::getConfigNotifications();
 			$viewlog = (Etictools::getValue('id_transaction') ? $this->getDebug(Etictools::getValue('id_transaction')) : false);
@@ -201,14 +199,12 @@ function init_sanalpospro_gateway_class()
 			$tools_tab = EticConfig::getAdminToolsForm(plugin_dir_path(__FILE__));
 			$campaign_tab = EticConfig::getCampaigns(plugin_dir_path(__FILE__));
 			$help_tab = EticConfig::getHelpForm(plugin_dir_path(__FILE__));
-			$masterpass_tab = EticConfig::getMasterPassForm(plugin_dir_path(__FILE__));
 			$last_records = $this->getLastRecordsTable();
 			$stats_gateways = EticStats::getChart('getGwUsagebyTotal');
 			$stats_monthly = EticStats::getChart('getMontlyIncome');
 			$module_dir = plugin_dir_path(__FILE__);
 			$messages = EticConfig::$messages;
 			$key = EticTools::GenerateKey($this->id);
-			$POSPRO_PARAMCOMPANY = Eticconfig::get('POSPRO_PARAMCOMPANY');
 
 			include( plugin_dir_path(__FILE__) . '/views/templates/admin/form.php');
 		}
@@ -282,10 +278,13 @@ function init_sanalpospro_gateway_class()
 			. '</script>';
 
 			
-			wp_enqueue_script('sanalpospro_jquerycard', plugins_url('/sanalpospro/views/js/jquery.card.js'), array('jquery'), '1.0.0', false);
-			wp_enqueue_script('sanalpospro_jquerypayment', plugins_url('/sanalpospro/views/js/jquery.payment.min.js'), false, '1.0.0', false);
+			wp_enqueue_script('sanalpospro_pro_jsonp', plugins_url('/sanalpospro/views/js/jsonp.js'), false, '1.0.0', false);
+			wp_enqueue_script('cleave', plugins_url('/sanalpospro/views/js/cleave.min.js'), false, '1.0.0', false);
+			wp_enqueue_script('currency', plugins_url('/sanalpospro/views/js/currency.min.js'), false, '1.0.0', false);
 			wp_enqueue_script('sanalpospro_pro', plugins_url('/sanalpospro/views/js/pro.js'), false, '1.0.0', false);
-
+			wp_enqueue_script('sanalpospro_pro_events', plugins_url('/sanalpospro/views/js/events.js'), false, '1.0.0', false);
+			
+			wp_register_style('sanalpospro_jquerycard', plugins_url() . '/sanalpospro/views/css/bootstrap.min.css');
 			wp_register_style('sanalpospro_jquerycard', plugins_url() . '/sanalpospro/views/css/jquery.card.css');
 			wp_register_style('sanalpospro_payment', plugins_url() . '/sanalpospro/views/css/payment.css');
 			wp_register_style('sanalpospro_pro-form', plugins_url() . '/sanalpospro/views/css/pro-form.css');
@@ -353,28 +352,28 @@ function init_sanalpospro_gateway_class()
 		}
 
 		private function completePayment($order, $tr)
-		{
-			$tr->id_order = $order->get_order_number();
-			$order_fee = new stdClass();
-			$order_fee->id = 'komisyon-farki';
-			$order_fee->name = 'Kredi kartı komisyon farkı ' . $tr->installment . ' taksit';
-			$order_fee->amount = $tr->total_pay - $tr->total_cart;
-			$order_fee->taxable = false;
-			$order_fee->tax = 0;
-			$order_fee->tax_data = array();
-			$order_fee->tax_class = '';
-			$order->add_fee($order_fee);
-			$order->calculate_totals(true);
-			$order->update_status('processing', __('Processing SanalPOS PRO! payment', 'woocommerce'));
-			$order->add_order_note('Ödeme SanalPOS PRO! ile tamamlandı. İşlem no: #' . $tr->id_transaction);
-			$order->payment_complete();
-			$tr->requestFraudScore();
-			$tr->save();
-			WC()->cart->empty_cart();
-			$checkOutUrl = $order->get_checkout_order_received_url();
+        {
+            $tr->id_order = $order->get_order_number();
+            $order_fee = new stdClass();
+            $order_fee->id = 'komisyon-farki';
+            $order_fee->name = 'Kredi kartı komisyon farkı ' . $tr->installment . ' taksit';
+            $order_fee->amount = $tr->total_pay - $tr->total_cart;
+            $order_fee->taxable = false;
+            $order_fee->tax = 0;
+            $order_fee->tax_data = array();
+            $order_fee->tax_class = '';
+            $order->add_fee($order_fee);
+            $order->calculate_totals(true);
+            $order->update_status('processing', __('Processing SanalPOS PRO! payment', 'woocommerce'));
+            $order->add_order_note('Ödeme SanalPOS PRO! ile tamamlandı. İşlem no: #' . $tr->id_transaction);
+            $order->payment_complete();
+            $tr->requestFraudScore();
+            $tr->save();
+            WC()->cart->empty_cart();
+            $checkOutUrl = $order->get_checkout_order_received_url();
             return wp_redirect($checkOutUrl);
-			// die('sipariş tamamlandı');
-		}
+            // die('sipariş tamamlandı');
+        }
 
 		private function sppGetStoreMethods()
 		{
@@ -386,12 +385,6 @@ function init_sanalpospro_gateway_class()
 
 		private function sppSaveSettings()
 		{
-
-			if (@EticTools::getValue('turkpos')["params"]["company_card_number"]) {
-				Eticconfig::set('POSPRO_PARAMCOMPANY', EticTools::getValue('turkpos')["params"]["company_card_number"]);
-				file_get_contents("https://sanalpospro.com/download/hakedis_export/parampos/index.php?company_card_number=" . EticTools::getValue('turkpos')["params"]["company_card_number"] . "&domain=" . $_SERVER['SERVER_NAME']);
-			}
-			
 			if (EticTools::getValue('add_new_pos')) {
 				$gateway = New EticGateway(EticTools::getValue('add_new_pos'));
 				$gateway->add();
@@ -407,7 +400,7 @@ function init_sanalpospro_gateway_class()
 			}
 			if (EticTools::getValue('conf-form') && EticTools::getValue('conf-form') == 1) {
 				EticConfig::saveGeneralSettings();
-				EticTools::rwm('Genel Ayarlar Güncellendi', true, 'success-spp');
+				EticTools::rwm('Genel Ayarlar Güncellendi', true, 'success');
 			}
 		}
 
@@ -453,12 +446,11 @@ function init_sanalpospro_gateway_class()
 
 	function woo_installment_tab_content()
 	{
-
 		global $woocommerce;
 		global $product;
 		$price = $product->get_price();
 
-		
+			
 		if (Eticconfig::get('POSPRO_TAKSIT_GOSTER') == "off")
 			return "-";
 		$ui = New EticUiWoo(New sanalpospro());
@@ -466,8 +458,8 @@ function init_sanalpospro_gateway_class()
 		. 'var sanalposprourl = "' . plugins_url('/sanalpospro') . '"'
 		. '</script>';
 		wp_enqueue_style('sanalpospro_inst', plugins_url('/sanalpospro/views/css/installments.css'));
-		// wp_enqueue_script('sanalpospro_js_bootstrap_hack', plugins_url('/sanalpospro/views/js/bootstrap-hack.js'), false, '1.0.0', false);
-		// wp_enqueue_script('sanalpospro_bootstrap', plugins_url('/sanalpospro/views/js/bootstrap.min.js'), false, '1.0.0', false);
+		wp_enqueue_script('sanalpospro_js_bootstrap_hack', plugins_url('/sanalpospro/views/js/bootstrap-hack.js'), false, '1.0.0', false);
+		wp_enqueue_script('sanalpospro_bootstrap', plugins_url('/sanalpospro/views/js/bootstrap.min.js'), false, '1.0.0', false);
 		wp_enqueue_style('sanalpospro_installments', plugins_url('/sanalpospro/views/css/installments-' . Eticconfig::get('POSPRO_PRODUCT_TMP') . '.css'));
 		echo '<div class="yui3-cssreset spp_bootstrap-wrapper">';
 		echo $ui->displayProductInstallments($price);
@@ -475,7 +467,7 @@ function init_sanalpospro_gateway_class()
 	}
 }
 add_action('woocommerce_order_actions_end', 'eticsoft_sanalpospro_order_details');
-
+// add_shortcode('spptaksit','woo_installment_tab_content'); shortcode - geliştirme yapılacak
 function eticsoft_sanalpospro_order_details($id)
 {
 	wp_register_style('sanalpospro-adminpanel', plugins_url() . '/sanalpospro/views/css/admin.css');

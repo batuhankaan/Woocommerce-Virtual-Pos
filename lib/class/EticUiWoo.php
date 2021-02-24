@@ -42,7 +42,7 @@ class EticUiWoo extends EticUi
 			if ($block_count == 4) {
 				$return .= '</div><div class="row">';
 			}
-			$return .= '<div class="col-lg-4 col-sm-4 col-xs-12 eticsoft_spr_bank">
+			$return .= '<div class="col-lg-4 col-sm-4 col-xs-6 eticsoft_spr_bank">
 				<div class="eticsoft_inst_container ' . $f . '">
 					<div class="block_title" align="center"><img src="' . $this->uri . 'img/cards/' . $f . '.png"></div>';
 			$return .= '<table class="table">
@@ -60,7 +60,7 @@ class EticUiWoo extends EticUi
 			}
 			$return .= '</table></div></div>';
 		}
-		$return .= '<div class="col-lg-4 col-sm-4 col-xs-12 eticsoft_spr_bank">
+		$return .= '<div class="col-lg-4 col-sm-4 col-xs-6 eticsoft_spr_bank">
 				<div class="eticsoft_inst_container">
 					<div class="block_title"><h3>' . $this->l('Diğer Kartlar') . '</h3></div>
 					' . $this->l('Tüm kredi ve bankamatik kartları ile tek çekim olarak ödeme yapabilirsiniz.') . '
@@ -90,6 +90,7 @@ class EticUiWoo extends EticUi
 					' . $this->l('Credit Card Process Details') . '
 				</h2>
 				<br/>
+				<h4 style="color: #f52a2a;"> UYARI! SİPARİŞİ BANKA YÖNETİCİ EKRANINDAN KONTROL ETMEDEN KARGOLAMAYINIZ!</h4>
 					<a href="https://sanalpospro.com" target="_blank">
 						<img src="' . $this->url . '/logo.png" width="180px"/>
 					</a> <br/>

@@ -2,7 +2,6 @@
 if (!defined('ABSPATH')) {
 	exit; // Exit if accessed directly
 }
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -12,34 +11,36 @@ if (!defined('ABSPATH')) {
 ?>
 </form>
 <link rel='stylesheet' href='<?php echo plugins_url('/sanalpospro/views/css/admin.css') ?>' type='text/css' media='all' />
+<link rel='stylesheet' href='<?php echo plugins_url('/sanalpospro/views/css/bootstrap.min.css') ?>' type='text/css' media='all' />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
 
-<div class="spp_bootstrap-wrapper">
-	<hr/>
-	<!--  -->
-	<div style="border-top: 5px solid #1161ee;" class="spp-row-panel-grid-container">
-		<div>
-		  <a target="_blank;" href="https://sanalpospro.com/wordpress">
-			<img style="padding:5px;" src="<?php echo plugins_url() ?>/sanalpospro/img/logo.png" alt="" srcset="">
-		  </a>
-		</div>
-	 <div>
-			<p style="text-align: center;font-weight: 700;font-size: 15px;margin: 0;">v<?php echo ((float) $this->version ) ?></p>
-			<a style="width: 25%;text-align: center;" class="spp-btn spp-green-btn" href="https://sanalpospro.com/wordpress">Kontrol</a></div>
-		<div>
-			<a href="https://eticsoft.com/">
-				<img style="float:right;padding:10px;" src="<?php echo plugins_url() ?>/sanalpospro/img/eticsoft-logo-250px.png" alt="" srcset="">
+<div id="spp_management" class="container border bg-white m-auto rounded p-0">
+	<div class="container row  m-auto rounded my-2">
+		<div class="col-md-4 text-left">
+			<a href="https://sanalpospro.com/wordpress" target="_blank;">
+				<img src="<?php echo plugins_url() ?>/sanalpospro/img/logo.png"/> 
 			</a>
 		</div>
+		<div class="col-md-4 text-center">
+			<span>v<?php echo ((float) $this->version ) ?></span>
+			<br/><a class="text-decoration-none text-danger" href="https://sanalpospro.com/wordpress" target="_blank;">Kontrol</a>
+		</div>
+		<div class="col-md-4" style="text-align:right;">
+			<img src="<?php echo plugins_url() ?>/sanalpospro/img/eticsoft-logo-250px.png"/>
+			<br/><a class="text-decoration-none text-dark" href="https://eticsoft.com" target="_blank;">Wordpress SanalPOS PRO! &copy; 2008 </a>
+		</div>
 	</div>
-
 	<div class="row">
 
 		<?php if ($messages): ?>
+			<div class="col-md-12 d-flex my-1">
 			<?php foreach ($messages as $mesg): ?>
-				<div class="col-sm-6 col-xs-12">
-					<div class="alert alert-<?php echo $mesg['type'] ?>-spp"><?php echo $mesg['message'] ?></div>
+				<div class="d-flex p-3 justify-content-center align-items-center spp-<?php echo $mesg['type'] ?> rounded m-auto">
+						<i class="fas fa-exclamation-circle"></i>
+						<p class="m-auto mx-3"><?php echo $mesg['message'] ?></p>
 				</div>
 			<?php endforeach; ?>
+			</div>
 		<?php endif; ?>
 
 	</div>
@@ -51,50 +52,33 @@ if (!defined('ABSPATH')) {
 														</div>
 													</div>
 	<?php endif; ?>
-
+	<span class="row" style="border-bottom: 1px solid #e0e0e0;"></span>
+<div class="d-flex">
 	<!-- Nav tabs -->
-
-	<!--  -->
-	<ul class="tablist" role="tablist">
-		<li class="tab tab-active" role="tab"><a href="#sanalposprosettings">GENEL AYARLAR</a></li>
-		<li class="tab" role="tab"><a href="#pos">POS AYARLARI</a></li>
-		<li class="tab" role="tab"><a href="#cards">TAKSİTLER</a></li>
-		<li class="tab" role="tab"><a href="#integration">YÖNTEM EKLE</a></li>
-		<li class="tab" role="tab"><a href="#help">DESTEK</a></li>
-		<li class="tab" role="tab"><a href="#stats">İŞLEMLER</a></li>
-		<li class="tab" role="tab"><a href="#tools">ARAÇLAR</a></li>
-		<li class="tab" role="tab"><a href="#campaign">KAMPANYALAR</a></li>
-		<!-- <li class="tab" role="tab"><a href="#panel8">MASTERPASS</a></li> -->
-	  <li class="tab-menu">
-		<div class="line"></div>
-		<div class="line"></div>
-		<div class="line"></div>
-		<div class="line"></div>
-		<div class="line"></div>
-		<div class="line"></div>
-		<div class="line"></div>
-		<div class="line"></div>
-		<!-- <div class="line"></div> -->
-	  </li>
-	</ul>
-	<!--  -->
-	<script>
-        var POSPRO_PARAMCOMPANY = "<?= $POSPRO_PARAMCOMPANY ?>";
-    </script>
-
+		<ul id="sppTab" class="nav justify-content-between p-2 d-block col-md-2">
+			<li onclick="openSppTab('sanalposprosettings')" class="rounded tablink spp-tab-active"><i class="fas fa-cog"></i> Genel Ayarlar</li>
+			<li onclick="openSppTab('pos')" class="rounded tablink"><i class="far fa-credit-card"></i> POS Ayarları</li>
+			<li onclick="openSppTab('cards')" class="rounded tablink"><i class="far fa-calendar-alt"></i> Taksitler</li>
+			<li onclick="openSppTab('integration')" class="rounded tablink"><i class="fas fa-cart-plus"></i> Yöntem Ekle</li>
+			<li onclick="openSppTab('help')" class="rounded tablink"><i class="far fa-life-ring"></i> Destek</li>
+			<li onclick="openSppTab('stats')" class="rounded tablink"><i class="fas fa-exchange-alt"></i> İşlemler</li>
+			<li onclick="openSppTab('tools')" class="rounded tablink"><i class="fas fa-th-large"></i> Araçlar</li>
+			<li onclick="openSppTab('campaign')" class="rounded tablink"><i class="fas fa-ticket-alt"></i> Kampanyalar</li>
+		</ul>
+	
 
 	<!-- Tab panes -->
-	<div class="tab-content">
-		<div class="tabpanel" id="sanalposprosettings"><?php echo $general_tab ?></div>
-		<div class="tabpanel" id="pos"><?php echo $banks_tab ?></div>
-		<div class="tabpanel" id="cards"><?php echo $cards_tab ?></div>
-		<div class="tabpanel" id="integration"><?php echo $integration_tab ?></div>
-		<div class="tabpanel" id="help"> <?php echo $help_tab ?> </div>
-		<div class="tabpanel" id="stats"><?php echo include(dirname(__FILE__) . '/stats.php') ?></div>
-		<div class="tabpanel" id="tools"><?php echo $tools_tab ?></div>
-		<div class="tabpanel" id="campaign"><?php echo $campaign_tab ?></div>
-		<div class="tabpanel" id="masterpass"><?php echo $masterpass_tab ?></div>
+	<div class="tab-content col-md-10">
+		<div class="spp_tab" active id="sanalposprosettings"><?php echo $general_tab ?></div>
+		<div class="spp_tab" style="display:none;" id="pos"><?php echo $banks_tab ?></div>
+		<div class="spp_tab" style="display:none;" id="cards"><?php echo $cards_tab ?></div>
+		<div class="spp_tab" style="display:none;" id="integration"><?php echo $integration_tab ?></div>
+		<div class="spp_tab" style="display:none;" id="help"> <?php echo $help_tab ?> </div>
+		<div class="spp_tab" style="display:none;" id="stats"><?php echo include(dirname(__FILE__) . '/stats.php') ?></div>
+		<div class="spp_tab" style="display:none;" id="tools"><?php echo $tools_tab ?></div>
+		<div class="spp_tab" style="display:none;" id="campaign"><?php echo $campaign_tab ?></div>
 	</div>
+</div>
 
 	<div class="panel">
 		<div class="panel-header">

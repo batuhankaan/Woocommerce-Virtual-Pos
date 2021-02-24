@@ -16,7 +16,7 @@ class SanalPosApiClient
     private $rand; // random generated integer used in hash
     private $validated = false;
 	private $id_program = 1;
-	private $version = 2.2;
+	private $version = 2.1;
 	
     private $request = array(
         'header' => array(
@@ -233,7 +233,6 @@ class SanalPosApiClient
         $form_values['version'] = EticConfig::get('PS_INSTALL_VERSION') ? Configuration::get('PS_INSTALL_VERSION') : _PS_VERSION_;
         $form_values['sp_ver'] = (float)$this->version;
         $form_values['php'] = phpversion();
-        $form_values['mp'] = EticConfig::get("MASTERPASS_ACTIVE");
         $form_values['last_tr'] = isset($last['date_create']) ? $last['date_create'] : "-";
         return $form_values;
 

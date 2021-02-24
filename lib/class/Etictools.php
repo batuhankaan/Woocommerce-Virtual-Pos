@@ -11,6 +11,14 @@ class Etictools
 		EticConfig::$messages [] = array('message' => $message, 'type' => $type);
 		return $return;
 	}
+	
+	public static function displayError($body)
+				{
+					return '<div class="p-3 justify-content-center align-items-center spp-danger rounded m-auto">
+								<i class="fas fa-exclamation-circle"></i>
+								<p class="m-auto mx-3">' . $body . '</p>
+							</div>';
+				}
 
 	public static function getValue($key, $default_value = false)
 	{
