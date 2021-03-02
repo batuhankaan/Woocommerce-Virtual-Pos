@@ -70,7 +70,7 @@ if (!defined('ABSPATH')) {
 
 
 
-<form class="w-30 p-3 mx-auto" novalidate action="<?php echo $order->get_checkout_payment_url(true);?>" autocomplete="on" method="POST" id="cc_form" style="background:<?= EticConfig::get("POSPRO_PAYMENT_PAGE_BGCOLOR"); ?> !important;">
+<form class="p-3 mx-auto col-lg-4 col-md-7 col-sm-8 col-xs-12" novalidate action="<?php echo $order->get_checkout_payment_url(true);?>" autocomplete="on" method="POST" id="cc_form" style="background:<?= EticConfig::get("POSPRO_PAYMENT_PAGE_BGCOLOR"); ?> !important;">
 		<div class="d-inline-block bg-white w-100" id="cc_form_table">
 				<div class="col-xs-12 col-sm-12 col-md-12">
 					<img src="<?php echo plugins_url() ?>/sanalpospro/img/icons/credit-card.svg"" alt="" srcset="">
