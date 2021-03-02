@@ -243,9 +243,9 @@ form#cards td {
 }
 
 #sppTab li {
-    /* background: #3d53b6; */
+    background: linear-gradient(0deg, #0078df, #02b8e0);
     padding: 1rem;
-    color: #1f3d78;
+    color: #fff;
     font-weight: 600;
     /* border-radius: 5px; */
     /* margin: unset !important; */
@@ -257,8 +257,8 @@ form#cards td {
 }
 
 .spp-tab-active{
-    background: linear-gradient(0deg, #0078df, #02b8e0);
-    color:#fff !important;
+    background: linear-gradient(0deg, #c1c1c1, #eee) !important;
+    color:#000 !important;
 }
 .spp-tab-active svg {
     color:#fff !important;

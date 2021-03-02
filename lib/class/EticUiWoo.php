@@ -39,10 +39,10 @@ class EticUiWoo extends EticUi
 		$block_count = 0;
 		foreach ($prices as $f => $v) {
 			$block_count++;
-			if ($block_count == 4) {
-				$return .= '</div><div class="row">';
-			}
-			$return .= '<div class="col-lg-4 col-sm-4 col-xs-6 eticsoft_spr_bank">
+			// if ($block_count == 4) {
+			// 	$return .= '</div>';
+			// }
+			$return .= '<div style="width: fit-content; display: inline-block;" class="col-lg-4 col-sm-4 col-xs-6 eticsoft_spr_bank">
 				<div class="eticsoft_inst_container ' . $f . '">
 					<div class="block_title" align="center"><img src="' . $this->uri . 'img/cards/' . $f . '.png"></div>';
 			$return .= '<table class="table">

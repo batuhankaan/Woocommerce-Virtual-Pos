@@ -461,7 +461,7 @@ function init_sanalpospro_gateway_class()
 		wp_enqueue_script('sanalpospro_js_bootstrap_hack', plugins_url('/sanalpospro/views/js/bootstrap-hack.js'), false, '1.0.0', false);
 		wp_enqueue_script('sanalpospro_bootstrap', plugins_url('/sanalpospro/views/js/bootstrap.min.js'), false, '1.0.0', false);
 		wp_enqueue_style('sanalpospro_installments', plugins_url('/sanalpospro/views/css/installments-' . Eticconfig::get('POSPRO_PRODUCT_TMP') . '.css'));
-		echo '<div class="yui3-cssreset spp_bootstrap-wrapper">';
+		echo '<div class="yui3-cssreset spp_bootstrap-wrapper w-100" style="max-width:100% !important; display:unset !important;">';
 		echo $ui->displayProductInstallments($price);
 		echo '</div>';
 	}

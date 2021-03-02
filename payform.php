@@ -74,7 +74,7 @@ if (!defined('ABSPATH')) {
 		<div class="d-inline-block bg-white w-100" id="cc_form_table">
 				<div class="col-xs-12 col-sm-12 col-md-12">
 					<img src="<?php echo plugins_url() ?>/sanalpospro/img/icons/credit-card.svg"" alt="" srcset="">
-					<input class="cc_input form-control input-lg border-0 shadow-none" type="text" id="cc_number" name="cc_number" oninput="sppFormApp.keyup(this),sppFormApp.skipIfMax(this)" maxlength="19" placeholder="<?php echo _CardNumber ?>" 
+					<input class="cc_input form-control input-lg border-0 shadow-none" type="text" id="cc_number" name="cc_number" onchange="sppFormApp.keyup(this)" oninput="sppFormApp.skipIfMax(this)" maxlength="19" placeholder="<?php echo _CardNumber ?>" 
 						   value="<?php if (Etictools::getValue('cc_number')): ?><?php echo Etictools::getValue('cc_number') ?><?php endif; ?>"/>
 				</div>
 				<div class="col-xs-12 col-sm-12 col-md-12">

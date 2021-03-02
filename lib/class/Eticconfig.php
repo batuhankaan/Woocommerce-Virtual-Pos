@@ -71,7 +71,7 @@ Class EticConfig
 
 // Hata Kayıt Modu
 		$t .= '
-		<div class="col-md-2 text-center sppbox ' . (EticConfig::get("POSPRO_DEBUG_MOD") == 'on' ? 'bgred ' : 'rounded text-center') . '">
+		<div class="col-md-2 text-center rounded text-center sppbox ' . (EticConfig::get("POSPRO_DEBUG_MOD") == 'off' ? 'spp-danger ' : 'sppbox') . '">
 		<h2>İşlem Kayıt</h2>
 		<select class="form-control" name="spr_config[POSPRO_DEBUG_MOD]">
 		<option value="on" ' . (EticConfig::get("POSPRO_DEBUG_MOD") == 'on' ? 'SELECTED ' : '') . '> Açık </option>
@@ -265,8 +265,9 @@ Class EticConfig
 			$t .= '</ul>
 			</div>
 			<!-- Tab panes -->';
-			$satir = 0;
+			$satirl = 0;
 			foreach (EticGateway::getGateways(false) as $gwd):
+				
 				if ($gw = New EticGateway($gwd->name)):
 
 					$gwe = EticGateway::$gateways->{$gw->name};
@@ -282,12 +283,12 @@ Class EticConfig
 				//print_r(EticGateway::$gateways); exit;
 					$t .= '<!-- BANKA -->
 
-					<div  class="tab-pane com-md-10 pos_settings_content" id="'. $gw->name . '">
+					<div  class="tab-pane com-md-10 pos_settings_content" id="'. $gw->name . '" style="' . ($satirl == 0 ? 'display:block;' : 'display:none;' ) . '">
 					<div class="d-flex p-3 mt-3" style="background: #f1f1f1;">
 					<div class="col-md-7 rounded text-center">
 					<input name="pdata[' . $gw->name . '][id_bank]" type="hidden" value="' . $gw->name . '" />
 					<h4>' . $gw->full_name . ' Pos Ayarları </h4>';
-					
+					$satirl++;
 					$t .= '<h5>Parametreler</h5>' . $gw->createFrom();
 
 					$t .= '<div class="row w-50 m-auto">
@@ -469,7 +470,7 @@ Class EticConfig
 					<button class="btn btn-large btn-success" name="check-server" value="1">Sunucuyu ve sistemi kontrol et</button>
 					</div>';
 					$t .= '
-					<div class="col-md-4 text-center sppbox spp-tab-active spph300">
+					<div class="col-md-4 text-center sppbox spp-info spph300">
 					<h2>Eski Versiyon Ayarları</h2>
 					<p>
 					Daha önce bir SanalPOS PRO! versiyonu kullandıysanız daha önce girilen banka parametrelerini göstermek için aşağıdaki butona tıklayabilirsiniz.
@@ -612,18 +613,22 @@ Class EticConfig
 		
 		</div>';
 		$t .='<div class="col-md-12 ins_tab_menu text-center">';
+		$satir = 0;
 		foreach (EticConfig::$families as $family):
-			$t .= '<a class="ins_tab_link m-3 p-3 rounded" onclick=openSppTab("'.$family.'",'."'ins_tab'".',"ins_tab_link")>'
+			$t .= '<a class="ins_tab_link m-3 p-3 rounded ' . ($satir == 0 ? 'spp-tab-active' : '' ) . '" onclick=openSppTab("'.$family.'",'."'ins_tab'".',"ins_tab_link")>'
 			.'<img src="' . plugins_url() . '/sanalpospro/img/cards/' . $family . '.png" class="thumbnail center-block"/></a>';
+			$satir++;
 		endforeach;
 		$t .='</div>';
 
 		$t .= '<div class="row">';
+		$satirl = 0;
 		foreach (EticConfig::$families as $family):
 			$gwas = EticGateway::getByFamily($family, true);
 			
-			$t .= '<div class="col-md-12 ins_tab text-center w-75 m-auto" id="' . $family . '"><br/>'
+			$t .= '<div class="col-md-12 ins_tab text-center w-75 m-auto" style="' . ($satirl == 0 ? 'display:block;' : 'display:none;' ) . '" id="' . $family . '"><br/>'
 			. '<div style="border: solid 1px #e0e0e0;"><img src="' . plugins_url() . '/sanalpospro/img/cards/' . $family . '.png" class="thumbnail center-block"/></div>';
+			$satirl++;
 			if (!$gwas OR empty($gwas)) {
 				$t .= '<h2>Uygun POS Yok veya Kurulmamış</h2>'
 				. '<p><i style="font-size: 45px;" class="icon-remove"></i></p>' . ucfirst($family) . ' kart ailesine taksit yapabileceğiniz'
@@ -675,7 +680,7 @@ Class EticConfig
 
 				$t .= '</select></td>'
 				. '<td><div class="input-group">' . ($ins ? '<span class="row_' . $family . '_' . $i . ' input-group-addon">%</span>' : '' )
-				. '<input class="form-control row_' . $family . '_' . $i . '  input_' . $family . '" size="5" step="0.01" type="number" style="width:60px" '
+				. '<input class="text-center form-control row_' . $family . '_' . $i . '  input_' . $family . '" size="5" step="0.01" type="number" style="width:30px" '
 				. 'name="' . $family . '[' . $i . '][rate]" value="' . ($ins ? (float) $ins['rate'] : '') . '">'
 				. '</div></td>'
 				. '</tr>';
@@ -698,7 +703,6 @@ Class EticConfig
 
 	public static function getHelpForm()
 	{
-
 		$t = '
 		<div class="panel">
 		<div class="row">
@@ -745,7 +749,7 @@ Class EticConfig
 	public static function saveCardSettingsForm()
 	{
 		foreach (EticConfig::$families as $family) {
-
+			// print_r($family);
 			if (!Etictools::getValue($family) OR ! is_array(Etictools::getValue($family)))
 				continue;
 			$installments = Etictools::getValue($family);
