@@ -18,7 +18,7 @@ if (!defined('ABSPATH')) {
 
 ?>
 <div class="spp_bootstrap-wrapper">
-
+<input type="hidden" id="spp_lang" value="<?php echo _Lang ?>">
 
 <script>
     var $ = jQuery;
@@ -45,10 +45,10 @@ if (!defined('ABSPATH')) {
 
 	<div class="row" id="spp_top">
 		<div class="col-xs-12 col-lg-6">
-			<h2><?php echo __('Kredi Kartı ile Güvenli Ödeme') ?></h2>
+			<h2><?php echo _MethodHeader ?></h2>
 			<small>
-				<?php echo __('Bu sayfa SSL şifreli bir form üzerinden güvenli bir şekilde kredi kartı ödemesi yapmanızı sağlar.') ?><br/>
-				<?php echo __('3D Güvenli sayfaya yönlendirebilir ve SMS şifrenizi kullanabilirsiniz.') ?>
+				<?php echo _MethodDesc1 ?><br/>
+				<?php echo _MethodDesc2 ?>
 			</small>
 		</div>
 		<div class="col-xs-12 col-sm-6 hidden-md-down">
@@ -96,9 +96,9 @@ if (!defined('ABSPATH')) {
 		<div class="" id="installment-table_div">
 			<table class="my-3 border-0" style="display:none;" id="installment-table">
             <tbody><tr id="installment-titles">
-              <th>TAKSİT</th>
-              <th>T.TUTARI</th>
-              <th>TUTAR</th>
+              <th><?php echo _Installment ?></th>
+              <th><?php echo _InstallmentAmount ?></th>
+              <th><?php echo _Amount ?></th>
             </tr>
           </tbody></table>
 		</div>
@@ -111,5 +111,5 @@ if (!defined('ABSPATH')) {
 
 
 						<div class="row">
-							<a href="<?php echo $order->get_checkout_payment_url()?>" class="button_large"><?php echo __('Diğer ödeme yöntemleri') ?></a>
+							<a href="<?php echo $order->get_checkout_payment_url()?>" class="button_large"><?php echo _OtherPaymentMethod ?></a>
 						</div>

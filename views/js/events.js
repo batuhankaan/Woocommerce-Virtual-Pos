@@ -14,6 +14,7 @@
 
 const sppFormApp = new SppCcForm();
 
+const sppLang = document.getElementById("spp_lang") == "tr" ? sppFormApp.tr : sppFormApp.en;
 const InstallmentTable = document.getElementById("installment-table");
 const inputCcNumber = document.getElementById("cc_number");
 const cardIcon = document.getElementById("card-icons");
