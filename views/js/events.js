@@ -1,26 +1,8 @@
-// function e$(selector, scope = document) {
-//     let elem = scope.querySelectorAll(selector);
-//     if(elem.length > 1) return [...elem];
-//     return elem[0];
-// }
-
-// Object.prototype.on$ = function(event, callback) {
-//     this.addEventListener(event, callback);
-// }
-
-// Array.prototype.on$ = function(event, callback) {
-//     this.forEach(elem => elem.addEventListener(event, callback));
-// }
-
 const sppFormApp = new SppCcForm();
-
-const sppLang = document.getElementById("spp_lang") == "tr" ? sppFormApp.tr : sppFormApp.en;
+const sppLang = document.getElementById("spp_lang").value == "tr" ? sppFormApp.tr : sppFormApp.en;
 const InstallmentTable = document.getElementById("installment-table");
-const inputCcNumber = document.getElementById("cc_number");
-const cardIcon = document.getElementById("card-icons");
-const htmlTr = $(".tr");
-const installmentLoading = document.getElementById("installment-loading");
-
+const InstallmentTableTr = document.querySelectorAll("#installment-table tr");
+const WooCurrency = document.getElementsByClassName("woocommerce-Price-currencySymbol")[0].textContent;
 new Cleave('#cc_number', {
     creditCard: true,
 });

@@ -14,7 +14,6 @@ if (!defined('ABSPATH')) {
 			/**
 			Chrome Cookie SameSite Policy fix 
 			*/
-			// include_once(dirname(__FILE__).'/lib/class/Eticconfig.php');
 
 ?>
 <div class="spp_bootstrap-wrapper">
@@ -70,46 +69,54 @@ if (!defined('ABSPATH')) {
 
 
 
-<form class="p-3 mx-auto col-lg-4 col-md-7 col-sm-8 col-xs-12" novalidate action="<?php echo $order->get_checkout_payment_url(true);?>" autocomplete="on" method="POST" id="cc_form" style="background:<?= EticConfig::get("POSPRO_PAYMENT_PAGE_BGCOLOR"); ?> !important;">
+<form class="p-3 mx-auto col-lg-4 col-md-7 col-sm-8 col-xs-12" novalidate action="<?php echo $order->get_checkout_payment_url(true);?>"
+	autocomplete="on" method="POST" id="cc_form" style="background:<?= EticConfig::get("POSPRO_PAYMENT_PAGE_BGCOLOR"); ?> !important;">
+
 		<div class="d-inline-block bg-white w-100" id="cc_form_table">
+
 				<div class="col-xs-12 col-sm-12 col-md-12">
-					<img src="<?php echo plugins_url() ?>/sanalpospro/img/icons/credit-card.svg"" alt="" srcset="">
+					<img src="<?php echo plugins_url() ?>/sanalpospro/img/icons/credit-card.svg" alt="">
 					<input class="cc_input form-control input-lg border-0 shadow-none" type="text" id="cc_number" name="cc_number" onchange="sppFormApp.keyup(this)" oninput="sppFormApp.skipIfMax(this)" maxlength="19" placeholder="<?php echo _CardNumber ?>" 
 						   value="<?php if (Etictools::getValue('cc_number')): ?><?php echo Etictools::getValue('cc_number') ?><?php endif; ?>"/>
 				</div>
+
 				<div class="col-xs-12 col-sm-12 col-md-12">
-				<img src="<?php echo plugins_url() ?>/sanalpospro/img/icons/calendar.svg"" alt="" srcset="">
+				<img src="<?php echo plugins_url() ?>/sanalpospro/img/icons/calendar.svg" alt="">
 					<input class="cc_input form-control input-lg border-0 shadow-none" type="text" id="cc_expiry" name="cc_expiry"  oninput="sppFormApp.skipIfMax(this)" maxlength="5" placeholder="<?php echo _ExpirationDate ?>"
 						   value="<?php echo Etictools::getValue('cc_expiry') ?>"/>
 				</div>
+
 				<div class="col-xs-12 col-sm-12 col-md-12">
-				<img src="<?php echo plugins_url() ?>/sanalpospro/img/icons/cvv.svg"" alt="" srcset="">
+				<img src="<?php echo plugins_url() ?>/sanalpospro/img/icons/cvv.svg" alt="">
 					<input class="cc_input form-control input-lg border-0 shadow-none" type="text" id="cc_cvc" name="cc_cvv" oninput="sppFormApp.skipIfMax(this)" maxlength="3" placeholder="Cvv" 
 						   value="<?php echo Etictools::getValue('cc_cvv') ?>"/>
 				</div>
+
 				<div class="col-xs-12 col-sm-12 col-md-12">
-				<img src="<?php echo plugins_url() ?>/sanalpospro/img/icons/person.svg"" alt="" srcset="">
+				<img src="<?php echo plugins_url() ?>/sanalpospro/img/icons/person.svg" alt="">
 					<input class="cc_input form-control input-lg border-0 shadow-none" type="text" id="cc_name" name="cc_name" placeholder="<?php echo _CardHolderName ?>"
 						   value="<?php echo Etictools::getValue('cc_name') ?>"/>
 				</div>
+
 		</div>
-		<div class="" id="installment-table_div">
+
+		<div id="installment-table_div">
 			<table class="my-3 border-0" style="display:none;" id="installment-table">
-            <tbody><tr id="installment-titles">
-              <th><?php echo _Installment ?></th>
-              <th><?php echo _InstallmentAmount ?></th>
-              <th><?php echo _Amount ?></th>
-            </tr>
-          </tbody></table>
+				<tbody>
+					<tr id="installment-titles">
+						<th><?php echo _Installment ?></th>
+						<th><?php echo _InstallmentAmount ?></th>
+						<th><?php echo _Amount ?></th>
+					</tr>
+				</tbody>
+		  </table>
 		</div>
+
 		<div class="mt-3">
-		<button class="w-100" name="sanalpospro_submit" type="submit" id="cc_form_submit" style="background:<?= EticConfig::get("POSPRO_PAYMENT_PAGE_BUTTON_COLOR"); ?> !important;"><?php echo _CompletePayment ?></button>
-	</div>
+			<button class="w-100" name="sanalpospro_submit" type="submit" id="cc_form_submit"
+			style="background:<?= EticConfig::get("POSPRO_PAYMENT_PAGE_BUTTON_COLOR"); ?> !important;"><?php echo _CompletePayment ?></button>
+		</div>
 </form>
-<!-- form tagine target="iframe-payment" -->
-<!-- <iframe class="w-75 h-75 position-fixed mx-auto" style="top:0;bottom:0;left:0;right:0; " name="iframe-payment" src="<?php echo $order->get_checkout_payment_url(true);?>"></iframe> -->
-
-
-						<div class="row">
-							<a href="<?php echo $order->get_checkout_payment_url()?>" class="button_large"><?php echo _OtherPaymentMethod ?></a>
-						</div>
+		<div class="row">
+			<a href="<?php echo $order->get_checkout_payment_url()?>" class="button_large"><?php echo _OtherPaymentMethod ?></a>
+		</div>

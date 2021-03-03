@@ -3,6 +3,7 @@ define("_Lang","en");
 // USER PAGE
 define("_MethodDescription", "You can pay by credit card. Your order will be processed immediately.");
 define("_MethodTitle", "Payment by credit card");
+define("_InstallmentOptions", "Installment Options");
 // CREDIT CARD FORM
 define("_MethodHeader","Secure Payment by Credit Card");
 define("_MethodDesc1","This page allows you to make secure credit card payments over an SSL encrypted form.");

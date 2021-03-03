@@ -138,8 +138,6 @@ function init_sanalpospro_gateway_class()
 			echo '<script type="text/javascript">'
 			. 'var sanalposprourl = "' . plugins_url('/sanalpospro') . '"'
 			. '</script>';
-			wp_enqueue_script('sanalpospro_js_bootstrap_hack', plugins_url('/sanalpospro/views/js/bootstrap-hack.js'), false, '1.0.0', false);
-			wp_enqueue_script('sanalpospro_bootstrap', plugins_url('/sanalpospro/views/js/bootstrap.min.js'), false, '1.0.0', false);
 			wp_enqueue_script('sanalpospro_admin', plugins_url('/sanalpospro/views/js/admin.js'), false, '1.0.0', false);
 
 			if (Etictools::getValue('WOO_POSPRO_SETTINGS')) {
@@ -284,13 +282,10 @@ function init_sanalpospro_gateway_class()
 			wp_enqueue_script('sanalpospro_pro', plugins_url('/sanalpospro/views/js/pro.js'), false, '1.0.0', false);
 			wp_enqueue_script('sanalpospro_pro_events', plugins_url('/sanalpospro/views/js/events.js'), false, '1.0.0', false);
 			
-			wp_register_style('sanalpospro_jquerycard', plugins_url() . '/sanalpospro/views/css/bootstrap.min.css');
-			wp_register_style('sanalpospro_jquerycard', plugins_url() . '/sanalpospro/views/css/jquery.card.css');
-			wp_register_style('sanalpospro_payment', plugins_url() . '/sanalpospro/views/css/payment.css');
+			wp_register_style('sanalpospro_bootstrap', plugins_url() . '/sanalpospro/views/css/bootstrap.min.css');
 			wp_register_style('sanalpospro_pro-form', plugins_url() . '/sanalpospro/views/css/pro-form.css');
 
-			wp_enqueue_style('sanalpospro_jquerycard');
-			wp_enqueue_style('sanalpospro_payment');
+			wp_enqueue_style('sanalpospro_bootstrap');
 			wp_enqueue_style('sanalpospro_pro-form');
 
 			$card_rates = EticInstallment::getRates((float) $tr->total_cart);
@@ -436,7 +431,7 @@ function init_sanalpospro_gateway_class()
 	{
 
 		$tabs['test_tab'] = array(
-			'title' => __('Taksit Seçenekleri', 'woocommerce'),
+			'title' => __(_InstallmentOptions, 'woocommerce'),
 			'priority' => 50,
 			'callback' => 'woo_installment_tab_content'
 		);
@@ -458,8 +453,6 @@ function init_sanalpospro_gateway_class()
 		. 'var sanalposprourl = "' . plugins_url('/sanalpospro') . '"'
 		. '</script>';
 		wp_enqueue_style('sanalpospro_inst', plugins_url('/sanalpospro/views/css/installments.css'));
-		wp_enqueue_script('sanalpospro_js_bootstrap_hack', plugins_url('/sanalpospro/views/js/bootstrap-hack.js'), false, '1.0.0', false);
-		wp_enqueue_script('sanalpospro_bootstrap', plugins_url('/sanalpospro/views/js/bootstrap.min.js'), false, '1.0.0', false);
 		wp_enqueue_style('sanalpospro_installments', plugins_url('/sanalpospro/views/css/installments-' . Eticconfig::get('POSPRO_PRODUCT_TMP') . '.css'));
 		echo '<div class="yui3-cssreset spp_bootstrap-wrapper w-100" style="max-width:100% !important; display:unset !important;">';
 		echo $ui->displayProductInstallments($price);

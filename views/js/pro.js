@@ -1,6 +1,7 @@
 class SppCcForm {
   constructor() {
     this.familyname;
+    // familyname bug
     this.tr = {
       OneInstallment:"Tek Çekim",
       Installment:"Taksit",
@@ -15,17 +16,15 @@ class SppCcForm {
   
    keyup(param) {
     if (param.value.length == 19) {
-        if(!document.querySelectorAll("#installment-table tr")[1]){
+        if(!InstallmentTableTr[1]){
           this.cnumber();
           InstallmentTable.style.display = "inline-table";
         }
     }else if(param.value.length < 19){
-      setTimeout(() => {
           InstallmentTable.style.display = "none";
-          while (document.querySelectorAll("#installment-table tr")[1]) {
-            document.querySelectorAll("#installment-table tr")[1].remove();
+          while (InstallmentTableTr[1]) {
+            InstallmentTableTr[1].remove();
           }
-        }, 400);
     }
   }
 
@@ -36,7 +35,6 @@ class SppCcForm {
        return response.json()
     }).then((json) => {
       if (json.family && cards[json.family]){
-        console.log(json.family)
         this.familyname = json.family;
         this.InstFamily(cards[json.family]);
       }else{
@@ -58,19 +56,22 @@ class SppCcForm {
   }
 
   InstTable(InstNumF, InstAmoF) {
-    let dtable = `
-      <tr>
-      <td>
+    let dtable = `<tr>
+    <td>
+
       <label class="input-radio-button">
       <input type="hidden" name="cc_family" value="${this.familyname}">
       <input ${InstNumF == 1 ? "checked" : ''} type="radio" value="${InstNumF}" dataamount="${InstAmoF}" name="cc_installment">
       ${InstNumF == 1 ? sppLang.OneInstallment : InstNumF + sppLang.Installment}
         <span class="checkmark"></span>
-      </label></td>
-      <td>${InstNumF} x ${currency(InstAmoF / InstNumF * 100 / 100) + document.getElementsByClassName("woocommerce-Price-currencySymbol")[0].textContent}</td>
-      <td id="deleteAtt">${InstAmoF == defaultins ? sppLang.Commission : InstAmoF + document.getElementsByClassName("woocommerce-Price-currencySymbol")[0].textContent}</td>
+      </label>
+    </td>
+
+      <td>${InstNumF} x ${currency(InstAmoF / InstNumF * 100 / 100) + WooCurrency}</td>
+      <td id="deleteAtt">${InstAmoF == defaultins ? sppLang.Commission : InstAmoF + WooCurrency}</td>
+
     </tr>`;
-    document.getElementById("installment-table").insertRow(-1).innerHTML += dtable;
+    InstallmentTable.insertRow(-1).innerHTML += dtable;
   }
 
   err(text) {
