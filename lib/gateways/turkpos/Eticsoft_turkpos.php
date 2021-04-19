@@ -1,150 +1,137 @@
 <?php
-require_once("src/loader.php");
 
 class EticSoft_turkpos
 {
 
-	var $version = 200610;
+	var $version = 210414; 
 
 	function pay($tr)
-	{   
+	{  
+		if (!extension_loaded('soap')) {
+			$tr->result_message = "Sunucunuzda soap etkin değil !"; 
+			$tr->result = false;	
+			return $tr;
+		} 
+		
+		$TEST_URL = "https://test-dmz.param.com.tr:4443/turkpos.ws/service_turkpos_test.asmx?wsdl";
+		$PROD_URL = "https://dmzws.ew.com.tr/turkpos.ws/service_turkpos_prod.asmx?wsdl";
 
 		if ($tr->gateway_params->tdmode == '3D') 
 			$tr->tds = true;
 		if ($tr->gateway_params->tdmode == 'off')
 			$tr->tds = false;
 
+		$test_mode = $tr->gateway_params->test_mode == "on" ? true : false; 
+
+		$clientCode = $tr->gateway_params->client_code;  
+		$clientUsername = $tr->gateway_params->client_username;
+		$clientPassword = $tr->gateway_params->client_password;
+		$guid = $tr->gateway_params->guid;
+
+		if ($test_mode) {
+			$clientCode ="10738";  
+			$clientUsername = "Test"; 
+			$clientPassword = "Test"; 
+			$guid = "0c13d406-873b-403b-9c09-a5766840d98c"; 
+		}
+
+		$KK_Sahibi = $tr->cc_name;
+		$KK_No =  $tr->cc_number;
+		$KK_SK_Ay = str_pad($tr->cc_expire_month, 2, "0", STR_PAD_LEFT);
+		$KK_SK_Yil = "20".str_pad(substr($tr->cc_expire_year, -2) ,2 ,"0", STR_PAD_LEFT);
+		$KK_CVC = $tr->cc_cvv; 
+		$KK_Sahibi_GSM = $tr->customer_phone;
+		$Hata_URL = $tr->fail_url;
+		$Basarili_URL = $tr->ok_url;
+		$Siparis_ID = $tr->id_order.rand();
+		$Taksit = $tr->installment;
+		$Islem_Tutar = number_format($tr->total_cart, 2, ',',"");
+		$Toplam_Tutar = number_format($tr->total_pay, 2, ',',"");  
+		$Islem_Hash = "";
+		$IPAdr = $tr->cip;
+		$Islem_Guvenlik_Tip = $tr->tds == true ? "3D" : "NS";
+
+		$data = $clientCode.$guid.$Taksit.$Islem_Tutar.$Toplam_Tutar.$Siparis_ID.$Hata_URL.$Basarili_URL;
+
+		$url = $test_mode == true ? $TEST_URL : $PROD_URL;
+
+		$mode = array
+		(
+			'soap_version' => 'SOAP_1_1',
+			'trace' => 1,
+			'stream_context' => stream_context_create(array(
+				'ssl' => array(
+					'crypto_method' => STREAM_CRYPTO_METHOD_TLSv1_2_CLIENT,
+				)
+			))
+		);
 
 
+		$client = new SoapClient($url, $mode);
 
-		$CLIENT_CODE = $tr->gateway_params->client_code;
-		$CLIENT_USERNAME = $tr->gateway_params->client_username;
-		$CLIENT_PASSWORD = $tr->gateway_params->client_password;
-		$GUID = $tr->gateway_params->guid;
-		$MODE = $tr->gateway_params->test_mode == "on" ? "TEST" : "PROD";
-		$rate = 0;
-		$bin = new param\Bin($CLIENT_CODE, $CLIENT_USERNAME, $CLIENT_PASSWORD, $GUID, $MODE);
-		$bin->send($tr->cc_number);
-		$bin_response = $bin->parse();
-		$posId = $bin_response["posId"];  
+		$data = $clientCode.$guid.$Taksit.$Islem_Tutar.$Toplam_Tutar.$Siparis_ID.$Hata_URL.$Basarili_URL;
 
-		$cc = new param\GetInstallmentPlanForUser($CLIENT_CODE, $CLIENT_USERNAME, $CLIENT_PASSWORD, $GUID, $MODE);
-		$cc->send();
-		$response = $cc->parse();  
+		try {
+			$data = $client->SHA2B64(array("Data" => $data));
 
-		$prerate = str_pad($tr->installment, 2, '0', STR_PAD_LEFT); 
+			$Islem_Hash = $data->SHA2B64Result;
 
-
-		foreach ($response as $key => $resp) {
-			if ($resp[0]["SanalPOS_ID"] == $posId) { 
-				$rate = $resp[0]["MO_$prerate"]; 
-			} 
-		}  
-
-		if ($rate == -2) {
-			$tr->result_code = '-1';
-			$tr->result_message = "Kartınız ".$tr->installment." taksit desteklemiyor !"; 
+		} catch (Exception $e) {
 			$tr->result = false;
-			return $tr;
-		}   
-
-		// set new rates
-		$rate_edit = (100 + $rate); 
-		$t_cart = $tr->total_pay * 100 / $rate_edit;  
-		$t_amount = $t_cart + ($t_cart * $rate / 100);  
-
-		$order_id = $tr->id_order;
-		$cc_holder       = $tr->cc_name;
-		$cc_number       = $tr->cc_number;
-		$cc_month       = str_pad($tr->cc_expire_month, 2, "0", STR_PAD_LEFT);
-		$cc_year      = "20".str_pad(substr($tr->cc_expire_year, -2) ,2 ,"0", STR_PAD_LEFT);
-		$cc_cvv      = $tr->cc_cvv; 
-		$amount        = number_format($t_cart, 2, ',',"");
-		$total_amount = number_format($t_amount, 2, ',',""); 
-		$order_id      = $tr->id_cart;  
-		$ClientIp     = $tr->cip;
-		$phone          =  $tr->customer_phone;
-		$installment = $tr->installment;  
-		$tr->boid = $tr->id_cart;   
-
-
-		if ($tr->gateway_params->tdmode == 'auto') {
-			try {
-				$saleObj = new param\Sale($CLIENT_CODE, $CLIENT_USERNAME, $CLIENT_PASSWORD, $GUID, $MODE); 
-				$saleObj->send( $posId, $cc_holder, $cc_number, $cc_month,  $cc_year, $cc_cvv, $phone, $tr->fail_url, $tr->ok_url,
-					1, $tr->shop_name, $installment, $amount, $total_amount, "", $ClientIp, $_SERVER['HTTP_REFERER'], "", "", "", "", ""
-				); 
-
-				$paramResponse = $saleObj->parse();   
-
-				if ($paramResponse["Sonuc"] > 0 && $paramResponse["UCD_URL"] != "NONSECURE") {
-					$tr->result_code = '3D-R';
-					$tr->result_message = '3D formu oluşturuldu.';
-					$tr->result = false;
-					$tr->tds = true;
-					$tr->save();
-					$tr->boid = $paramResponse['Islem_ID'];
-					$tr->result_message = $paramResponse["Sonuc_Str"];
-					$tr->result = true; 
-					$form = "";
-					$form .= "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">";
-					$form .= "<html>";
-					$form .= "<body>";
-					$form .= "<form action=\"" . $paramResponse["UCD_URL"] . "\" method=\"post\" id=\"three_d_form\"/>"; 
-					$form .= "<noscript>";
-					$form .= "<br/>";
-					$form .= "<br/>";
-					$form .= "<center>";
-					$form .= "<h1>3D Secure Yönlendirme İşlemi</h1>";
-					$form .= "<h2>Javascript internet tarayıcınızda kapatılmış veya desteklenmiyor.<br/></h2>";
-					$form .= "<h3>Lütfen banka 3D Secure sayfasına yönlenmek için tıklayınız.</h3>";
-					$form .= "<input type=\"submit\" value=\"3D Secure Sayfasına Yönlen\">";
-					$form .= "</center>";
-					$form .= "</noscript>";
-					$form .= "</form>";
-					$form .= "</body>";
-					$form .= "<script>document.getElementById(\"three_d_form\").submit();</script>";
-					$form .= "</html>"; 
-					$tr->tds_echo = $form; 
-				}
-				else if ($paramResponse["Sonuc"] > 0 && $paramResponse["Islem_ID"] > 0 && $paramResponse["UCD_URL"] == "NONSECURE") {
-					$tr->boid = $paramResponse['Islem_ID'];
-					$tr->result_message = $paramResponse["Sonuc_Str"];
-					$tr->result = true;  
-				}
-				else {
-					$tr->result_code = $paramResponse['Sonuc'];
-					$tr->result_message = $paramResponse["Sonuc_Str"];
-					$tr->result = false; 
-				}
-
-				
-			} catch (Exception $e) { 
-				$tr->result_code = 'TURKPOS-LIB-ERROR';
-				$tr->result_message = $e->getMessage();
-				$tr->debug($tr->result_code . ' ' . $tr->result_message);
-				$tr->result = false;
-			} 
-			
+			$tr->result_code = 0;
+			$tr->result_message = $e->getMessage();
 			return $tr;
 		}
 
-		if ($tr->tds) {
-			$tr->result_code = '3D-R';
-			$tr->result_message = '3D formu oluşturuldu.';
-			$tr->result = false;
-			$tr->tds = true;
-			$tr->save();
-			try {
-				$saleObj = new param\Sale3d($CLIENT_CODE, $CLIENT_USERNAME, $CLIENT_PASSWORD, $GUID, $MODE); 
-				$saleObj->send( $posId, $cc_holder, $cc_number, $cc_month,  $cc_year, $cc_cvv, $phone, $tr->fail_url, $tr->ok_url,
-					1, $tr->shop_name, $installment, $amount, $total_amount, "", $ClientIp, $_SERVER['HTTP_REFERER'], "", "", "", "", ""
-				); 
-				
-				$paramResponse = $saleObj->parse();    
+		
+		$Pos_Odeme_data = array(
+			"G" => array("CLIENT_CODE" => $clientCode, "CLIENT_USERNAME" => $clientUsername, "CLIENT_PASSWORD" => $clientPassword),
+			"GUID" => $guid, 
+			"KK_Sahibi" => $KK_Sahibi,
+			"KK_No" => $KK_No,
+			"KK_SK_Ay" => $KK_SK_Ay,
+			"KK_SK_Yil" => $KK_SK_Yil,
+			"KK_CVC" => $KK_CVC,
+			"KK_Sahibi_GSM" => $KK_Sahibi_GSM,
+			"Hata_URL" => $Hata_URL,
+			"Basarili_URL" => $Basarili_URL,
+			"Siparis_ID" => $Siparis_ID,
+			"Siparis_Aciklama" => "",
+			"Taksit" => $Taksit,
+			"Islem_Tutar" => $Islem_Tutar,
+			"Toplam_Tutar" => $Toplam_Tutar,
+			"Islem_Hash" => $Islem_Hash,
+			"Islem_Guvenlik_Tip" => $Islem_Guvenlik_Tip,
+			"Islem_ID" => "",
+			"IPAdr" => $IPAdr,
+			"Ref_URL" => "",
+			"Data1" => "",
+			"Data2" => "",
+			"Data3" => "",
+			"Data4" => "",
+			"Data5" => "",
+			"Data6" => "",
+			"Data7" => "",
+			"Data8" => "",
+			"Data9" => "",
+			"Data10" => ""
+
+		);
+
+		try {
+			$sale = $client->Pos_Odeme($Pos_Odeme_data); 
+
+			$paramResponse = (array)$sale->Pos_OdemeResult;  
+
+			if ($paramResponse["Sonuc"] > 0 && $paramResponse["UCD_URL"] != "NONSECURE") {
+				$tr->result_code = '3D-R';
+				$tr->result_message = '3D formu oluşturuldu.';
+				$tr->result = false;
+				$tr->tds = true;
+				$tr->save();
 				$tr->boid = $paramResponse['Islem_ID'];
 				$tr->result_message = $paramResponse["Sonuc_Str"];
-				$tr->result = (string) $paramResponse['Sonuc'] > 0 ? true : false; 
+				$tr->result = true; 
 				$form = "";
 				$form .= "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">";
 				$form .= "<html>";
@@ -164,33 +151,26 @@ class EticSoft_turkpos
 				$form .= "</body>";
 				$form .= "<script>document.getElementById(\"three_d_form\").submit();</script>";
 				$form .= "</html>"; 
-				$tr->tds_echo = $form;
-			} catch (Exception $e) {
-				$tr->result_code = 'TURKPOS-LIB-ERROR';
-				$tr->result_message = $e->getMessage();
-				$tr->debug($tr->result_code . ' ' . $tr->result_message);
-				$tr->result = false;
+				$tr->tds_echo = $form; 
 			}
-			return $tr;
-		}
-		/* PAY Via API */
-		try {
-			$saleObj = new param\Sale($CLIENT_CODE, $CLIENT_USERNAME, $CLIENT_PASSWORD, $GUID, $MODE); 
-			$saleObj->send( $posId, $cc_holder, $cc_number, $cc_month,  $cc_year, $cc_cvv, $phone, $tr->fail_url, $tr->ok_url,
-				1, $tr->shop_name, $installment, $amount, $total_amount, "", $ClientIp, $_SERVER['HTTP_REFERER'], "", "", "", "", ""
-			); 
-
-			$paramResponse = $saleObj->parse();   
-			$tr->boid = $paramResponse['Islem_ID'];
-			$tr->result_message = $paramResponse["Sonuc_Str"];
-			$tr->result = (string) $paramResponse['Sonuc'] == "1" ? true : false;
+			else if ($paramResponse["Sonuc"] > 0 && $paramResponse["Islem_ID"] > 0 && $paramResponse["UCD_URL"] == "NONSECURE") {
+				$tr->boid = $paramResponse['Islem_ID'];
+				$tr->result_message = $paramResponse["Sonuc_Str"];
+				$tr->result = true;  
+			}
+			else {
+				$tr->result_code = $paramResponse['Sonuc'];
+				$tr->result_message = $paramResponse["Sonuc_Str"];
+				$tr->result = false; 
+			}
 
 		} catch (Exception $e) {
-			$tr->result_code = 'TURKPOS-LIB-ERROR';
-			$tr->result_message = $e->getMessage();
-			$tr->debug($tr->result_code . ' ' . $tr->result_message);
 			$tr->result = false;
-		}
+			$tr->result_code = 0;
+			$tr->result_message = $e->getMessage();
+			return $tr;
+		} 
+		
 		return $tr; 
 	}
 
@@ -221,8 +201,5 @@ class EticSoft_turkpos
 		} 
 	}
 
-
-
-
-
+	
 }

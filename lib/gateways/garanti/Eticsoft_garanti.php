@@ -2,7 +2,7 @@
 
 class EticSoft_garanti
 {
-var $version = 200819;
+var $version = 210414;
 /* To-dos 
 Check hash */ 
 
@@ -20,7 +20,7 @@ Check hash */
             $tss = "";
 
         $strMode = "PROD";
-        $strVersion = "v0.01";
+        $strVersion = "512";
         $strTerminalID = $tr->gateway_params->tid;
         $strTerminalID_ = str_pad($tr->gateway_params->tid, 9, "0", STR_PAD_LEFT); //TerminalID başına 000 ile 9 digit yapılmalı
         $strProvUserID = $tr->gateway_params->usr;
@@ -102,6 +102,7 @@ Check hash */
 	}
     
 	public function tdForm($tr) {
+  
         $strMode = ($tr->test_mode) ? "TEST" : "PROD";
         $strType = "sales";
         $strCurrencyCode = $tr->currency_number;
@@ -119,7 +120,7 @@ Check hash */
         $strSuccessURL = $tr->test_mode == 'on' ? 'https://eticaret.garanti.com.tr/destek/postback.aspx' : $tr->ok_url;
         $strErrorURL = $tr->test_mode == 'on' ? 'https://eticaret.garanti.com.tr/destek/postback.aspx' : $tr->fail_url;
         $SecurityData = strtoupper(sha1($strProvisionPassword . $strTerminalID_));
-        $HashData = strtoupper(sha1($strTerminalID . $strOrderID . $strAmount . $strSuccessURL . $strErrorURL . $strType . $strInstallmentCount . $strStoreKey . $SecurityData));
+        $HashData = strtoupper(hash("sha512",$strTerminalID . $strOrderID . $strAmount. $strCurrencyCode . $strSuccessURL . $strErrorURL . $strType . $strInstallmentCount . $strStoreKey . $SecurityData));
 
         $action = "https://sanalposprov.garanti.com.tr/servlet/gt3dengine";
         if ($tr->test_mode == 'on')
@@ -133,7 +134,7 @@ Check hash */
         if ($dtype == '3D' OR $dtype == '3D_PAY' OR $dtype == '3D_FULL' OR $dtype == '3D_HALF')
             $form .= '   
 		<input name="cardnumber" value="' . $tr->cc_number . '" type="hidden" />
-		<input name="cardexpiredatemonth" value="' . $tr->cc_expire_month . '" type="hidden" />
+		<input name="cardexpiredatemonth" value="' . str_pad($tr->cc_expire_month, 2, "0", STR_PAD_LEFT) . '" type="hidden" />
 		<input name="cardexpiredateyear" value="' . $tr->cc_expire_year . '" type="hidden" />
 		<input name="cardcvv2" value="' . $tr->cc_cvv . '" type="hidden" />';
         else
@@ -145,7 +146,7 @@ Check hash */
 
         $form .= '
         <input type="hidden" name="mode" value="' . $strMode . '" />
-        <input type="hidden" name="apiversion" value="v0.01" />
+        <input type="hidden" name="apiversion" value="512" />
         <input type="hidden" name="terminalprovuserid" value="PROVAUT" />
         <input type="hidden" name="terminaluserid" value="' . $strTerminalUserID . '" />
         <input type="hidden" name="terminalmerchantid" value="' . $strTerminalMerchantID . '" />
@@ -173,6 +174,7 @@ Check hash */
 	}
     public function tdValidate($tr)
     {
+      //print_r($_POST);die();
         $post_log = "";
         $tr->boid = $_POST['orderid'];
         
@@ -204,10 +206,10 @@ Check hash */
 
     public function tdOos($tr)
     {
-        $tr->result_message = "Odeme Onaylanmadı";
+        $tr->result_message = "Payment Not Confirmed";
         if ($_POST['response'] == "Approved") {
             $tr->result = true;
-            $tr->result_message = "Odeme Başarılı";
+            $tr->result_message = "Payment Successful";
         }
         $tr->result_code = $_POST['mdstatus'];
         return $tr;
@@ -215,6 +217,7 @@ Check hash */
 
     public function td($tr)
     {
+    //print_r($_POST);die();
         $strMDStatus = $_POST["mdstatus"];
         $data_string = $this->statusMessage();
         if ($strMDStatus == "1" || $strMDStatus == "2" || $strMDStatus == "3" || $strMDStatus == "4") {
@@ -242,12 +245,16 @@ Check hash */
             $strTxnID = $_POST['xid'];
             $strMD = $_POST['md'];
             $SecurityData = strtoupper(sha1($strProvisionPassword . $strTerminalID_));
-            $HashData = strtoupper(sha1($strOrderID . $strTerminalID . $strAmount . $SecurityData)); //Daha kısıtlı bilgileri HASH ediyoruz.
+            $HashData = strtoupper(hash("sha512",$strOrderID . $strTerminalID.  $strAmount. $strCurrencyCode . $SecurityData)); //Daha kısıtlı bilgileri HASH ediyoruz.
+            
+            
             $strHostAddress = "https://sanalposprov.garanti.com.tr/VPServlet"; //Provizyon için xml'in post edileceği adres
             $strInstallmentCount = $_POST['txninstallmentcount'];
 
 //Provizyona Post edilecek XML Şablonu
-            $strXML = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?><GVPSRequest><Mode>PROD</Mode><Version>v0.01</Version><ChannelCode></ChannelCode><Terminal><ProvUserID>$strProvUserID</ProvUserID><HashData>$HashData</HashData><UserID>$strUserID</UserID><ID>$strTerminalID</ID><MerchantID>$strMerchantID</MerchantID></Terminal><Customer><IPAddress>$strIPAddress</IPAddress><EmailAddress>$strEmailAddress</EmailAddress></Customer><Card><Number></Number><ExpireDate></ExpireDate></Card><Order><OrderID>$strOrderID</OrderID><GroupID></GroupID><Description></Description></Order><Transaction><Type>$strType</Type><InstallmentCnt>$strInstallmentCount</InstallmentCnt><Amount>$strAmount</Amount><CurrencyCode>$strCurrencyCode</CurrencyCode><CardholderPresentCode>$strCardholderPresentCode</CardholderPresentCode><MotoInd>$strMotoInd</MotoInd><Secure3D><AuthenticationCode>$strAuthenticationCode</AuthenticationCode><SecurityLevel>$strSecurityLevel</SecurityLevel><TxnID>$strTxnID</TxnID><Md>$strMD</Md></Secure3D></Transaction></GVPSRequest>";
+            $strXML = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?><GVPSRequest><Mode>PROD</Mode><Version>512</Version><ChannelCode></ChannelCode><Terminal><ProvUserID>$strProvUserID</ProvUserID><HashData>$HashData</HashData><UserID>$strUserID</UserID><ID>$strTerminalID</ID><MerchantID>$strMerchantID</MerchantID></Terminal><Customer><IPAddress>$strIPAddress</IPAddress><EmailAddress>$strEmailAddress</EmailAddress></Customer><Card><Number></Number><ExpireDate></ExpireDate></Card><Order><OrderID>$strOrderID</OrderID><GroupID></GroupID><Description></Description></Order><Transaction><Type>$strType</Type><InstallmentCnt>$strInstallmentCount</InstallmentCnt><Amount>$strAmount</Amount><CurrencyCode>$strCurrencyCode</CurrencyCode><CardholderPresentCode>$strCardholderPresentCode</CardholderPresentCode><MotoInd>$strMotoInd</MotoInd><Secure3D><AuthenticationCode>$strAuthenticationCode</AuthenticationCode><SecurityLevel>$strSecurityLevel</SecurityLevel><TxnID>$strTxnID</TxnID><Md>$strMD</Md></Secure3D></Transaction></GVPSRequest>";
+           
+            
 
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $strHostAddress);
@@ -264,6 +271,7 @@ Check hash */
             }
 
             $result = curl_exec($ch);
+            
             if (curl_errno($ch)) {
                 $tr->notify = true;
                 $tr->result_code = "3DCURL" . curl_errno($ch) . curl_error($ch);
