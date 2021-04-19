@@ -52,6 +52,8 @@ form#cc_form input{
     text-indent: 6px;
     letter-spacing: 2px;
     font-size: initial;
+	text-indent:20px;
+	color:black;
     /* border-radius: 3px; */
 }
 

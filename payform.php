@@ -76,25 +76,25 @@ if (!defined('ABSPATH')) {
 
 				<div class="col-xs-12 col-sm-12 col-md-12">
 					<img src="<?php echo plugins_url() ?>/sanalpospro/img/icons/credit-card.svg" alt="">
-					<input class="cc_input form-control input-lg border-0 shadow-none" type="text" id="cc_number" name="cc_number" onchange="sppFormApp.keyup(this)" oninput="sppFormApp.skipIfMax(this)" maxlength="19" placeholder="<?php echo _CardNumber ?>" 
+					<input class="cc_input form-control input-lg border-0 shadow-none w-100" type="text" id="cc_number" name="cc_number" onchange="sppFormApp.keyup(this)" oninput="sppFormApp.skipIfMax(this)" maxlength="19" placeholder="<?php echo _CardNumber ?>" 
 						   value="<?php if (Etictools::getValue('cc_number')): ?><?php echo Etictools::getValue('cc_number') ?><?php endif; ?>"/>
 				</div>
 
 				<div class="col-xs-12 col-sm-12 col-md-12">
 				<img src="<?php echo plugins_url() ?>/sanalpospro/img/icons/calendar.svg" alt="">
-					<input class="cc_input form-control input-lg border-0 shadow-none" type="text" id="cc_expiry" name="cc_expiry"  oninput="sppFormApp.skipIfMax(this)" maxlength="5" placeholder="<?php echo _ExpirationDate ?>"
+					<input class="cc_input form-control input-lg border-0 shadow-none w-100" type="text" id="cc_expiry" name="cc_expiry"  oninput="sppFormApp.skipIfMax(this)" maxlength="5" placeholder="<?php echo _ExpirationDate ?>"
 						   value="<?php echo Etictools::getValue('cc_expiry') ?>"/>
 				</div>
 
 				<div class="col-xs-12 col-sm-12 col-md-12">
 				<img src="<?php echo plugins_url() ?>/sanalpospro/img/icons/cvv.svg" alt="">
-					<input class="cc_input form-control input-lg border-0 shadow-none" type="text" id="cc_cvc" name="cc_cvv" oninput="sppFormApp.skipIfMax(this)" maxlength="3" placeholder="Cvv" 
+					<input class="cc_input form-control input-lg border-0 shadow-none w-100" type="text" id="cc_cvc" name="cc_cvv" oninput="sppFormApp.skipIfMax(this)" maxlength="3" placeholder="Cvv" 
 						   value="<?php echo Etictools::getValue('cc_cvv') ?>"/>
 				</div>
 
 				<div class="col-xs-12 col-sm-12 col-md-12">
 				<img src="<?php echo plugins_url() ?>/sanalpospro/img/icons/person.svg" alt="">
-					<input class="cc_input form-control input-lg border-0 shadow-none" type="text" id="cc_name" name="cc_name" placeholder="<?php echo _CardHolderName ?>"
+					<input class="cc_input form-control input-lg border-0 shadow-none w-100" type="text" id="cc_name" name="cc_name" placeholder="<?php echo _CardHolderName ?>"
 						   value="<?php echo Etictools::getValue('cc_name') ?>"/>
 				</div>
 
