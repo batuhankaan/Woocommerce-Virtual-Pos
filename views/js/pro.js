@@ -60,7 +60,7 @@ class SppCcForm {
     <td>
 
       <label class="input-radio-button">
-      <input type="hidden" name="cc_family" value="${this.familyname}">
+      <input type="hidden" name="cc_family" value="${this.familyname ? this.familyname : 'all'}">
       <input ${InstNumF == 1 ? "checked" : ''} type="radio" value="${InstNumF}" dataamount="${InstAmoF}" name="cc_installment">
       ${InstNumF == 1 ? sppLang.OneInstallment : InstNumF + sppLang.Installment}
         <span class="checkmark"></span>
